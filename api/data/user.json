@@ -1,102 +1,24 @@
 [
     {
         "id": 1,
-        "username": "johnDoe",
-        "password": "pass123",
-        "firstName": "John",
-        "lastName": "Doe",
-        "gender": "Male",
-        "dateOfBirth": "1990-05-15",
-        "role": "User"
-    },
-    {
-        "id": 2,
-        "username": "janeSmith",
-        "password": "hello456",
-        "firstName": "Jane",
-        "lastName": "Smith",
-        "gender": "Female",
-        "dateOfBirth": "1988-11-30",
-        "role": "User"
-    },
-    {
-        "id": 3,
-        "username": "mikeJohnson",
-        "password": "mike123",
-        "firstName": "Mike",
-        "lastName": "Johnson",
-        "gender": "Male",
-        "dateOfBirth": "1995-07-20",
-        "role": "User"
-    },
-    {
-        "id": 4,
-        "username": "sarahBrown",
-        "password": "abc123",
-        "firstName": "Sarah",
-        "lastName": "Brown",
-        "gender": "Female",
-        "dateOfBirth": "1992-03-12",
-        "role": "User"
-    },
-    {
-        "id": 5,
-        "username": "alexWilson",
-        "password": "pass321",
-        "firstName": "Alex",
-        "lastName": "Wilson",
-        "gender": "Male",
-        "dateOfBirth": "1985-09-05",
-        "role": "User"
-    },
-    {
-        "id": 6,
-        "username": "emilyDavis",
-        "password": "emily456",
-        "firstName": "Emily",
-        "lastName": "Davis",
-        "gender": "Female",
-        "dateOfBirth": "1998-12-08",
-        "role": "User"
-    },
-    {
-        "id": 7,
-        "username": "davidLee",
-        "password": "david123",
-        "firstName": "David",
-        "lastName": "Lee",
-        "gender": "Male",
-        "dateOfBirth": "1993-06-25",
-        "role": "User"
-    },
-    {
-        "id": 8,
-        "username": "oliviaSmith",
+        "username": "SIMA",
         "password": "olivia456",
         "firstName": "Olivia",
         "lastName": "Smith",
-        "gender": "Female",
-        "dateOfBirth": "1991-02-18",
-        "role": "User"
+        "gender": 1,
+        "dateOfBirth": "1923-08-18T23:00:00.000Z",
+        "role": 2,
+        "deleted": false
     },
     {
-        "id": 9,
-        "username": "samTaylor",
-        "password": "sam123",
-        "firstName": "Sam",
-        "lastName": "Taylor",
-        "gender": "Male",
-        "dateOfBirth": "1997-10-10",
-        "role": "User"
-    },
-    {
-        "id": 10,
-        "username": "lilyJohnson",
-        "password": "lily456",
-        "firstName": "Lily",
-        "lastName": "Johnson",
-        "gender": "Female",
-        "dateOfBirth": "1994-04-22",
-        "role": "User"
+        "id": 2,
+        "username": "Gagi",
+        "password": "gagi123",
+        "firstName": "Gagi",
+        "lastName": "Maslac",
+        "gender": 1,
+        "dateOfBirth": "2001-06-19T23:00:00.000Z",
+        "role": 1,
+        "deleted": true
     }
 ]
