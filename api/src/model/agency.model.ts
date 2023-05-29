@@ -1,4 +1,3 @@
-import { Url } from "url";
 import { Location } from "./location.model";
 import { Vehicle } from "./vehicle.model";
 
