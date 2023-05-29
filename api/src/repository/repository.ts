@@ -5,16 +5,16 @@ export default class Repository {
   path: string = "";
 
   getAll(): IEntity[] {
-    return jsonfile.readFileSync(this.path);
+    return (jsonfile.readFileSync(this.path) as IEntity[]).filter(
+      (entity) => !entity.deleted
+    );
   }
 
   getById(id: Number) {
-    this.getAll().filter((entity) => entity.id == id);
+    this.getAll().find((entity) => entity.id == id);
   }
 
   save(entity: IEntity) {
     jsonfile.readFileSync(this.path);
   }
-
-  constructor() {}
 }
