@@ -53,5 +53,41 @@
         "dateOfBirth": "1923-08-18T23:00:00.000Z",
         "deleted": false,
         "id": 5
+    },
+    {
+        "username": "dragi_dragan",
+        "email": "dragidragan@dad.dada",
+        "password": "dada",
+        "firstName": "dragi",
+        "lastName": "dragan",
+        "gender": "Female",
+        "role": "Customer",
+        "dateOfBirth": "0222-02-02",
+        "deleted": false,
+        "id": 6
+    },
+    {
+        "username": "testtest",
+        "email": "test@test.test",
+        "password": "te",
+        "firstName": "test",
+        "lastName": "test",
+        "gender": "Male",
+        "role": "Customer",
+        "dateOfBirth": "2023-05-17",
+        "deleted": false,
+        "id": 7
+    },
+    {
+        "username": "sadas",
+        "email": "dasdas@adsadsa.sda",
+        "password": "asd",
+        "firstName": "sda",
+        "lastName": "sadas",
+        "gender": "Female",
+        "role": "Customer",
+        "dateOfBirth": "2023-05-10",
+        "deleted": false,
+        "id": 8
     }
 ]
