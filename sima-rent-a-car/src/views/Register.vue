@@ -12,6 +12,10 @@
                 </div>
             </div>
             <div class="form-element">
+                <label>Username:</label>
+                <input type="text" v-model="user.username" />
+            </div>
+            <div class="form-element">
                 <label>Email:</label>
                 <input type="email" v-model="user.email" />
             </div>
@@ -52,6 +56,7 @@ export default {
             user: {
                 firstName: "",
                 lastName: "",
+                username: "",
                 email: "",
                 dateOfBirth: "",
                 gender: "",
