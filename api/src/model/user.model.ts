@@ -3,14 +3,14 @@ import { Agency } from "./agency.model";
 import { Vehicle } from "./vehicle.model";
 
 export enum Gender {
-    Male,
-    Female,
+    Male = "Male",
+    Female = "Female",
 }
 
 export enum Role {
-    Customer,
-    Manager,
-    Admin,
+    Customer = "Customer",
+    Manager = "Manager",
+    Admin = "Admin",
 }
 
 export enum CustomerType {
@@ -27,6 +27,7 @@ export interface User extends IEntity {
     gender: Gender;
     dateOfBirth: Date;
     role: Role;
+    email: string;
     // optional customer props
     rentedCars?: Vehicle[];
     cart?: string; //to-do cart

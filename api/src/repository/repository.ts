@@ -5,9 +5,7 @@ export default class Repository {
     path: string = "";
 
     getAll(): IEntity[] {
-        return (jsonfile.readFileSync(this.path) as IEntity[]).filter(
-            (entity) => !entity.deleted
-        );
+        return (jsonfile.readFileSync(this.path) as IEntity[]).filter((entity) => !entity.deleted);
     }
 
     getById(id: Number) {
@@ -15,7 +13,9 @@ export default class Repository {
     }
 
     save(entity: IEntity) {
-        jsonfile.readFileSync(this.path);
+        const list = this.getAll();
+        list.push(entity);
+        jsonfile.writeFileSync(this.path, list);
     }
 
     update(entity: IEntity) {

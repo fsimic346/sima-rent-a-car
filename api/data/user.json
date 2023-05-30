@@ -16,9 +16,42 @@
         "password": "gagi123",
         "firstName": "Gagi",
         "lastName": "Maslac",
-        "gender": 1,
+        "gender": "Male",
         "dateOfBirth": "2001-06-19T23:00:00.000Z",
         "role": 1,
-        "deleted": true
+        "deleted": false
+    },
+    {
+        "username": "SIMA",
+        "password": "test",
+        "firstName": "test",
+        "lastName": "test",
+        "gender": "Male",
+        "dateOfBirth": "1923-08-18T23:00:00.000Z",
+        "role": 2,
+        "deleted": false,
+        "id": 3
+    },
+    {
+        "password": "test",
+        "firstName": "test",
+        "lastName": "test",
+        "gender": "Male",
+        "role": 0,
+        "dateOfBirth": "0002-02-02",
+        "deleted": false,
+        "id": 4
+    },
+    {
+        "username": "a",
+        "email": "tetete@sada.sda",
+        "password": "test",
+        "firstName": "test",
+        "lastName": "test",
+        "gender": "Male",
+        "role": "Customer",
+        "dateOfBirth": "1923-08-18T23:00:00.000Z",
+        "deleted": false,
+        "id": 5
     }
 ]
