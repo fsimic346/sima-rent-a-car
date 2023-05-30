@@ -14,9 +14,11 @@ app.use(cors());
 // routers
 import { homeRouter } from "./routes/home.routes";
 import { userRouter } from "./routes/user.routes";
+import { agencyRouter } from "./routes/agency.routes";
 
 app.use(homeRouter);
-app.use(userRouter);
+app.use("/user", userRouter);
+app.use("/agency", agencyRouter);
 
 app.listen(port, async () => {
     console.log(`Server running at port ${port}`);
