@@ -31,6 +31,16 @@ export default class UserService {
         return result;
     }
 
+    update(data: any): Result {
+        const result = this.validateData(data);
+
+        if (!result.success) return result;
+
+        this.repository?.update(data);
+
+        return result;
+    }
+
     //premestiti u middleware
     validateData(data: any): Result {
         let result: Result = new Result();

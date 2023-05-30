@@ -3,5 +3,10 @@ import { singleton } from "tsyringe";
 
 @singleton()
 export default class UserRepository extends Repository {
-  path = "./data/user.json";
+    path = "./data/user.json";
+
+    constructor() {
+        super();        
+        }
+    }
 }

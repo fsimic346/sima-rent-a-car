@@ -1,11 +1,14 @@
 import jsonfile from "jsonfile";
 import IEntity from "../model/IEntity";
+import fs from "fs";
 
 export default class Repository {
     path: string = "";
 
     getAll(): IEntity[] {
-        return (jsonfile.readFileSync(this.path) as IEntity[]).filter((entity) => !entity.deleted);
+        return (jsonfile.readFileSync(this.path) as IEntity[]).filter(
+            (entity) => !entity.deleted
+        );
     }
 
     getById(id: Number) {
@@ -38,5 +41,11 @@ export default class Repository {
 
         deletedEntity.deleted = true;
         this.update(deletedEntity);
+    }
+
+    createStorage() {
+        if (!fs.existsSync(this.path)) {
+            fs.writeFileSync(this.path, "", { flag: "wx" });
+        }
     }
 }
