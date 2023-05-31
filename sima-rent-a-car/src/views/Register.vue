@@ -48,7 +48,6 @@
 
 <script>
 import Button from "../components/Button.vue";
-import axios from "axios";
 
 export default {
     data() {
@@ -70,7 +69,7 @@ export default {
     },
     methods: {
         async register() {
-            const res = await axios.post("http://localhost:8080/api/user", this.user);
+            const res = await this.axios.post("http://localhost:8080/api/user", this.user);
             console.log(res);
         },
     },

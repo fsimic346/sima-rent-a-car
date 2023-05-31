@@ -2,13 +2,28 @@
     <router-view />
 </template>
 
-<script></script>
+<script>
+export default {
+    mounted() {
+        this.axios.interceptors.request.use((config) => {
+            config.headers.Authorization = this.$cookie.getCookie("token");
+            return config;
+        });
+    },
+};
+</script>
 
 <style>
 :root {
+    --clr-primary: #003366; /* header, navigation bar, and prominent elements */
+    --clr-secondary: #cccccc; /* backgrounds, borders, and subtle accents */
+    --clr-background: #ffffff;
+    --clr-accent: #ff6600; /* important elements */
+    --clr-text: #333333;
+
     font-family: "Lato", sans-serif;
-    background-color: #333333;
-    color: white;
+    background-color: var(--clr-background);
+    color: var(--clr-text);
 }
 
 /* Box sizing rules */
@@ -47,7 +62,7 @@ body {
 }
 
 a {
-    color: rgb(0, 192, 192);
+    color: var(--clr-accent);
     font-weight: 700;
     transition: filter ease-in-out 0.1s;
 }
@@ -89,6 +104,16 @@ select {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --clr-primary: #0a192f;
+        --clr-secondary: #333333;
+        --clr-background: #222222;
+        --clr-accent: #008080;
+        --clr-text: #ffffff;
     }
 }
 </style>

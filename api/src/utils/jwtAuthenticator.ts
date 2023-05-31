@@ -15,6 +15,7 @@ interface UsernameJwtPayload extends JwtPayload {
     username: string;
 }
 
+// refresh token bi bio idealan, al sta sad nek ostane ovako
 export function generateAccessToken(user: User): string {
     return jwt.sign({ username: user.username }, jwtKey, { expiresIn: "7d" });
 }

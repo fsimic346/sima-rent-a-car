@@ -11,6 +11,7 @@
             </div>
             <Button text="Login" @click="login" />
             <Button text="poz" @click="poz" />
+            <Button text="logout" @click="logout" />
             <span><RouterLink to="/register">register</RouterLink></span>
         </form>
     </div>
@@ -18,7 +19,6 @@
 
 <script>
 import Button from "@/components/Button.vue";
-import axios from "axios";
 
 export default {
     name: "Login",
@@ -33,17 +33,26 @@ export default {
     },
     methods: {
         async login() {
-            const res = await axios.post("http://localhost:8080/api/login", {
-                usernameOrEmail: this.usernameOrEmail,
-                password: this.password,
-            });
-            this.$cookie.setCookie("token", res.data.token);
+            try {
+                const res = await this.axios.post("http://localhost:8080/api/login", {
+                    usernameOrEmail: this.usernameOrEmail,
+                    password: this.password,
+                });
+                this.$cookie.setCookie("token", res.data.token);
+            } catch (err) {
+                console.log(err.response.data);
+            }
         },
         async poz() {
-            const res = await axios.get("http://localhost:8080/api/poz", {
-                headers: { Authorization: this.$cookie.getCookie("token") },
-            });
-            console.log(res);
+            try {
+                const res = await this.axios.get("http://localhost:8080/api/poz");
+                alert("poz");
+            } catch (err) {
+                console.log(err.response.data);
+            }
+        },
+        logout() {
+            this.$cookie.setCookie("token", "");
         },
     },
 };
