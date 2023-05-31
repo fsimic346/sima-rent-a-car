@@ -70,7 +70,7 @@ export default {
     },
     methods: {
         async register() {
-            const res = await axios.post("http://localhost:8080/user", this.user);
+            const res = await axios.post("http://localhost:8080/api/user", this.user);
             console.log(res);
         },
     },

@@ -6,8 +6,8 @@ export const userRouter = Router();
 
 const userService = container.resolve(UserService);
 
-userRouter.post("/", (req: Request, res: Response) => {
-    const result = userService.add(req.body);
+userRouter.patch("/", (req: Request, res: Response) => {
+    const result = userService.update(req.body);
     if (result.success) {
         res.sendStatus(200);
     } else {
@@ -15,8 +15,8 @@ userRouter.post("/", (req: Request, res: Response) => {
     }
 });
 
-userRouter.patch("/", (req: Request, res: Response) => {
-    const result = userService.update(req.body);
+userRouter.post("/", async (req: Request, res: Response) => {
+    const result = await userService.add(req.body);
     if (result.success) {
         res.sendStatus(200);
     } else {

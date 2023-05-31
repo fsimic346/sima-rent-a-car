@@ -6,9 +6,7 @@ export default class Repository {
     path: string = "";
 
     getAll(): IEntity[] {
-        return (jsonfile.readFileSync(this.path) as IEntity[]).filter(
-            (entity) => !entity.deleted
-        );
+        return (jsonfile.readFileSync(this.path) as IEntity[]).filter((entity) => !entity.deleted);
     }
 
     getById(id: Number) {

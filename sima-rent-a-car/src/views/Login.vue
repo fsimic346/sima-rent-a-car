@@ -9,13 +9,17 @@
                 <label>Password:</label>
                 <input type="password" v-model="password" />
             </div>
-            <input type="submit" value="Login" />
+            <Button text="Login" @click="login" />
+            <Button text="poz" @click="poz" />
             <span><RouterLink to="/register">register</RouterLink></span>
         </form>
     </div>
 </template>
 
 <script>
+import Button from "@/components/Button.vue";
+import axios from "axios";
+
 export default {
     name: "Login",
     data() {
@@ -24,10 +28,22 @@ export default {
             password: "",
         };
     },
+    components: {
+        Button,
+    },
     methods: {
-        onSubmit(e) {
-            e.preventDefault();
-            alert(`${this.usernameOrEmail}\n${this.password}`);
+        async login() {
+            const res = await axios.post("http://localhost:8080/api/login", {
+                usernameOrEmail: this.usernameOrEmail,
+                password: this.password,
+            });
+            this.$cookie.setCookie("token", res.data.token);
+        },
+        async poz() {
+            const res = await axios.get("http://localhost:8080/api/poz", {
+                headers: { Authorization: this.$cookie.getCookie("token") },
+            });
+            console.log(res);
         },
     },
 };
