@@ -14,3 +14,7 @@ agencyRouter.post("/", (req: Request, res: Response) => {
         res.status(400).send(result.message);
     }
 });
+
+agencyRouter.get("/", (req: Request, res: Response) => {
+    res.send(agencyService.getAll());
+});

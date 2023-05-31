@@ -9,6 +9,10 @@ import { Vehicle } from "../model/vehicle.model";
 export default class AgencyService {
     constructor(private repository?: AgencyRepository) {}
 
+    getAll(): Agency[] {
+        return this.repository?.getAll() as Agency[];
+    }
+
     add(data: any): Result {
         const result = this.validateData(data);
 
