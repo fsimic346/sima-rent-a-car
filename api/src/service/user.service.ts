@@ -50,14 +50,22 @@ export default class UserService {
         if (list?.find((x) => x.username === data.username)) {
             result.message = "username already exists";
             return result;
+        } else if (data.username === "") {
+            result.message = "invalid username";
+            return result;
         } else if (list?.find((x) => x.email === data.email)) {
             result.message = "email already exists";
             return result;
         } else if (data.password !== data.confirmPassword) {
             result.message = "passwords don't match";
             return result;
+        } else if (data.password === "") {
+            result.message = "invalid password";
         } else if (!Object.values(Gender).includes(data.gender)) {
             result.message = "gender doesn't exist";
+            return result;
+        } else if (data.gender === "") {
+            result.message = "invalid gender";
             return result;
         } else if (!data.email.match(emailFormat) || data.email === "") {
             result.message = "invalid email";

@@ -41,7 +41,7 @@ export default class AgencyService {
             result.message = "name already in use";
             return result;
         } else if (data.name === "") {
-            result.message = "invalid format";
+            result.message = "invalid name";
             return result;
         } else if (
             !data.businessHours.match(businessHoursFormat) ||
@@ -53,10 +53,10 @@ export default class AgencyService {
             result.message = "status doesn't exist";
             return result;
         } else if (data.location === "") {
-            result.message = "invalid format";
+            result.message = "invalid location";
             return result;
         } else if (data.logo === "") {
-            result.message = "invalid format";
+            result.message = "invalid logo";
             return result;
         }
 
