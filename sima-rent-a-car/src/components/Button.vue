@@ -1,47 +1,57 @@
 <template>
-    <div
-        class="btn"
-        :style="{
-            backgroundColor: [color === undefined ? 'var(--clr-primary-500)' : color],
-        }"
-        @click="onClick"
-    >
-        {{ text }}
-    </div>
+  <button
+    type="button"
+    class="btn"
+    :disabled="!enabled"
+    :style="{
+      backgroundColor: [color === undefined ? 'var(--clr-primary-500)' : color],
+    }"
+    @click="onClick"
+  >
+    <i v-if="text === ''" class="fa-solid fa-spinner fa-spin"></i>
+    {{ text }}
+  </button>
 </template>
 
 <script>
 export default {
-    name: "Button",
-    props: {
-        text: String,
-        color: String,
+  name: "Button",
+  expose: ["enabled"],
+  data() {
+    return { enabled: true };
+  },
+  props: {
+    text: String,
+    color: String,
+  },
+  methods: {
+    onClick(e) {
+      this.$emit("click");
     },
-    methods: {
-        onClick(e) {
-            this.$emit("click");
-        },
-    },
-    emits: ["click"],
+  },
+  emits: ["click"],
 };
 </script>
 
 <style scoped>
 .btn {
-    width: max-content;
-    padding: 0.5rem 2rem;
-    min-width: 7.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 700;
-    transition: filter 0.35s;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-    color: var(--clr-neutral-100);
+  width: max-content;
+  padding: 0.5rem 1rem;
+  min-width: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: filter 0.35s;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  color: var(--clr-neutral-100);
+  max-height: 40px;
+  height: 40px;
+  border-radius: 4px;
+  border: none;
 }
 
 .btn:hover {
-    cursor: pointer;
-    filter: brightness(1.2);
+  cursor: pointer;
+  filter: brightness(1.2);
 }
 </style>
