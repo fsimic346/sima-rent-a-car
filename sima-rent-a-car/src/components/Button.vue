@@ -2,7 +2,7 @@
     <div
         class="btn"
         :style="{
-            backgroundColor: [color === undefined ? 'var(--clr-secondary)' : color],
+            backgroundColor: [color === undefined ? 'var(--clr-primary-500)' : color],
         }"
         @click="onClick"
     >
@@ -30,18 +30,18 @@ export default {
 .btn {
     width: max-content;
     padding: 0.5rem 2rem;
-    min-width: 8rem;
+    min-width: 7.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 700;
-    transition: border-color 0.35s;
-    border: 2px solid transparent;
+    transition: filter 0.35s;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    color: var(--clr-neutral-100);
 }
 
 .btn:hover {
     cursor: pointer;
-    border-color: var(--clr-accent);
+    filter: brightness(1.2);
 }
 </style>

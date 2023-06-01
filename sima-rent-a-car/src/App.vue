@@ -15,15 +15,45 @@ export default {
 
 <style>
 :root {
-    --clr-primary: #003366; /* header, navigation bar, and prominent elements */
-    --clr-secondary: #cccccc; /* backgrounds, borders, and subtle accents */
-    --clr-background: #ffffff;
-    --clr-accent: #ff6600; /* important elements */
-    --clr-text: #333333;
+    --clr-primary-100: hsl(219, 64%, 89%);
+    --clr-primary-300: hsl(229, 72%, 69%);
+    --clr-primary-500: hsl(229, 72%, 50%);
+    --clr-primary-700: hsl(229, 85%, 33%);
+    --clr-primary-900: hsl(229, 89%, 21%);
+
+    --clr-warning-100: hsl(39, 64%, 89%);
+    --clr-warning-300: hsl(49, 72%, 69%);
+    --clr-warning-500: hsl(49, 72%, 50%);
+    --clr-warning-700: hsl(49, 85%, 33%);
+    --clr-warning-900: hsl(49, 89%, 21%);
+
+    --clr-error-100: hsl(352, 64%, 89%);
+    --clr-error-300: hsl(2, 72%, 69%);
+    --clr-error-500: hsl(2, 72%, 50%);
+    --clr-error-700: hsl(2, 85%, 33%);
+    --clr-error-900: hsl(2, 89%, 21%);
+
+    --clr-success-100: hsl(120, 64%, 89%);
+    --clr-success-300: hsl(130, 72%, 69%);
+    --clr-success-500: hsl(130, 72%, 50%);
+    --clr-success-700: hsl(130, 85%, 33%);
+    --clr-success-900: hsl(130, 89%, 21%);
+
+    --clr-info-100: hsl(268, 64%, 89%);
+    --clr-info-300: hsl(278, 72%, 69%);
+    --clr-info-500: hsl(278, 72%, 50%);
+    --clr-info-700: hsl(278, 85%, 33%);
+    --clr-info-900: hsl(278, 89%, 21%);
+
+    --clr-neutral-100: hsl(0, 0%, 100%);
+    --clr-neutral-300: hsl(235, 8%, 70%);
+    --clr-neutral-500: hsl(230, 8%, 42%);
+    --clr-neutral-700: hsl(232, 22%, 20%);
+    --clr-neutral-900: hsl(233, 46%, 7%);
 
     font-family: "Lato", sans-serif;
-    background-color: var(--clr-background);
-    color: var(--clr-text);
+    background-color: var(--clr-neutral-100);
+    color: var(--clr-neutral-900);
 }
 
 /* Box sizing rules */
@@ -62,12 +92,12 @@ body {
 }
 
 a {
-    color: var(--clr-accent);
+    color: var(--clr-primary-700);
     font-weight: 700;
-    transition: filter ease-in-out 0.1s;
+    transition: filter 0.2s;
 }
 a:hover {
-    filter: brightness(0.8);
+    filter: brightness(2);
 }
 
 /* A elements that don't have a class get default styles */
@@ -109,11 +139,11 @@ select {
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --clr-primary: #0a192f;
-        --clr-secondary: #333333;
-        --clr-background: #222222;
-        --clr-accent: #008080;
-        --clr-text: #ffffff;
+        background-color: var(--clr-neutral-700);
+        color: var(--clr-neutral-100);
+    }
+    a {
+        color: var(--clr-primary-300);
     }
 }
 </style>
