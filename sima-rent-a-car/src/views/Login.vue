@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <form class="user-form">
+        <form @submit="onSubmit" class="user-form">
             <div class="form-element">
                 <label>Username or email:</label>
                 <input type="text" v-model="usernameOrEmail" />
@@ -9,9 +9,7 @@
                 <label>Password:</label>
                 <input type="password" v-model="password" />
             </div>
-            <Button text="Login" @click="login" />
-            <Button text="poz" @click="poz" />
-            <Button text="logout" @click="logout" />
+            <Button :text="loginText" @click="login" ref="loginBtn" />
             <span><RouterLink to="/register">register</RouterLink></span>
         </form>
     </div>
@@ -26,6 +24,7 @@ export default {
         return {
             usernameOrEmail: "",
             password: "",
+            loginText: "Login",
         };
     },
     components: {
@@ -34,6 +33,8 @@ export default {
     methods: {
         async login() {
             try {
+                this.loginText = "";
+                this.$refs.loginBtn.enabled = false;
                 const res = await this.axios.post(
                     "http://localhost:8080/api/login",
                     {
@@ -42,22 +43,13 @@ export default {
                     }
                 );
                 this.$cookie.setCookie("token", res.data.token);
+                this.$cookie.setCookie("user", res.data.user);
+                this.$router.push("/");
             } catch (err) {
+                this.loginText = "Login";
+                this.$refs.loginBtn.enabled = true;
                 console.log(err.response.data);
             }
-        },
-        async poz() {
-            try {
-                const res = await this.axios.get(
-                    "http://localhost:8080/api/poz"
-                );
-                alert("poz");
-            } catch (err) {
-                console.log(err.response.data);
-            }
-        },
-        logout() {
-            this.$cookie.setCookie("token", "");
         },
     },
 };
