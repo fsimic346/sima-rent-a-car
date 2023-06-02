@@ -54,9 +54,9 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "../static/css/forms.css";
+<style scoped src="../static/css/forms.css"></style>
 
+<style scoped>
 .login-form-element {
     width: 28ch;
 }

@@ -141,7 +141,7 @@ select {
 }
 @media (prefers-color-scheme: dark) {
     :root {
-        --clr-background: var(--clr-neutral-900);
+        --clr-background: 36, 41, 46;
         --clr-text: var(--clr-neutral-100);
         --clr-text-contrast: var(--clr-neutral-900);
     }
