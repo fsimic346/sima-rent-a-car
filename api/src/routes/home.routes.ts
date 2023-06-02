@@ -1,7 +1,10 @@
 import { Router, Request, Response } from "express";
 import { container } from "tsyringe";
 import UserService from "../service/user.service";
-import { generateAccessToken, authenticateToken } from "../utils/jwtAuthenticator";
+import {
+    generateAccessToken,
+    authenticateToken,
+} from "../utils/jwtAuthenticator";
 
 export const homeRouter = Router();
 

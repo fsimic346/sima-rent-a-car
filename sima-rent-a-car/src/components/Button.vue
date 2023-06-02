@@ -2,7 +2,9 @@
     <div
         class="btn"
         :style="{
-            backgroundColor: [color === undefined ? 'var(--clr-primary-500)' : color],
+            backgroundColor: [
+                color === undefined ? 'var(--clr-primary-500)' : color,
+            ],
         }"
         @click="onClick"
     >

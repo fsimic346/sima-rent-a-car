@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <form @submit="onSubmit" class="user-form">
+        <form class="user-form">
             <div class="form-element">
                 <label>Username or email:</label>
                 <input type="text" v-model="usernameOrEmail" />
@@ -34,10 +34,13 @@ export default {
     methods: {
         async login() {
             try {
-                const res = await this.axios.post("http://localhost:8080/api/login", {
-                    usernameOrEmail: this.usernameOrEmail,
-                    password: this.password,
-                });
+                const res = await this.axios.post(
+                    "http://localhost:8080/api/login",
+                    {
+                        usernameOrEmail: this.usernameOrEmail,
+                        password: this.password,
+                    }
+                );
                 this.$cookie.setCookie("token", res.data.token);
             } catch (err) {
                 console.log(err.response.data);
@@ -45,7 +48,9 @@ export default {
         },
         async poz() {
             try {
-                const res = await this.axios.get("http://localhost:8080/api/poz");
+                const res = await this.axios.get(
+                    "http://localhost:8080/api/poz"
+                );
                 alert("poz");
             } catch (err) {
                 console.log(err.response.data);
