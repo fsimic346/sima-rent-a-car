@@ -10,12 +10,8 @@
                 <label>Password:</label>
                 <input type="password" v-model="password" />
             </div>
-            <Button
-                class="login-btn"
-                :text="loginText"
-                @click="login"
-                ref="loginBtn"
-            />
+            <div class="error-msg">{{ error }}</div>
+            <Button class="login-btn" :text="loginText" @click="login" ref="loginBtn" />
         </form>
     </div>
 </template>
@@ -30,6 +26,7 @@ export default {
             usernameOrEmail: "",
             password: "",
             loginText: "Login",
+            error: "",
         };
     },
     components: {
@@ -40,21 +37,17 @@ export default {
             try {
                 this.loginText = "";
                 this.$refs.loginBtn.enabled = false;
-                const res = await this.axios.post(
-                    "http://localhost:8080/api/login",
-                    {
-                        usernameOrEmail: this.usernameOrEmail,
-                        password: this.password,
-                    }
-                );
+                const res = await this.axios.post("http://localhost:8080/api/login", {
+                    usernameOrEmail: this.usernameOrEmail,
+                    password: this.password,
+                });
                 this.$cookie.setCookie("token", res.data.token);
                 this.$cookie.setCookie("user", res.data.user);
-                console.log(res.data.user);
-                this.$router.push("/");
+                this.$router.go("/");
             } catch (err) {
                 this.loginText = "Login";
                 this.$refs.loginBtn.enabled = true;
-                console.log(err.response.data);
+                this.error = err.response.data;
             }
         },
     },
@@ -69,7 +62,7 @@ export default {
 }
 
 .login-btn {
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 h1 {

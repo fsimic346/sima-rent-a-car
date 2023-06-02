@@ -33,33 +33,12 @@ export default {
     },
     methods: {
         getImg(img) {
-            return require(`../static/${img}`);
+            return require(`../static/images/${img}`);
         },
     },
 };
 </script>
 
 <style scoped>
-img {
-    object-fit: cover;
-    height: 50rem;
-    width: 100%;
-    filter: blur(3px);
-}
-
-.img-container {
-    width: 100%;
-}
-
-.carousel::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    background-color: black;
-    opacity: 0.5;
-    z-index: 1;
-}
+@import "@/static/css/home.css";
 </style>

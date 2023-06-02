@@ -41,7 +41,12 @@
                     <input type="password" v-model="user.confirmPassword" />
                 </div>
             </div>
-            <Button class="register-btn" text="Register" @click="register" />
+            <div class="form-element">
+                <label>Profile image url:</label>
+                <input type="text" v-model="user.imageUrl" />
+            </div>
+            <div class="error-msg">{{ error }}</div>
+            <Button class="register-btn" :text="registerText" @click="register" ref="registerBtn" />
         </form>
     </div>
 </template>
@@ -61,7 +66,10 @@ export default {
                 gender: "",
                 password: "",
                 confirmPassword: "",
+                imageUrl: "",
             },
+            error: "",
+            registerText: "Register",
         };
     },
     components: {
@@ -69,11 +77,18 @@ export default {
     },
     methods: {
         async register() {
-            const res = await this.axios.post(
-                "http://localhost:8080/api/user",
-                this.user
-            );
-            console.log(res);
+            try {
+                this.registerText = "";
+                this.$refs.registerBtn.enabled = false;
+                const res = await this.axios.post("http://localhost:8080/api/user", this.user);
+                this.$cookie.setCookie("token", res.data.token);
+                this.$cookie.setCookie("user", res.data.user);
+                this.$router.go("/");
+            } catch (err) {
+                this.registerText = "Register";
+                this.$refs.registerBtn.enabled = true;
+                this.error = err.response.data;
+            }
         },
     },
 };
@@ -88,5 +103,9 @@ export default {
 
 h1 {
     margin-bottom: 2rem;
+}
+
+.container {
+    padding-inline: 3rem;
 }
 </style>

@@ -1,0 +1,138 @@
+:root {
+    --clr-primary-100: 209, 222, 245;
+    --clr-primary-300: 119, 140, 233;
+    --clr-primary-500: 36, 69, 219;
+    --clr-primary-700: 8, 28, 120;
+    --clr-primary-900: 0, 8, 46;
+
+    --clr-warning-100: 245, 232, 209;
+    --clr-warning-300: 233, 212, 119;
+    --clr-warning-500: 219, 186, 36;
+    --clr-warning-700: 120, 99, 8;
+    --clr-warning-900: 45, 37, 1;
+
+    --clr-error-100: 245, 209, 214;
+    --clr-error-300: 233, 123, 119;
+    --clr-error-500: 219, 42, 36;
+    --clr-error-700: 120, 11, 8;
+    --clr-error-900: 45, 2, 1;
+
+    --clr-success-100: 209, 245, 209;
+    --clr-success-300: 119, 233, 138;
+    --clr-success-500: 36, 219, 66;
+    --clr-success-700: 8, 120, 26;
+    --clr-success-900: 1, 45, 8;
+
+    --clr-info-100: 226, 209, 245;
+    --clr-info-300: 191, 119, 233;
+    --clr-info-500: 152, 36, 219;
+    --clr-info-700: 79, 8, 120;
+    --clr-info-900: 29, 1, 45;
+
+    --clr-neutral-100: 255, 255, 255;
+    --clr-neutral-300: 172, 173, 185;
+    --clr-neutral-500: 99, 101, 116;
+    --clr-neutral-700: 40, 43, 62;
+    --clr-neutral-900: 10, 12, 26;
+
+    --clr-background: var(--clr-neutral-100);
+    --clr-text: var(--clr-neutral-900);
+    --clr-text-contrast: var(--clr-neutral-100);
+
+    font-family: "Lato", sans-serif;
+    background-color: rgb(var(--clr-background));
+    color: var(--clr-text);
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin */
+* {
+    margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+    list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+html,
+body,
+#app {
+    height: 100%;
+}
+
+/* Set core body defaults */
+body {
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+a {
+    color: rgb(var(--clr-primary-700));
+    font-weight: 700;
+    transition: filter 0.2s;
+    text-decoration: none;
+}
+a:hover {
+    filter: brightness(2);
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+    max-width: 100%;
+    display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --clr-background: var(--clr-neutral-900);
+        --clr-text: var(--clr-neutral-100);
+        --clr-text-contrast: var(--clr-neutral-900);
+    }
+    a {
+        color: var(--clr-primary-300);
+    }
+}

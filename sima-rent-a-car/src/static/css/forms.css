@@ -1,9 +1,12 @@
 .container {
     display: flex;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(var(--clr-background), 0.4);
+    backdrop-filter: blur(10px);
     border-radius: 10px;
     padding-inline: 2rem;
     padding-block: 2rem;
+    border: 4px solid rgb(var(--clr-primary-300));
+    color: rgb(var(--clr-text));
 }
 
 .user-form {
@@ -36,4 +39,28 @@
 
 select {
     height: 30px;
+    border: 2px solid transparent;
+    background-color: white;
+    border-radius: 5px;
+    outline: 3px solid transparent;
+    transition: outline ease-in-out 0.15s;
+}
+
+select:focus {
+    outline: 3px solid rgba(var(--clr-primary-300));
+}
+
+input {
+    border-radius: 5px;
+    border: 2px solid transparent;
+    outline: 3px solid transparent;
+    transition: outline ease-in-out 0.15s;
+}
+
+input:focus {
+    outline: 3px solid rgba(var(--clr-primary-300));
+}
+
+.error-msg {
+    color: rgb(var(--clr-error-300));
 }
