@@ -19,7 +19,7 @@
 
     --clr-success-100: 209, 245, 209;
     --clr-success-300: 119, 233, 138;
-    --clr-success-500: 36, 219, 66;
+    --clr-success-500: 43, 171, 71;
     --clr-success-700: 8, 120, 26;
     --clr-success-900: 1, 45, 8;
 
@@ -33,7 +33,7 @@
     --clr-neutral-300: 172, 173, 185;
     --clr-neutral-500: 99, 101, 116;
     --clr-neutral-700: 40, 43, 62;
-    --clr-neutral-900: 10, 12, 26;
+    --clr-neutral-900: 21, 24, 43;
 
     --clr-background: var(--clr-neutral-100);
     --clr-text: var(--clr-neutral-900);
@@ -42,6 +42,15 @@
     font-family: "Lato", sans-serif;
     background-color: rgb(var(--clr-background));
     color: var(--clr-text);
+}
+
+:root:has(#enableDarkTheme:checked) {
+    --clr-background: var(--clr-neutral-900);
+    --clr-text: var(--clr-neutral-100);
+    --clr-text-contrast: var(--clr-neutral-900);
+}
+:root:has(#enableDarkTheme:checked) a {
+    color: var(--clr-primary-300);
 }
 
 /* Box sizing rules */
@@ -125,7 +134,6 @@ select {
         scroll-behavior: auto !important;
     }
 }
-
 @media (prefers-color-scheme: dark) {
     :root {
         --clr-background: var(--clr-neutral-900);

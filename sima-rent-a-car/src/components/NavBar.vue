@@ -4,16 +4,38 @@
         <div class="button-container">
             <Button text="Login" v-if="!authorized" @click="login" />
             <Button text="Register" v-if="!authorized" @click="register" />
-            <div class="profile" v-if="authorized" @click="logout">
+            <div class="profile" v-if="authorized">
                 <span class="username">{{ username }}</span>
                 <div
                     class="profile-image"
                     :style="{ backgroundImage: `url('${profileImage}')` }"
                 ></div>
                 <div class="dropdown-menu">
-                    <div class="dropdown-item"><router-link to="Profile">Profile</router-link></div>
-                    <div class="dropdown-item">Cart</div>
-                    <div class="dropdown-item">Sign out</div>
+                    <div class="dropdown-item">
+                        <i class="fa-solid fa-user"></i>
+                        <router-link to="profile"> Profile</router-link>
+                    </div>
+                    <div class="dropdown-item">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <router-link to="cart">Cart</router-link>
+                    </div>
+                    <div class="dropdown-item">
+                        <i class="fa-solid fa-moon"></i>
+                        <span>
+                            <label class="switch" for="darkTheme">
+                                <input
+                                    type="checkbox"
+                                    @click="darkThemeUpdate"
+                                    v-model="darkTheme"
+                                    id="darkTheme"
+                                />
+                                <div class="slider round"></div>
+                            </label>
+                        </span>
+                    </div>
+                    <div class="dropdown-item signout" @click="logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Sign out</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,6 +72,7 @@ export default {
             isHomePage: "",
             showLoginModal: false,
             showRegisterModal: false,
+            darkTheme: "",
         };
     },
     components: {
@@ -72,17 +95,21 @@ export default {
         logout() {
             this.$cookie.setCookie("token", "");
             this.$cookie.setCookie("user", "");
-            this.$router.go("/");
+            this.authorized = false;
+            this.$router.push("/");
+        },
+        darkThemeUpdate() {
+            this.$cookie.setCookie("darkTheme", !this.darkTheme);
         },
     },
     watch: {
         "$route.params": {
             async handler(val) {
+                this.darkTheme = this.$cookie.getCookie("darkTheme") === "true";
                 this.authorized = this.$cookie.getCookie("token") != null;
                 if (this.authorized) {
                     this.username = this.$cookie.getCookie("user").username;
                     this.profileImage = this.$cookie.getCookie("user").imageUrl;
-                    console.log(this.profileImage);
                 }
                 this.isHomePage = this.$route.name === "home";
             },
