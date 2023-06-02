@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding-inline: 2rem;
+    padding-block: 2rem;
+}
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: auto;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.row .form-element {
+    width: 18ch;
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 38ch;
+}
+
+select {
+    height: 30px;
+}

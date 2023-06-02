@@ -2,7 +2,7 @@
     <Carousel :autoplay="5000" :wrap-around="true" :transition="1000">
         <Slide v-for="slide in images" :key="slide">
             <div class="img-container">
-                <img :src="slide" alt="" />
+                <img :src="getImg(slide)" alt="" rel="preload" />
             </div>
         </Slide>
     </Carousel>
@@ -22,14 +22,19 @@ export default {
     data() {
         return {
             images: [
-                "../static/bike_black.jpg",
-                "../static/holly-mandarich.jpg",
-                "../static/car_nature.jpg",
-                "../static/sid-balachandran.jpg",
-                "../static/white_snow.jpg",
-                "../static/white_closeup.jpg",
+                "bike_black.jpg",
+                "holly-mandarich.jpg",
+                "car_nature.jpg",
+                "sid-balachandran.jpg",
+                "white_snow.jpg",
+                "white_closeup.jpg",
             ],
         };
+    },
+    methods: {
+        getImg(img) {
+            return require(`../static/${img}`);
+        },
     },
 };
 </script>
@@ -39,9 +44,22 @@ img {
     object-fit: cover;
     height: 50rem;
     width: 100%;
+    filter: blur(3px);
 }
 
 .img-container {
     width: 100%;
+}
+
+.carousel::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 1;
 }
 </style>
