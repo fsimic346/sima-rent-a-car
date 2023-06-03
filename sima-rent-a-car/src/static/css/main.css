@@ -44,12 +44,12 @@
     color: var(--clr-text);
 }
 
-:root:has(#enableDarkTheme:checked) {
+.dark-theme {
     --clr-background: var(--clr-neutral-900);
     --clr-text: var(--clr-neutral-100);
     --clr-text-contrast: var(--clr-neutral-900);
 }
-:root:has(#enableDarkTheme:checked) a {
+.dark-theme a {
     color: var(--clr-primary-300);
 }
 
@@ -137,15 +137,5 @@ select {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
-    }
-}
-@media (prefers-color-scheme: dark) {
-    :root {
-        --clr-background: 36, 41, 46;
-        --clr-text: var(--clr-neutral-100);
-        --clr-text-contrast: var(--clr-neutral-900);
-    }
-    a {
-        color: var(--clr-primary-300);
     }
 }

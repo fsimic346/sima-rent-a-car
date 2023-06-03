@@ -100,7 +100,8 @@ export default {
             this.$router.push("/");
         },
         darkThemeUpdate() {
-            this.$cookie.setCookie("darkTheme", !this.darkTheme);
+            const darkTheme = document.getElementById("enableDarkTheme");
+            darkTheme.click();
         },
     },
     watch: {

@@ -2,10 +2,11 @@
     <NavBar />
     <router-view />
     <input
-        type="radio"
+        type="checkbox"
         id="enableDarkTheme"
         :checked="darkTheme"
-        style="display: none"
+        @change="darkThemeChanged"
+        hidden
     />
 </template>
 
@@ -20,6 +21,11 @@ export default {
     components: {
         NavBar,
     },
+    methods: {
+        darkThemeChanged(e) {
+            this.darkTheme = e.target.checked;
+        },
+    },
     async mounted() {
         this.axios.interceptors.request.use((config) => {
             config.headers.Authorization = this.$cookie.getCookie("token");
@@ -33,6 +39,17 @@ export default {
             localStorage.setItem("darkTheme", true);
         }
         this.darkTheme = localStorage.getItem("darkTheme") === "true";
+    },
+    watch: {
+        darkTheme(val) {
+            localStorage.setItem("darkTheme", val);
+            const root = document.querySelector(":root");
+            if (val) {
+                root.classList.add("dark-theme");
+            } else {
+                root.classList.remove("dark-theme");
+            }
+        },
     },
 };
 </script>

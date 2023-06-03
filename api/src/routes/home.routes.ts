@@ -20,14 +20,18 @@ homeRouter.get("/poz", authenticateToken, (req: Request, res: Response) => {
     res.send("poz");
 });
 
-homeRouter.post("/login", notAuthenticated, async (req: Request, res: Response) => {
-    const { usernameOrEmail, password } = req.body;
-    const user = await userService.login(usernameOrEmail, password);
-    if (user === undefined) {
-        return res.status(401).send("Invalid username or password.");
+homeRouter.post(
+    "/login",
+    notAuthenticated,
+    async (req: Request, res: Response) => {
+        const { usernameOrEmail, password } = req.body;
+        const user = await userService.login(usernameOrEmail, password);
+        if (user === undefined) {
+            return res.status(401).send("Invalid username or password.");
+        }
+        res.send({
+            token: generateAccessToken(user),
+            user: omit(user, ["password", "deleted"]),
+        });
     }
-    res.send({
-        token: generateAccessToken(user),
-        user: omit(user, ["password"]),
-    });
-});
+);
