@@ -34,7 +34,8 @@
                         </span>
                     </div>
                     <div class="dropdown-item signout" @click="logout">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Sign out</span>
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <span>Sign out</span>
                     </div>
                 </div>
             </div>
@@ -105,11 +106,12 @@ export default {
     watch: {
         "$route.params": {
             async handler(val) {
-                this.darkTheme = this.$cookie.getCookie("darkTheme") === "true";
+                this.darkTheme = localStorage.getItem("darkTheme") === "true";
                 this.authorized = this.$cookie.getCookie("token") != null;
                 if (this.authorized) {
-                    this.username = this.$cookie.getCookie("user").username;
-                    this.profileImage = this.$cookie.getCookie("user").imageUrl;
+                    const user = JSON.parse(localStorage.getItem("user"));
+                    this.username = user.username;
+                    this.profileImage = user.imageUrl;
                 }
                 this.isHomePage = this.$route.name === "home";
             },

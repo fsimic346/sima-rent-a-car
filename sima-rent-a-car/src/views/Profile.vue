@@ -13,7 +13,7 @@ export default {
         };
     },
     mounted() {
-        this.profileImg = this.$cookie.getCookie("user").imageUrl;
+        this.profileImg = JSON.parse(localStorage.getItem("user")).imageUrl;
     },
 };
 </script>
