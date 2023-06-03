@@ -15,6 +15,6 @@ agencyRouter.post("/", (req: Request, res: Response) => {
     }
 });
 
-agencyRouter.get("/", (req: Request, res: Response) => {
+agencyRouter.get("/all", (req: Request, res: Response) => {
     res.send(agencyService.getAll());
 });
