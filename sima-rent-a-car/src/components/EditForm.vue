@@ -1,0 +1,111 @@
+<template>
+    <div class="container">
+        <form @submit="onSubmit" class="user-form">
+            <h1>Edit</h1>
+            <div class="row">
+                <div class="form-element">
+                    <label>First Name:</label>
+                    <input type="text" v-model="user.firstName" />
+                </div>
+                <div class="form-element">
+                    <label>Last Name:</label>
+                    <input type="text" v-model="user.lastName" />
+                </div>
+            </div>
+            <div class="form-element">
+                <label>Username:</label>
+                <input type="text" v-model="user.username" />
+            </div>
+            <div class="form-element">
+                <label>Email:</label>
+                <input type="email" v-model="user.email" />
+            </div>
+            <div class="form-element">
+                <label>Date of Birth:</label>
+                <input type="date" v-model="user.dateOfBirth" />
+            </div>
+            <div class="form-element">
+                <label>Gender:</label>
+                <select v-model="user.gender">
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+            </div>
+            <div class="form-element">
+                <label>Profile image url:</label>
+                <input type="text" v-model="user.imageUrl" />
+            </div>
+            <div class="error-msg">{{ error }}</div>
+            <Button
+                class="register-btn"
+                :text="editText"
+                @click="edit"
+                ref="registerBtn"
+            />
+        </form>
+    </div>
+</template>
+
+<script>
+import Button from "../components/Button.vue";
+
+export default {
+    data() {
+        return {
+            user: {
+                firstName: "",
+                lastName: "",
+                username: "",
+                email: "",
+                dateOfBirth: "",
+                gender: "",
+                imageUrl: "",
+            },
+            error: "",
+            editText: "Edit",
+        };
+    },
+    components: {
+        Button,
+    },
+    mounted() {
+        this.user = JSON.parse(localStorage.getItem("user"));
+    },
+    methods: {
+        async edit() {
+            try {
+                this.editText = "";
+                this.$refs.registerBtn.enabled = false;
+                const res = await this.axios.patch(
+                    "http://localhost:8080/api/user",
+                    this.user
+                );
+                if (res.status === 200) {
+                    localStorage.setItem("user", JSON.stringify(this.user));
+                    this.$router.go("/");
+                }
+            } catch (err) {
+                this.editText = "Edit";
+                this.$refs.registerBtn.enabled = true;
+                this.error = err.response.data;
+            }
+        },
+    },
+};
+</script>
+
+<style scoped src="../static/css/forms.css"></style>
+
+<style scoped>
+.register-btn {
+    margin-top: 2rem;
+}
+
+h1 {
+    margin-bottom: 2rem;
+}
+
+.container {
+    padding-inline: 3rem;
+}
+</style>
