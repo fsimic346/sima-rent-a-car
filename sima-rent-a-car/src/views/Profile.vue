@@ -43,18 +43,45 @@
                     <div class="data">+381624564</div>
                 </div>
             </div>
+            <div class="row push-bottom">
+                <Button text="Edit" @click="edit"></Button>
+            </div>
         </div>
+
+        <vue-final-modal
+            v-model="showRegisterModal"
+            classes="modal-container"
+            content-class="modal-content"
+        >
+            <Edit />
+        </vue-final-modal>
     </div>
 </template>
 <script>
+import Button from "@/components/Button.vue";
+import { VueFinalModal, ModalsContainer } from "vue-final-modal";
+import Edit from "@/components/EditForm.vue";
+
 export default {
     data() {
         return {
             user: "",
+            showRegisterModal: false,
         };
+    },
+    components: {
+        Button,
+        VueFinalModal,
+        ModalsContainer,
+        Edit,
     },
     mounted() {
         this.user = JSON.parse(localStorage.getItem("user"));
+    },
+    methods: {
+        edit() {
+            this.showRegisterModal = true;
+        },
     },
 };
 </script>
@@ -71,6 +98,7 @@ export default {
     border-radius: 1rem;
     background-color: rgb(30, 36, 43);
     padding-inline: 1rem;
+    padding-bottom: 1rem;
 }
 
 .row {
@@ -123,7 +151,6 @@ export default {
     border-radius: 1rem;
     background-color: rgb(var(--clr-background));
     padding: 0.8rem;
-    /* gap: 1rem; */
     flex: 1 1 0;
     max-height: 13rem;
 }
@@ -144,5 +171,23 @@ export default {
     gap: 0.5rem;
     margin-top: 2rem;
     margin-left: 2rem;
+}
+
+.push-bottom {
+    margin-top: auto;
+    margin-inline: auto;
+}
+
+::v-deep .modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+::v-deep .modal-content {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: none;
+    border-radius: 0.25rem;
 }
 </style>
