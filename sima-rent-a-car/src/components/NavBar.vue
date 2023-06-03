@@ -1,5 +1,5 @@
 <template>
-    <nav>
+    <nav :class="[isHomePage ? '' : 'not-home']">
         <div class="logo" @click="home">SI-MA</div>
         <div class="button-container">
             <Button text="Login" v-if="!authorized" @click="login" />
@@ -34,7 +34,8 @@
                         </span>
                     </div>
                     <div class="dropdown-item signout" @click="logout">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Sign out</span>
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <span>Sign out</span>
                     </div>
                 </div>
             </div>

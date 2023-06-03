@@ -1,18 +1,18 @@
 nav {
     display: flex;
-    max-height: 5rem;
-    height: 5rem;
-    width: 100%;
+    width: 99%;
     align-items: center;
     justify-content: space-between;
-    padding-inline: 3rem;
+    padding-inline: 2rem;
+    padding-block: 0.8rem;
     position: absolute;
     z-index: 99;
+    left: 0.5%;
 }
 .logo {
     display: flex;
     font-weight: 700;
-    font-size: 4rem;
+    font-size: 2rem;
     color: rgb(var(--clr-neutral-100));
 }
 
@@ -58,8 +58,8 @@ nav {
 }
 
 .profile-image {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
     border: 2px solid rgb(var(--clr-neutral-100));
     background-position: center;
@@ -169,4 +169,10 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+.not-home {
+    border-bottom: 1px solid rgba(var(--clr-neutral-100), 50%);
+    background-color: rgb(var(--clr-primary-400));
+    position: inherit;
 }
