@@ -39,6 +39,11 @@ const routes = [
             requiresAuth: true,
         },
     },
+    {
+        path: "/agencies",
+        name: "agencies",
+        component: () => import("../views/Agencies.vue"),
+    },
 ];
 
 const router = createRouter({
