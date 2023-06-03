@@ -1,24 +1,47 @@
 <template>
     <div class="container">
-        <div class="avatar">
-            <img :src="profileImg" alt="" />
-        </div>
-        <div class="basic-information">
-            <div class="full-name">
-                <div>{{ firstName }} {{ lastName }}</div>
+        <div class="user-info">
+            <div class="row">
+                <div
+                    class="profile-image"
+                    :style="{ backgroundImage: `url('${user.imageUrl}')` }"
+                ></div>
+                <div class="credentials">
+                    <div class="full-name">
+                        <div>{{ user.firstName }} {{ user.lastName }}</div>
+                    </div>
+                    <div class="username">
+                        <h2>@{{ user.username }}</h2>
+                    </div>
+                </div>
             </div>
-            <div class="username">
-                <h2>@{{ username }}</h2>
+            <div class="row space-around">
+                <div class="info-container">
+                    <div class="label">Role</div>
+                    <div class="data">{{ user.role }}</div>
+                </div>
+                <div class="info-container">
+                    <div class="label">Gender</div>
+                    <div class="data">{{ user.gender }}</div>
+                </div>
             </div>
-            <div class="user-icon">
-                <i class="fa-solid fa-circle-info"></i>
-                <h3>About</h3>
+            <div class="row">
+                <div class="about-headher">
+                    <div class="user-icon">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+                    <h3>About</h3>
+                </div>
             </div>
-            <div class="about">
-                <div class="about-info">Role: {{ role }}</div>
-                <div class="about-info">Gender: {{ gender }}</div>
-                <div class="about-info">Email: {{ email }}</div>
-                <div class="about-info">Date Of Birth: {{ dateOfBirth }}</div>
+            <div class="row space-around">
+                <div class="info-container">
+                    <div class="label">Email</div>
+                    <div class="data">{{ user.email }}</div>
+                    <div class="label">Date of birth</div>
+                    <div class="data">{{ user.dateOfBirth }}</div>
+                    <div class="label">Phone number</div>
+                    <div class="data">+381624564</div>
+                </div>
             </div>
         </div>
     </div>
@@ -27,103 +50,99 @@
 export default {
     data() {
         return {
-            profileImg: "",
-            firstName: "",
-            lastName: "",
-            username: "",
-            gender: "",
-            role: "",
-            dateOfBirth: "",
-            email: "",
+            user: "",
         };
     },
     mounted() {
-        const user = JSON.parse(localStorage.getItem("user"));
-        this.profileImg = user.imageUrl;
-        this.firstName = user.firstName;
-        this.lastName = user.lastName;
-        this.username = user.username;
-        this.email = user.email;
-        this.dateOfBirth = user.dateOfBirth;
-        this.role = user.role;
-        this.gender = user.gender;
-        this.role = user.role;
+        this.user = JSON.parse(localStorage.getItem("user"));
     },
 };
 </script>
 <style scoped>
 .container {
     display: flex;
-    align-items: start;
-    margin-top: 1rem;
-    width: 60%;
-    height: 80%;
-    border-radius: 1rem;
-    margin-inline: auto;
-    background-color: rgb(30, 36, 43);
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-}
-.avatar {
-    margin-top: 4rem;
-    margin-left: 6rem;
-    margin-right: 4rem;
-    margin-bottom: 4rem;
-    width: 21rem;
-    height: 21rem;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid rgb(var(--clr-neutral-100));
+    height: calc(100% - 4rem);
 }
 
-.avatar:hover {
+.user-info {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 1rem;
+    background-color: rgb(30, 36, 43);
+    padding-inline: 1rem;
+}
+
+.row {
+    display: flex;
+}
+
+.space-around {
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.profile-image:hover {
     cursor: pointer;
     border-color: rgb(var(--clr-primary-300));
 }
 
-img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+.profile-image {
+    width: 7rem;
+    height: 7rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    border-radius: 2rem;
+    border: 2px solid rgb(var(--clr-neutral-100));
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
 }
 
-.basic-information {
-    width: 30rem;
-    height: 20rem;
-    margin-top: 6rem;
-    display: flex;
-    flex-direction: column;
+.credentials {
+    margin-top: 1rem;
+    margin-left: 2rem;
+    color: rgb(var(--clr-neutral-100));
 }
 
 .full-name {
-    display: flex;
-    gap: 1rem;
-    font-size: 45px;
-    color: rgb(var(--clr-neutral-100));
+    font-size: 30px;
 }
 
 .username {
-    color: rgb(var(--clr-primary-500));
+    font-size: 15px;
     font-style: italic;
+    color: rgb(var(--clr-primary-300));
 }
 
-.user-icon {
-    margin-top: 8rem;
+.info-container {
     display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    color: rgba(var(--clr-neutral-100), 50%);
-}
-
-.about {
-    border-top: 1px solid rgba(var(--clr-neutral-100), 50%);
+    flex-direction: column;
     color: rgb(var(--clr-neutral-100));
+    border-radius: 1rem;
+    background-color: rgb(var(--clr-background));
+    padding: 0.8rem;
+    /* gap: 1rem; */
+    flex: 1 1 0;
+    max-height: 13rem;
 }
 
-.about-info {
-    font-size: 20px;
+.label {
+    color: rgba(255, 255, 255, 50%);
+    font-size: 18px;
+}
+
+.data {
+    font-size: 24px;
+}
+
+.about-headher {
+    display: flex;
+    color: rgb(var(--clr-neutral-100), 50%);
+    align-items: center;
+    gap: 0.5rem;
     margin-top: 2rem;
+    margin-left: 2rem;
 }
 </style>
