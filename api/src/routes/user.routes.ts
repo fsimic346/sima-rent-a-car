@@ -39,5 +39,17 @@ userRouter.get("/", authenticateToken, (req: Request, res: Response) => {
     if (!user) {
         res.sendStatus(400);
     }
-    res.send(omit(user, ["password"]));
+    res.send(omit(user, ["password", "deleted"]));
 });
+
+userRouter.get(
+    "/:username",
+    authenticateToken,
+    (req: Request, res: Response) => {
+        const user = userService.getByUsername(req.params.username);
+        if (!user) {
+            res.sendStatus(401);
+        }
+        res.send(omit(user, ["password", "deleted"]));
+    }
+);

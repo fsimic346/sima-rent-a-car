@@ -38,7 +38,7 @@ export default {
         };
     },
     mounted() {
-        const user = this.$cookie.getCookie("user");
+        const user = JSON.parse(localStorage.getItem("user"));
         this.profileImg = user.imageUrl;
         this.firstName = user.firstName;
         this.lastName = user.lastName;

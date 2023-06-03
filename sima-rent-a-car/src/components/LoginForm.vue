@@ -11,7 +11,12 @@
                 <input type="password" v-model="password" />
             </div>
             <div class="error-msg">{{ error }}</div>
-            <Button class="login-btn" :text="loginText" @click="login" ref="loginBtn" />
+            <Button
+                class="login-btn"
+                :text="loginText"
+                @click="login"
+                ref="loginBtn"
+            />
         </form>
     </div>
 </template>
@@ -37,12 +42,15 @@ export default {
             try {
                 this.loginText = "";
                 this.$refs.loginBtn.enabled = false;
-                const res = await this.axios.post("http://localhost:8080/api/login", {
-                    usernameOrEmail: this.usernameOrEmail,
-                    password: this.password,
-                });
+                const res = await this.axios.post(
+                    "http://localhost:8080/api/login",
+                    {
+                        usernameOrEmail: this.usernameOrEmail,
+                        password: this.password,
+                    }
+                );
                 this.$cookie.setCookie("token", res.data.token);
-                this.$cookie.setCookie("user", res.data.user);
+                localStorage.setItem("user", JSON.stringify(res.data.user));
                 this.$router.go("/");
             } catch (err) {
                 this.loginText = "Login";

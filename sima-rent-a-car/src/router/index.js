@@ -11,22 +11,60 @@ const routes = [
         path: "/login",
         name: "login",
         component: () => import("../views/Login.vue"),
+        meta: {
+            requiresNoAuth: true,
+        },
     },
     {
         path: "/register",
         name: "register",
         component: () => import("../views/Register.vue"),
+        meta: {
+            requiresNoAuth: true,
+        },
     },
     {
         path: "/profile",
         name: "profile",
         component: () => import("../views/Profile.vue"),
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: "/user/:username",
+        name: "user",
+        component: () => import("../views/User.vue"),
+        meta: {
+            requiresAuth: true,
+        },
     },
 ];
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes,
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+        if (localStorage.getItem("user") == null) {
+            next({
+                path: "/login",
+                params: { nextUrl: to.fullPath },
+            });
+        }
+    }
+    if (to.matched.some((record) => record.meta.requiresNoAuth)) {
+        if (localStorage.getItem("user") !== null) {
+            next({
+                path: "/profile",
+                params: { nextUrl: to.fullPath },
+            });
+        }
+    } else {
+        next();
+    }
 });
 
 export default router;

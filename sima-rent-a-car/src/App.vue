@@ -1,7 +1,13 @@
 <template>
     <NavBar />
     <router-view />
-    <input type="radio" id="enableDarkTheme" :checked="darkTheme" hidden />
+    <input
+        type="checkbox"
+        id="enableDarkTheme"
+        :checked="darkTheme"
+        @change="darkThemeChanged"
+        hidden
+    />
 </template>
 
 <script>
@@ -15,6 +21,11 @@ export default {
     components: {
         NavBar,
     },
+    methods: {
+        darkThemeChanged(e) {
+            this.darkTheme = e.target.checked;
+        },
+    },
     async mounted() {
         this.axios.interceptors.request.use((config) => {
             config.headers.Authorization = this.$cookie.getCookie("token");
@@ -22,12 +33,23 @@ export default {
         });
         if (this.$cookie.getCookie("token")) {
             const res = await this.axios.get("http://localhost:8080/api/user");
-            this.$cookie.setCookie("user", res.data);
+            localStorage.setItem("user", JSON.stringify(res.data));
         }
-        if (this.$cookie.getCookie("darkTheme") === undefined) {
-            this.$cookie.setCookie("darkTheme", true);
+        if (localStorage.getItem("darkTheme") === null) {
+            localStorage.setItem("darkTheme", true);
         }
-        this.darkTheme = this.$cookie.getCookie("darkTheme") === "true";
+        this.darkTheme = localStorage.getItem("darkTheme") === "true";
+    },
+    watch: {
+        darkTheme(val) {
+            localStorage.setItem("darkTheme", val);
+            const root = document.querySelector(":root");
+            if (val) {
+                root.classList.add("dark-theme");
+            } else {
+                root.classList.remove("dark-theme");
+            }
+        },
     },
 };
 </script>
