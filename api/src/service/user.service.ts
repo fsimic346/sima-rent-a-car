@@ -18,7 +18,10 @@ export default class UserService {
         if (!result.success) {
             return result;
         }
-        const hashedPassword: string = await bcrypt.hash(data.password, saltRounds);
+        const hashedPassword: string = await bcrypt.hash(
+            data.password,
+            saltRounds
+        );
         const user: User = {
             username: data.username,
             email: data.email,
@@ -53,7 +56,7 @@ export default class UserService {
         user.gender = data.gender;
         user.imageUrl = data.imageUrl;
 
-        this.repository?.update(data);
+        this.repository?.update(user);
 
         return result;
     }
@@ -63,14 +66,21 @@ export default class UserService {
     }
 
     getByUsername(username: string): User | undefined {
-        return (this.repository?.getAll() as User[]).find((x) => x.username == username);
+        return (this.repository?.getAll() as User[]).find(
+            (x) => x.username == username
+        );
     }
 
     getByEmail(email: string): User | undefined {
-        return (this.repository?.getAll() as User[]).find((x) => x.email == email);
+        return (this.repository?.getAll() as User[]).find(
+            (x) => x.email == email
+        );
     }
 
-    async login(usernameOrEmail: string, password: string): Promise<User | undefined> {
+    async login(
+        usernameOrEmail: string,
+        password: string
+    ): Promise<User | undefined> {
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
         let user: User | undefined;
         if (usernameOrEmail.match(emailFormat)) {
@@ -81,7 +91,6 @@ export default class UserService {
         if (user === undefined) {
             return user;
         }
-
         const match = await bcrypt.compare(password, user.password);
         if (match) {
             return user;
