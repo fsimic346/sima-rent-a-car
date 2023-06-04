@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" id="profileContainer">
         <div class="user-info">
             <div class="row">
                 <div
@@ -76,6 +76,9 @@ export default {
         Edit,
     },
     mounted() {
+        const navHeight = document.querySelector("nav").clientHeight + 1;
+        document.getElementById("profileContainer").style.height = `calc(100% - ${navHeight}px)`;
+
         this.user = JSON.parse(localStorage.getItem("user"));
     },
     methods: {
@@ -98,7 +101,7 @@ export default {
     border-radius: 1rem;
     background-color: rgb(30, 36, 43);
     padding-inline: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 3rem;
 }
 
 .row {
@@ -140,7 +143,6 @@ export default {
 
 .username {
     font-size: 15px;
-    font-style: italic;
     color: rgb(var(--clr-primary-300));
 }
 
@@ -176,6 +178,7 @@ export default {
 .push-bottom {
     margin-top: auto;
     margin-inline: auto;
+    justify-content: center;
 }
 
 ::v-deep .modal-container {

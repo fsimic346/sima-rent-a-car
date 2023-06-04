@@ -13,14 +13,6 @@
                 </div>
             </div>
             <div class="form-element">
-                <label>Username:</label>
-                <input type="text" v-model="user.username" />
-            </div>
-            <div class="form-element">
-                <label>Email:</label>
-                <input type="email" v-model="user.email" />
-            </div>
-            <div class="form-element">
                 <label>Date of Birth:</label>
                 <input type="date" v-model="user.dateOfBirth" />
             </div>
@@ -36,12 +28,7 @@
                 <input type="text" v-model="user.imageUrl" />
             </div>
             <div class="error-msg">{{ error }}</div>
-            <Button
-                class="register-btn"
-                :text="editText"
-                @click="edit"
-                ref="registerBtn"
-            />
+            <Button class="register-btn" :text="editText" @click="edit" ref="registerBtn" />
         </form>
     </div>
 </template>
@@ -76,10 +63,7 @@ export default {
             try {
                 this.editText = "";
                 this.$refs.registerBtn.enabled = false;
-                const res = await this.axios.patch(
-                    "http://localhost:8080/api/user",
-                    this.user
-                );
+                const res = await this.axios.patch("http://localhost:8080/api/user", this.user);
                 if (res.status === 200) {
                     localStorage.setItem("user", JSON.stringify(this.user));
                     this.$router.go("/");

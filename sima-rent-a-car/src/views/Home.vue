@@ -6,11 +6,20 @@
             </div>
         </Slide>
     </Carousel>
+    <div class="overlay">
+        <h1>Lorem ipsum dolor sit amet.</h1>
+        <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro fugiat eos eligendi
+            optio non possimus nesciunt minima deserunt aliquid totam.
+        </p>
+        <Button text="Show Agencies" @click="agencies" />
+    </div>
 </template>
 
 <script>
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
+import Button from "@/components/Button.vue";
 
 export default {
     components: {
@@ -18,6 +27,7 @@ export default {
         Slide,
         Pagination,
         Navigation,
+        Button,
     },
     data() {
         return {
@@ -34,6 +44,9 @@ export default {
     methods: {
         getImg(img) {
             return require(`../static/images/${img}`);
+        },
+        agencies() {
+            this.$router.push("/agencies");
         },
     },
 };

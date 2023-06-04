@@ -39,9 +39,16 @@
     --clr-text: var(--clr-neutral-900);
     --clr-text-contrast: var(--clr-neutral-100);
 
-    font-family: "Lato", sans-serif;
+    --fnt-body: "Lato", sans-serif;
+    --fnt-header: "Patua One", cursive;
+
+    font-family: var(--fnt-body);
     background-color: rgb(var(--clr-background));
     color: var(--clr-text);
+}
+
+::selection {
+    background-color: rgb(var(--clr-primary-300));
 }
 
 .dark-theme {

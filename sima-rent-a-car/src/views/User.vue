@@ -1,9 +1,6 @@
 <template>
     <div class="container">
-        <div
-            class="profile-image"
-            :style="{ backgroundImage: `url('${user.imageUrl}')` }"
-        ></div>
+        <div class="profile-image" :style="{ backgroundImage: `url('${user.imageUrl}')` }"></div>
         <div class="basic-information">
             <div class="full-name">
                 <div>{{ user.firstName }} {{ user.lastName }}</div>
@@ -19,9 +16,7 @@
                 <div class="about-info">Role: {{ user.role }}</div>
                 <div class="about-info">Gender: {{ user.gender }}</div>
                 <div class="about-info">Email: {{ user.email }}</div>
-                <div class="about-info">
-                    Date Of Birth: {{ user.dateOfBirth }}
-                </div>
+                <div class="about-info">Date Of Birth: {{ user.dateOfBirth }}</div>
             </div>
         </div>
     </div>
@@ -95,8 +90,7 @@ export default {
 }
 
 .username {
-    color: rgb(var(--clr-primary-500));
-    font-style: italic;
+    color: rgb(var(--clr-primary-300));
 }
 
 .user-icon {

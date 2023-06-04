@@ -13,15 +13,12 @@ export default class UserService {
     constructor(private repository?: UserRepository) {}
 
     async add(data: any): Promise<Result> {
-        const result = this.validateData(data);
+        const result = this.validateNewUserData(data);
 
         if (!result.success) {
             return result;
         }
-        const hashedPassword: string = await bcrypt.hash(
-            data.password,
-            saltRounds
-        );
+        const hashedPassword: string = await bcrypt.hash(data.password, saltRounds);
         const user: User = {
             username: data.username,
             email: data.email,
@@ -45,9 +42,16 @@ export default class UserService {
     }
 
     update(data: any): Result {
-        const result = this.validateData(data);
+        const result = this.validateUpdatedUserData(data);
 
         if (!result.success) return result;
+
+        const user: User = this.getById(data.id) as User;
+        user.firstName = data.firstName;
+        user.lastName = data.lastName;
+        user.dateOfBirth = data.dateOfBirth;
+        user.gender = data.gender;
+        user.imageUrl = data.imageUrl;
 
         this.repository?.update(data);
 
@@ -59,21 +63,14 @@ export default class UserService {
     }
 
     getByUsername(username: string): User | undefined {
-        return (this.repository?.getAll() as User[]).find(
-            (x) => x.username == username
-        );
+        return (this.repository?.getAll() as User[]).find((x) => x.username == username);
     }
 
     getByEmail(email: string): User | undefined {
-        return (this.repository?.getAll() as User[]).find(
-            (x) => x.email == email
-        );
+        return (this.repository?.getAll() as User[]).find((x) => x.email == email);
     }
 
-    async login(
-        usernameOrEmail: string,
-        password: string
-    ): Promise<User | undefined> {
+    async login(usernameOrEmail: string, password: string): Promise<User | undefined> {
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
         let user: User | undefined;
         if (usernameOrEmail.match(emailFormat)) {
@@ -92,8 +89,7 @@ export default class UserService {
         return undefined;
     }
 
-    //premestiti u middleware
-    validateData(data: any): Result {
+    validateNewUserData(data: any): Result {
         let result: Result = new Result();
         const list: User[] = this.repository?.getAll() as User[];
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -125,6 +121,30 @@ export default class UserService {
         result.success = true;
         result.message = "successful registration";
         result.value = list === undefined ? 1 : list?.length + 1;
+        return result;
+    }
+
+    validateUpdatedUserData(data: any): Result {
+        let result: Result = new Result();
+
+        if (data.firstName === "") {
+            result.message = "Invalid first name.";
+            return result;
+        } else if (data.lastName === "") {
+            result.message = "Invalid last name.";
+            return result;
+        } else if (!Object.values(Gender).includes(data.gender)) {
+            result.message = "Gender doesn't exist.";
+            return result;
+        } else if (data.gender === "") {
+            result.message = "Invalid gender.";
+            return result;
+        } else if (!data.imageUrl.match(/\.(jpeg|jpg|gif|png)$/)) {
+            result.message = "Invalid image url.";
+            return result;
+        }
+        result.success = true;
+        result.message = "successful update";
         return result;
     }
 }
