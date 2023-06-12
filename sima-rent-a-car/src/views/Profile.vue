@@ -21,8 +21,30 @@
                     <div class="data">{{ user.role }}</div>
                 </div>
                 <div class="info-container">
-                    <div class="label">Gender</div>
+                    <div class="label">
+                        <span>Gender</span>
+                        <i
+                            class="fa-solid fa-pen"
+                            @click="showGenderModal()"
+                        ></i>
+                    </div>
                     <div class="data">{{ user.gender }}</div>
+                    <div class="gender-overlay" id="genderOverlay">
+                        <div
+                            class="gender-container male"
+                            @click="setGender('Male')"
+                        >
+                            <i class="fa-solid fa-mars"></i>
+                            <span>Male</span>
+                        </div>
+                        <div
+                            class="gender-container female"
+                            @click="setGender('Female')"
+                        >
+                            <i class="fa-solid fa-venus"></i>
+                            <span>Female</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -37,10 +59,45 @@
                 <div class="info-container">
                     <div class="label">Email</div>
                     <div class="data">{{ user.email }}</div>
-                    <div class="label">Date of birth</div>
-                    <div class="data">{{ user.dateOfBirth }}</div>
-                    <div class="label">Phone number</div>
-                    <div class="data">+381624564</div>
+                    <div class="label">
+                        <span>Date of birth</span>
+                        <i
+                            class="fa-solid fa-pen"
+                            @click="enableEdit('dateOfBirthInput')"
+                        ></i>
+                    </div>
+                    <div class="data">
+                        <input
+                            type="date"
+                            hidden
+                            id="dateOfBirthInput"
+                            v-model="user.dateOfBirth"
+                            disabled
+                            @blur="disableEdit('dateOfBirthInput')"
+                            @keypress="
+                                disableEditOnEnter($event, 'dateOfBirthInput')
+                            "
+                        />
+                    </div>
+                    <div class="label">
+                        <span>Phone number</span>
+                        <i
+                            class="fa-solid fa-pen"
+                            @click="enableEdit('phoneNumberInput')"
+                        ></i>
+                    </div>
+                    <div class="data">
+                        <input
+                            type="text"
+                            id="phoneNumberInput"
+                            v-model="user.phoneNumber"
+                            disabled
+                            @focusout="disableEdit('phoneNumberInput')"
+                            @keypress="
+                                disableEditOnEnter($event, 'phoneNumberInput')
+                            "
+                        />
+                    </div>
                 </div>
             </div>
             <div class="row push-bottom">
@@ -67,6 +124,7 @@ export default {
         return {
             user: "",
             showRegisterModal: false,
+            genderModal: false,
         };
     },
     components: {
@@ -77,13 +135,72 @@ export default {
     },
     mounted() {
         const navHeight = document.querySelector("nav").clientHeight + 1;
-        document.getElementById("profileContainer").style.height = `calc(100% - ${navHeight}px)`;
+        document.getElementById(
+            "profileContainer"
+        ).style.height = `calc(100% - ${navHeight}px)`;
 
         this.user = JSON.parse(localStorage.getItem("user"));
+        document.addEventListener("click", (e) => {
+            let element = document.getElementById("genderOverlay");
+            if (element == null) {
+                return;
+            }
+
+            if (element !== e.target && this.genderModal) {
+                element.style.opacity = 0;
+                this.genderModal = false;
+                setTimeout(() => {
+                    document.getElementById("genderOverlay").style.display =
+                        "none";
+                }, 200);
+            }
+        });
     },
     methods: {
         edit() {
             this.showRegisterModal = true;
+        },
+        enableEdit(id) {
+            const element = document.getElementById(id);
+            element.disabled = false;
+            if (id === "dateOfBirthInput") {
+                element.hidden = false;
+                setTimeout(() => {
+                    element.showPicker();
+                }, 1);
+            }
+            element.focus();
+        },
+        disableEdit(id) {
+            const element = document.getElementById(id);
+            element.disabled = true;
+            if (
+                this.user.dateOfBirth == undefined &&
+                id === "dateOfBirthInput"
+            ) {
+                element.hidden = true;
+            }
+        },
+        disableEditOnEnter(e, id) {
+            const element = document.getElementById(id);
+            if (e.keypress === "Enter" || e.keyCode === 13) {
+                element.disabled = true;
+            }
+        },
+        showGenderModal() {
+            document.getElementById("genderOverlay").style.display = "flex";
+            setTimeout(() => {
+                this.genderModal = true;
+                document.getElementById("genderOverlay").style.opacity = 1;
+            }, 10);
+        },
+        setGender(gender) {
+            this.user.gender = gender;
+            document.getElementById("genderOverlay").style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById("genderOverlay").style.display = "none";
+            }, 200);
+            this.genderModal = false;
         },
     },
 };
@@ -155,15 +272,36 @@ export default {
     padding: 0.8rem;
     flex: 1 1 0;
     max-height: 13rem;
+    max-width: 22.5rem;
+    position: relative;
+}
+
+.data input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgb(var(--clr-neutral-100));
 }
 
 .label {
+    display: flex;
+    justify-content: space-between;
     color: rgba(255, 255, 255, 50%);
     font-size: 18px;
 }
 
+.label i {
+    transition: color 0.2s ease-in-out;
+}
+
+.label i:hover {
+    cursor: pointer;
+    color: rgb(var(--clr-primary-300));
+}
+
 .data {
     font-size: 24px;
+    min-height: 2.25rem;
 }
 
 .about-headher {
@@ -179,6 +317,59 @@ export default {
     margin-top: auto;
     margin-inline: auto;
     justify-content: center;
+}
+
+.gender-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 1rem;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: 0.2s ease-in-out;
+}
+
+.gender-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex: 1 1 0;
+    transition: 0.2s ease-in-out;
+}
+
+.male {
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+.female {
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+.gender-container i {
+    font-size: 1.5rem;
+}
+
+.gender-container:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.male:hover {
+    color: cornflowerblue;
+}
+
+.female:hover {
+    color: pink;
 }
 
 ::v-deep .modal-container {

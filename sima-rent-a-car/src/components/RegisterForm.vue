@@ -20,17 +20,6 @@
                 <label>Email:</label>
                 <input type="email" v-model="user.email" />
             </div>
-            <div class="form-element">
-                <label>Date of Birth:</label>
-                <input type="date" v-model="user.dateOfBirth" />
-            </div>
-            <div class="form-element">
-                <label>Gender:</label>
-                <select v-model="user.gender">
-                    <option>Male</option>
-                    <option>Female</option>
-                </select>
-            </div>
             <div class="row">
                 <div class="form-element">
                     <label>Password:</label>
@@ -40,10 +29,6 @@
                     <label>Confirm Password:</label>
                     <input type="password" v-model="user.confirmPassword" />
                 </div>
-            </div>
-            <div class="form-element">
-                <label>Profile image url:</label>
-                <input type="text" v-model="user.imageUrl" />
             </div>
             <div class="error-msg">{{ error }}</div>
             <Button
@@ -67,11 +52,8 @@ export default {
                 lastName: "",
                 username: "",
                 email: "",
-                dateOfBirth: "",
-                gender: "",
                 password: "",
                 confirmPassword: "",
-                imageUrl: "",
             },
             error: "",
             registerText: "Register",

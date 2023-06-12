@@ -34,11 +34,12 @@ export default class UserService {
             dateOfBirth: data.dateOfBirth,
             deleted: false,
             id: result.value,
+            phoneNumber: data.phoneNumber,
         };
-        if (!user.imageUrl.match(/\.(jpeg|jpg|gif|png)$/)) {
-            user.imageUrl =
-                "https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0";
-        }
+        // if (!user.imageUrl.match(/\.(jpeg|jpg|gif|png)$/)) {
+        user.imageUrl =
+            "https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0";
+        // }
         this.repository?.save(user);
         result.value = omit(user, ["password"]);
         return result;
@@ -112,20 +113,18 @@ export default class UserService {
         } else if (list?.find((x) => x.email === data.email)) {
             result.message = "Email already exists.";
             return result;
+        } else if (!data.email.match(emailFormat) || data.email === "") {
+            result.message = "Invalid email.";
+            return result;
         } else if (data.password !== data.confirmPassword) {
             result.message = "Passwords don't match.";
             return result;
         } else if (data.password === "") {
             result.message = "Invalid password.";
-        } else if (!Object.values(Gender).includes(data.gender)) {
-            result.message = "Gender doesn't exist.";
-            return result;
-        } else if (data.gender === "") {
-            result.message = "Invalid gender.";
-            return result;
-        } else if (!data.email.match(emailFormat) || data.email === "") {
-            result.message = "Invalid email.";
-            return result;
+        } else if (data.firstName === "") {
+            result.message = "Invalid first name.";
+        } else if (data.lastName === "") {
+            result.message = "Invalid last name.";
         }
         result.success = true;
         result.message = "successful registration";
@@ -133,6 +132,7 @@ export default class UserService {
         return result;
     }
 
+    //ToDo: implement validation for phone number
     validateUpdatedUserData(data: any): Result {
         let result: Result = new Result();
 
@@ -142,13 +142,16 @@ export default class UserService {
         } else if (data.lastName === "") {
             result.message = "Invalid last name.";
             return result;
-        } else if (!Object.values(Gender).includes(data.gender)) {
+        } else if (
+            data.gender !== "" &&
+            !Object.values(Gender).includes(data.gender)
+        ) {
             result.message = "Gender doesn't exist.";
             return result;
-        } else if (data.gender === "") {
-            result.message = "Invalid gender.";
-            return result;
-        } else if (!data.imageUrl.match(/\.(jpeg|jpg|gif|png)$/)) {
+        } else if (
+            data.imageUrl !== null &&
+            !data.imageUrl.match(/\.(jpeg|jpg|gif|png)$/)
+        ) {
             result.message = "Invalid image url.";
             return result;
         }
