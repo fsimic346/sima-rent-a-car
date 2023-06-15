@@ -30,14 +30,19 @@
     --clr-info-900: 29, 1, 45;
 
     --clr-neutral-100: 255, 255, 255;
-    --clr-neutral-300: 172, 173, 185;
+    --clr-neutral-200: 242, 242, 242;
+    --clr-neutral-300: 222, 227, 237;
     --clr-neutral-500: 99, 101, 116;
-    --clr-neutral-700: 40, 43, 62;
-    --clr-neutral-900: 21, 24, 43;
+    --clr-neutral-600: 36, 41, 46;
+    --clr-neutral-700: 30, 36, 43;
+    --clr-neutral-900: 7, 12, 19;
 
-    --clr-background: var(--clr-neutral-100);
+    --clr-background: var(--clr-neutral-200);
+    --clr-background-secondary: var(--clr-neutral-300);
     --clr-text: var(--clr-neutral-900);
     --clr-text-contrast: var(--clr-neutral-100);
+    --clr-error: var(--clr-error-700);
+    --clr-success: var(--clr-success-700);
 
     --fnt-body: "Lato", sans-serif;
     --fnt-header: "Patua One", cursive;
@@ -52,9 +57,12 @@
 }
 
 .dark-theme {
-    --clr-background: 36, 41, 46;
+    --clr-background: var(--clr-neutral-600);
+    --clr-background-secondary: var(--clr-neutral-700);
     --clr-text: var(--clr-neutral-100);
     --clr-text-contrast: var(--clr-neutral-900);
+    --clr-error: var(--clr-error-300);
+    --clr-success: var(--clr-success-300);
 }
 .dark-theme a {
     color: var(--clr-primary-300);
@@ -70,6 +78,7 @@
 /* Remove default margin */
 * {
     margin: 0;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */

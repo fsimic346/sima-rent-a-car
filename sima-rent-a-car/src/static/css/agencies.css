@@ -23,7 +23,7 @@
 }
 
 .agency-card {
-    background-color: rgb(30, 36, 43);
+    background-color: rgb(var(--clr-background-secondary));
     display: flex;
     width: 42rem;
     transition: 0.3s ease-in-out;
@@ -32,7 +32,7 @@
 
 .agency-card:hover {
     cursor: pointer;
-    background-color: hsl(212, 18%, 22%);
+    filter: brightness(1.05);
     transform: scale(1.025);
 }
 
@@ -69,9 +69,9 @@
 
 .agency-hours {
     font-weight: bold;
-    color: rgb(var(--clr-error-300));
+    color: rgb(var(--clr-error));
 }
 
 .open .agency-hours {
-    color: rgb(var(--clr-success-300));
+    color: rgb(var(--clr-success));
 }
