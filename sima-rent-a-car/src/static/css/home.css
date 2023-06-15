@@ -32,7 +32,7 @@ img {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: rgb(var(--clr-text));
+    color: rgb(var(--clr-neutral-100));
 }
 
 .overlay h1 {
