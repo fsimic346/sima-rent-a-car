@@ -81,6 +81,7 @@
     justify-content: space-between;
     color: rgba(255, 255, 255, 50%);
     font-size: 18px;
+    align-items: center;
 }
 
 .label i {
@@ -163,4 +164,8 @@
 
 .female:hover {
     color: pink;
+}
+
+.error-msg {
+    color: rgb(var(--clr-error-300));
 }

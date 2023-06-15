@@ -56,6 +56,7 @@ export default class UserService {
         user.dateOfBirth = data.dateOfBirth;
         user.gender = data.gender;
         user.imageUrl = data.imageUrl;
+        user.phoneNumber = data.phoneNumber;
 
         this.repository?.update(user);
 
@@ -153,6 +154,9 @@ export default class UserService {
             !data.imageUrl.match(/\.(jpeg|jpg|gif|png)$/)
         ) {
             result.message = "Invalid image url.";
+            return result;
+        } else if (isNaN(data.phoneNumber)) {
+            result.message = "Invalid phone number";
             return result;
         }
         result.success = true;

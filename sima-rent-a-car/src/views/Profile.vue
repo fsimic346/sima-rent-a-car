@@ -96,44 +96,37 @@
                             @keypress="
                                 disableEditOnEnter($event, 'phoneNumberInput')
                             "
+                            @keyup="checkIfNumber()"
                         />
                     </div>
+                    <div class="error-msg">{{ error }}</div>
                 </div>
             </div>
             <div class="row push-bottom">
-                <Button text="Edit" @click="edit"></Button>
+                <Button :text="saveText" @click="edit" ref="saveBtn"></Button>
             </div>
         </div>
-
-        <vue-final-modal
-            v-model="showRegisterModal"
-            classes="modal-container"
-            content-class="modal-content"
-        >
-            <Edit />
-        </vue-final-modal>
     </div>
 </template>
 <script>
 import Button from "@/components/Button.vue";
-import { VueFinalModal, ModalsContainer } from "vue-final-modal";
-import Edit from "@/components/EditForm.vue";
 
 export default {
     data() {
         return {
             user: "",
-            showRegisterModal: false,
             genderModal: false,
+            saveText: "Save",
+            error: "",
         };
     },
     components: {
         Button,
-        VueFinalModal,
-        ModalsContainer,
-        Edit,
     },
     mounted() {
+        if (this.user.dateOfBirth !== null) {
+            document.getElementById("dateOfBirthInput").hidden = false;
+        }
         const navHeight = document.querySelector("nav").clientHeight + 1;
         document.getElementById(
             "profileContainer"
@@ -157,8 +150,21 @@ export default {
         });
     },
     methods: {
-        edit() {
-            this.showRegisterModal = true;
+        async edit() {
+            try {
+                this.saveText = "";
+                this.$refs.saveBtn.enabled = false;
+                await this.axios.patch(
+                    "http://localhost:8080/api/user",
+                    this.user
+                );
+                this.$refs.saveBtn.enabled = true;
+                this.saveText = "Save";
+            } catch (err) {
+                this.saveText = "Save";
+                this.$refs.saveBtn.enabled = true;
+                this.error = err.response.data;
+            }
         },
         enableEdit(id) {
             const element = document.getElementById(id);
@@ -202,20 +208,20 @@ export default {
             }, 200);
             this.genderModal = false;
         },
+        checkIfNumber() {
+            if (
+                this.user.phoneNumber !== null &&
+                isNaN(this.user.phoneNumber)
+            ) {
+                this.error = "Invalid phone number";
+                this.$refs.saveBtn.enabled = false;
+                return;
+            }
+
+            this.$refs.saveBtn.enabled = true;
+            this.error = "";
+        },
     },
 };
 </script>
-<style scoped src="../static/css/profile.css">
-::v-deep .modal-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-::v-deep .modal-content {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    border: none;
-    border-radius: 0.25rem;
-}
-</style>
+<style scoped src="../static/css/profile.css"></style>
