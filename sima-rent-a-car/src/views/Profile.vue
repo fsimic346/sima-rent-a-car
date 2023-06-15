@@ -53,38 +53,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row space-around">
-                    <div class="info-container">
-                        <div class="label">Role</div>
-                        <div class="data">{{ user.role }}</div>
-                    </div>
-                    <div class="info-container">
-                        <div class="label">
-                            <span>Gender</span>
-                            <i
-                                class="fa-solid fa-pen"
-                                @click="showGenderModal()"
-                            ></i>
-                        </div>
-                        <div class="data">{{ user.gender }}</div>
-                        <div class="gender-overlay" id="genderOverlay">
-                            <div
-                                class="gender-container male"
-                                @click="setGender('Male')"
-                            >
-                                <i class="fa-solid fa-mars"></i>
-                                <span>Male</span>
-                            </div>
-                            <div
-                                class="gender-container female"
-                                @click="setGender('Female')"
-                            >
-                                <i class="fa-solid fa-venus"></i>
-                                <span>Female</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="about-headher">
                         <div class="user-icon">
@@ -155,7 +123,19 @@
                 </div>
             </div>
         </div>
-        <div class="tabs">DFSHDS</div>
+        <div class="roles-commands">
+            <div class="tabs-overflow">
+                <div class="tabs-container">
+                    <Tab
+                        text="Create Menager"
+                        icon="fa-solid fa-user-tie"
+                    ></Tab>
+                    <Tab text="Create Agency" icon="fa-solid fa-car"></Tab>
+                    <Tab text="Users" icon="fa-solid fa-users"></Tab>
+                </div>
+            </div>
+            <div class="tab-content"></div>
+        </div>
     </div>
     <vue-final-modal
         v-model="showImageModal"
@@ -169,6 +149,7 @@
 import Button from "@/components/Button.vue";
 import { VueFinalModal, ModalsContainer } from "vue-final-modal";
 import ImageForm from "@/components/ImageForm.vue";
+import Tab from "@/components/Tab.vue";
 
 export default {
     data() {
@@ -185,6 +166,7 @@ export default {
         VueFinalModal,
         ModalsContainer,
         ImageForm,
+        Tab,
     },
     mounted() {
         if (this.user.dateOfBirth !== null) {

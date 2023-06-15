@@ -55,6 +55,7 @@
 
 .full-name {
     font-size: 30px;
+    white-space: nowrap;
 }
 
 .username {
@@ -195,4 +196,23 @@
 }
 .error-msg {
     color: rgb(var(--clr-error-300));
+}
+
+.tabs-container {
+    display: flex;
+    width: 100%;
+    gap: 1.5rem;
+}
+
+.tabs-overflow {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.roles-commands {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    width: 100%;
+    overflow: auto;
 }
