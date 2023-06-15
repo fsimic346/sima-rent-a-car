@@ -82,12 +82,14 @@
                             disabled
                             @focusout="disableEdit('phoneNumberInput')"
                             @keypress="disableEditOnEnter($event, 'phoneNumberInput')"
+                            @keyup="checkIfNumber()"
                         />
                     </div>
+                    <div class="error-msg">{{ error }}</div>
                 </div>
             </div>
             <div class="row push-bottom">
-                <Button text="Edit" @click="edit"></Button>
+                <Button :text="saveText" @click="edit" ref="saveBtn"></Button>
             </div>
         </div>
     </div>
@@ -110,6 +112,8 @@ export default {
             user: "",
             showImageModal: false,
             genderModal: false,
+            saveText: "Save",
+            error: "",
         };
     },
     components: {
@@ -119,6 +123,9 @@ export default {
         ImageForm,
     },
     mounted() {
+        if (this.user.dateOfBirth !== null) {
+            document.getElementById("dateOfBirthInput").hidden = false;
+        }
         const navHeight = document.querySelector("nav").clientHeight + 1;
         document.getElementById("profileContainer").style.height = `calc(100% - ${navHeight}px)`;
 
@@ -139,8 +146,18 @@ export default {
         });
     },
     methods: {
-        edit() {
-            // this.showRegisterModal = true;
+        async edit() {
+            try {
+                this.saveText = "";
+                this.$refs.saveBtn.enabled = false;
+                await this.axios.patch("http://localhost:8080/api/user", this.user);
+                this.$refs.saveBtn.enabled = true;
+                this.saveText = "Save";
+            } catch (err) {
+                this.saveText = "Save";
+                this.$refs.saveBtn.enabled = true;
+                this.error = err.response.data;
+            }
         },
         enableEdit(id) {
             const element = document.getElementById(id);
@@ -183,6 +200,16 @@ export default {
         },
         editImage() {
             this.showImageModal = true;
+        },
+        checkIfNumber() {
+            if (this.user.phoneNumber !== null && isNaN(this.user.phoneNumber)) {
+                this.error = "Invalid phone number";
+                this.$refs.saveBtn.enabled = false;
+                return;
+            }
+
+            this.$refs.saveBtn.enabled = true;
+            this.error = "";
         },
     },
 };

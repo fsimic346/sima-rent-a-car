@@ -82,6 +82,7 @@
     justify-content: space-between;
     color: rgba(var(--clr-text), 50%);
     font-size: 18px;
+    align-items: center;
 }
 
 .label i {
@@ -186,4 +187,7 @@
     opacity: 0;
     border-radius: 2rem;
     transition: 0.2s ease-in-out;
+}
+.error-msg {
+    color: rgb(var(--clr-error-300));
 }
