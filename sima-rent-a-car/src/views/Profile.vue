@@ -5,14 +5,51 @@
                 <div class="row">
                     <div
                         class="profile-image"
+                        @click="editImage()"
                         :style="{ backgroundImage: `url('${user.imageUrl}')` }"
-                    ></div>
+                    >
+                        <div class="image-overlay" id="imageOverlay">
+                            <i class="fa-solid fa-pen"></i>
+                        </div>
+                    </div>
                     <div class="credentials">
                         <div class="full-name">
                             <div>{{ user.firstName }} {{ user.lastName }}</div>
                         </div>
                         <div class="username">
                             <h2>@{{ user.username }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row space-around">
+                    <div class="info-container">
+                        <div class="label">Role</div>
+                        <div class="data">{{ user.role }}</div>
+                    </div>
+                    <div class="info-container">
+                        <div class="label">
+                            <span>Gender</span>
+                            <i
+                                class="fa-solid fa-pen"
+                                @click="showGenderModal()"
+                            ></i>
+                        </div>
+                        <div class="data">{{ user.gender }}</div>
+                        <div class="gender-overlay" id="genderOverlay">
+                            <div
+                                class="gender-container male"
+                                @click="setGender('Male')"
+                            >
+                                <i class="fa-solid fa-mars"></i>
+                                <span>Male</span>
+                            </div>
+                            <div
+                                class="gender-container female"
+                                @click="setGender('Female')"
+                            >
+                                <i class="fa-solid fa-venus"></i>
+                                <span>Female</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -120,14 +157,24 @@
         </div>
         <div class="tabs">DFSHDS</div>
     </div>
+    <vue-final-modal
+        v-model="showImageModal"
+        classes="modal-container"
+        content-class="modal-content"
+    >
+        <ImageForm @imageChanged="(val) => (this.user.imageUrl = val)" />
+    </vue-final-modal>
 </template>
 <script>
 import Button from "@/components/Button.vue";
+import { VueFinalModal, ModalsContainer } from "vue-final-modal";
+import ImageForm from "@/components/ImageForm.vue";
 
 export default {
     data() {
         return {
             user: "",
+            showImageModal: false,
             genderModal: false,
             saveText: "Save",
             error: "",
@@ -135,6 +182,9 @@ export default {
     },
     components: {
         Button,
+        VueFinalModal,
+        ModalsContainer,
+        ImageForm,
     },
     mounted() {
         if (this.user.dateOfBirth !== null) {
@@ -221,6 +271,9 @@ export default {
             }, 200);
             this.genderModal = false;
         },
+        editImage() {
+            this.showImageModal = true;
+        },
         checkIfNumber() {
             if (
                 this.user.phoneNumber !== null &&
@@ -238,3 +291,18 @@ export default {
 };
 </script>
 <style scoped src="../static/css/profile.css"></style>
+<style scoped>
+::v-deep .modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+::v-deep .modal-content {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: none;
+    border-radius: 0.25rem;
+    max-width: max-content;
+}
+</style>

@@ -7,6 +7,7 @@
     padding-block: 2rem;
     border: 4px solid rgb(var(--clr-primary-300));
     color: rgb(var(--clr-text));
+    max-width: max-content;
 }
 
 .user-form {
@@ -62,5 +63,5 @@ input:focus {
 }
 
 .error-msg {
-    color: rgb(var(--clr-error-300));
+    min-height: 24px;
 }

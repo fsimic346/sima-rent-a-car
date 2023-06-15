@@ -9,6 +9,7 @@ nav {
     z-index: 99;
     left: 0.5%;
     max-height: 40rem;
+    color: rgb(var(--clr-neutral-100));
 }
 .logo {
     display: flex;
@@ -30,7 +31,6 @@ nav {
     font-weight: 700;
     padding: 0.1rem 1.5rem;
     border-radius: 7px;
-    color: rgb(var(--clr-text));
     font-size: 1.2rem;
     position: relative;
 }
@@ -177,4 +177,5 @@ input:checked + .slider:before {
     border-bottom: 1px solid rgba(var(--clr-text), 50%);
     position: inherit;
     margin-inline: auto;
+    color: rgb(var(--clr-text));
 }
