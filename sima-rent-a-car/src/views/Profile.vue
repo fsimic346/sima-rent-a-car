@@ -1,111 +1,124 @@
 <template>
-    <div class="container" id="profileContainer">
-        <div class="user-info">
-            <div class="row">
-                <div
-                    class="profile-image"
-                    :style="{ backgroundImage: `url('${user.imageUrl}')` }"
-                ></div>
-                <div class="credentials">
-                    <div class="full-name">
-                        <div>{{ user.firstName }} {{ user.lastName }}</div>
-                    </div>
-                    <div class="username">
-                        <h2>@{{ user.username }}</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row space-around">
-                <div class="info-container">
-                    <div class="label">Role</div>
-                    <div class="data">{{ user.role }}</div>
-                </div>
-                <div class="info-container">
-                    <div class="label">
-                        <span>Gender</span>
-                        <i
-                            class="fa-solid fa-pen"
-                            @click="showGenderModal()"
-                        ></i>
-                    </div>
-                    <div class="data">{{ user.gender }}</div>
-                    <div class="gender-overlay" id="genderOverlay">
-                        <div
-                            class="gender-container male"
-                            @click="setGender('Male')"
-                        >
-                            <i class="fa-solid fa-mars"></i>
-                            <span>Male</span>
+    <div class="container" id="container">
+        <div class="profile-container" id="profileContainer">
+            <div class="user-info">
+                <div class="row">
+                    <div
+                        class="profile-image"
+                        :style="{ backgroundImage: `url('${user.imageUrl}')` }"
+                    ></div>
+                    <div class="credentials">
+                        <div class="full-name">
+                            <div>{{ user.firstName }} {{ user.lastName }}</div>
                         </div>
-                        <div
-                            class="gender-container female"
-                            @click="setGender('Female')"
-                        >
-                            <i class="fa-solid fa-venus"></i>
-                            <span>Female</span>
+                        <div class="username">
+                            <h2>@{{ user.username }}</h2>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="about-headher">
-                    <div class="user-icon">
-                        <i class="fa-solid fa-circle-info"></i>
+                <div class="row space-around">
+                    <div class="info-container">
+                        <div class="label">Role</div>
+                        <div class="data">{{ user.role }}</div>
                     </div>
-                    <h3>About</h3>
+                    <div class="info-container">
+                        <div class="label">
+                            <span>Gender</span>
+                            <i
+                                class="fa-solid fa-pen"
+                                @click="showGenderModal()"
+                            ></i>
+                        </div>
+                        <div class="data">{{ user.gender }}</div>
+                        <div class="gender-overlay" id="genderOverlay">
+                            <div
+                                class="gender-container male"
+                                @click="setGender('Male')"
+                            >
+                                <i class="fa-solid fa-mars"></i>
+                                <span>Male</span>
+                            </div>
+                            <div
+                                class="gender-container female"
+                                @click="setGender('Female')"
+                            >
+                                <i class="fa-solid fa-venus"></i>
+                                <span>Female</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row space-around">
-                <div class="info-container">
-                    <div class="label">Email</div>
-                    <div class="data">{{ user.email }}</div>
-                    <div class="label">
-                        <span>Date of birth</span>
-                        <i
-                            class="fa-solid fa-pen"
-                            @click="enableEdit('dateOfBirthInput')"
-                        ></i>
+                <div class="row">
+                    <div class="about-headher">
+                        <div class="user-icon">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+                        <h3>About</h3>
                     </div>
-                    <div class="data">
-                        <input
-                            type="date"
-                            hidden
-                            id="dateOfBirthInput"
-                            v-model="user.dateOfBirth"
-                            disabled
-                            @blur="disableEdit('dateOfBirthInput')"
-                            @keypress="
-                                disableEditOnEnter($event, 'dateOfBirthInput')
-                            "
-                        />
-                    </div>
-                    <div class="label">
-                        <span>Phone number</span>
-                        <i
-                            class="fa-solid fa-pen"
-                            @click="enableEdit('phoneNumberInput')"
-                        ></i>
-                    </div>
-                    <div class="data">
-                        <input
-                            type="text"
-                            id="phoneNumberInput"
-                            v-model="user.phoneNumber"
-                            disabled
-                            @focusout="disableEdit('phoneNumberInput')"
-                            @keypress="
-                                disableEditOnEnter($event, 'phoneNumberInput')
-                            "
-                            @keyup="checkIfNumber()"
-                        />
-                    </div>
-                    <div class="error-msg">{{ error }}</div>
                 </div>
-            </div>
-            <div class="row push-bottom">
-                <Button :text="saveText" @click="edit" ref="saveBtn"></Button>
+                <div class="row space-around">
+                    <div class="info-container">
+                        <div class="label">Email</div>
+                        <div class="data">{{ user.email }}</div>
+                        <div class="label">
+                            <span>Date of birth</span>
+                            <i
+                                class="fa-solid fa-pen"
+                                @click="enableEdit('dateOfBirthInput')"
+                            ></i>
+                        </div>
+                        <div class="data">
+                            <input
+                                type="date"
+                                hidden
+                                id="dateOfBirthInput"
+                                v-model="user.dateOfBirth"
+                                disabled
+                                @blur="disableEdit('dateOfBirthInput')"
+                                @keypress="
+                                    disableEditOnEnter(
+                                        $event,
+                                        'dateOfBirthInput'
+                                    )
+                                "
+                            />
+                        </div>
+                        <div class="label">
+                            <span>Phone number</span>
+                            <i
+                                class="fa-solid fa-pen"
+                                @click="enableEdit('phoneNumberInput')"
+                            ></i>
+                        </div>
+                        <div class="data">
+                            <input
+                                type="text"
+                                id="phoneNumberInput"
+                                v-model="user.phoneNumber"
+                                disabled
+                                @focusout="disableEdit('phoneNumberInput')"
+                                @keypress="
+                                    disableEditOnEnter(
+                                        $event,
+                                        'phoneNumberInput'
+                                    )
+                                "
+                                @keyup="checkIfNumber()"
+                            />
+                        </div>
+                        <div class="error-msg">{{ error }}</div>
+                    </div>
+                </div>
+                <div class="row push-bottom">
+                    <Button
+                        :text="saveText"
+                        @click="edit"
+                        ref="saveBtn"
+                    ></Button>
+                </div>
             </div>
         </div>
+        <div class="tabs">DFSHDS</div>
     </div>
 </template>
 <script>
@@ -129,7 +142,7 @@ export default {
         }
         const navHeight = document.querySelector("nav").clientHeight + 1;
         document.getElementById(
-            "profileContainer"
+            "container"
         ).style.height = `calc(100% - ${navHeight}px)`;
 
         this.user = JSON.parse(localStorage.getItem("user"));
