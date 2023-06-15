@@ -1,1 +1,26 @@
-[{"username":"admin","email":"admin@admin.com","password":"$2b$13$2LjGTboBqCB3IczwMp7M0uQsuSz4BA9t06CjhXUPucNCQneGkQstC","imageUrl":"https://media.tenor.com/yooFtb6Z6QUAAAAC/american-psycho-christian-bale.gif","firstName":"admin","lastName":"admin","gender":"Male","role":"Admin","dateOfBirth":"2000-04-04","deleted":false,"id":1},{"username":"gagi","email":"gagimaslac@gmail.com","password":"$2b$13$skBwJW7P.IeJjqyCQRLL6uMop8z.m4/ABQ6WD9nDN6rUHz8t3SElm","imageUrl":"https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0","firstName":"Dragoslav","lastName":"Maslać","role":"Customer","deleted":false,"id":2}]
+[
+    {
+        "username": "admin",
+        "email": "admin@admin.com",
+        "password": "$2b$13$2LjGTboBqCB3IczwMp7M0uQsuSz4BA9t06CjhXUPucNCQneGkQstC",
+        "imageUrl": "https://media.tenor.com/yooFtb6Z6QUAAAAC/american-psycho-christian-bale.gif",
+        "firstName": "admin",
+        "lastName": "admin",
+        "gender": "Male",
+        "role": "Admin",
+        "dateOfBirth": "2000-04-04",
+        "deleted": false,
+        "id": 1
+    },
+    {
+        "username": "gagi",
+        "email": "gagimaslac@gmail.com",
+        "password": "$2b$13$skBwJW7P.IeJjqyCQRLL6uMop8z.m4/ABQ6WD9nDN6rUHz8t3SElm",
+        "imageUrl": "https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0",
+        "firstName": "Dragoslav",
+        "lastName": "Maslać",
+        "role": "Customer",
+        "deleted": false,
+        "id": 2
+    }
+]

@@ -4,8 +4,13 @@
             <div class="row">
                 <div
                     class="profile-image"
+                    @click="editImage()"
                     :style="{ backgroundImage: `url('${user.imageUrl}')` }"
-                ></div>
+                >
+                    <div class="image-overlay" id="imageOverlay">
+                        <i class="fa-solid fa-pen"></i>
+                    </div>
+                </div>
                 <div class="credentials">
                     <div class="full-name">
                         <div>{{ user.firstName }} {{ user.lastName }}</div>
@@ -23,24 +28,15 @@
                 <div class="info-container">
                     <div class="label">
                         <span>Gender</span>
-                        <i
-                            class="fa-solid fa-pen"
-                            @click="showGenderModal()"
-                        ></i>
+                        <i class="fa-solid fa-pen" @click="showGenderModal()"></i>
                     </div>
                     <div class="data">{{ user.gender }}</div>
                     <div class="gender-overlay" id="genderOverlay">
-                        <div
-                            class="gender-container male"
-                            @click="setGender('Male')"
-                        >
+                        <div class="gender-container male" @click="setGender('Male')">
                             <i class="fa-solid fa-mars"></i>
                             <span>Male</span>
                         </div>
-                        <div
-                            class="gender-container female"
-                            @click="setGender('Female')"
-                        >
+                        <div class="gender-container female" @click="setGender('Female')">
                             <i class="fa-solid fa-venus"></i>
                             <span>Female</span>
                         </div>
@@ -61,10 +57,7 @@
                     <div class="data">{{ user.email }}</div>
                     <div class="label">
                         <span>Date of birth</span>
-                        <i
-                            class="fa-solid fa-pen"
-                            @click="enableEdit('dateOfBirthInput')"
-                        ></i>
+                        <i class="fa-solid fa-pen" @click="enableEdit('dateOfBirthInput')"></i>
                     </div>
                     <div class="data">
                         <input
@@ -74,17 +67,12 @@
                             v-model="user.dateOfBirth"
                             disabled
                             @blur="disableEdit('dateOfBirthInput')"
-                            @keypress="
-                                disableEditOnEnter($event, 'dateOfBirthInput')
-                            "
+                            @keypress="disableEditOnEnter($event, 'dateOfBirthInput')"
                         />
                     </div>
                     <div class="label">
                         <span>Phone number</span>
-                        <i
-                            class="fa-solid fa-pen"
-                            @click="enableEdit('phoneNumberInput')"
-                        ></i>
+                        <i class="fa-solid fa-pen" @click="enableEdit('phoneNumberInput')"></i>
                     </div>
                     <div class="data">
                         <input
@@ -93,9 +81,7 @@
                             v-model="user.phoneNumber"
                             disabled
                             @focusout="disableEdit('phoneNumberInput')"
-                            @keypress="
-                                disableEditOnEnter($event, 'phoneNumberInput')
-                            "
+                            @keypress="disableEditOnEnter($event, 'phoneNumberInput')"
                         />
                     </div>
                 </div>
@@ -104,26 +90,25 @@
                 <Button text="Edit" @click="edit"></Button>
             </div>
         </div>
-
-        <vue-final-modal
-            v-model="showRegisterModal"
-            classes="modal-container"
-            content-class="modal-content"
-        >
-            <Edit />
-        </vue-final-modal>
     </div>
+    <vue-final-modal
+        v-model="showImageModal"
+        classes="modal-container"
+        content-class="modal-content"
+    >
+        <ImageForm @imageChanged="(val) => (this.user.imageUrl = val)" />
+    </vue-final-modal>
 </template>
 <script>
 import Button from "@/components/Button.vue";
 import { VueFinalModal, ModalsContainer } from "vue-final-modal";
-import Edit from "@/components/EditForm.vue";
+import ImageForm from "@/components/ImageForm.vue";
 
 export default {
     data() {
         return {
             user: "",
-            showRegisterModal: false,
+            showImageModal: false,
             genderModal: false,
         };
     },
@@ -131,13 +116,11 @@ export default {
         Button,
         VueFinalModal,
         ModalsContainer,
-        Edit,
+        ImageForm,
     },
     mounted() {
         const navHeight = document.querySelector("nav").clientHeight + 1;
-        document.getElementById(
-            "profileContainer"
-        ).style.height = `calc(100% - ${navHeight}px)`;
+        document.getElementById("profileContainer").style.height = `calc(100% - ${navHeight}px)`;
 
         this.user = JSON.parse(localStorage.getItem("user"));
         document.addEventListener("click", (e) => {
@@ -150,15 +133,14 @@ export default {
                 element.style.opacity = 0;
                 this.genderModal = false;
                 setTimeout(() => {
-                    document.getElementById("genderOverlay").style.display =
-                        "none";
+                    document.getElementById("genderOverlay").style.display = "none";
                 }, 200);
             }
         });
     },
     methods: {
         edit() {
-            this.showRegisterModal = true;
+            // this.showRegisterModal = true;
         },
         enableEdit(id) {
             const element = document.getElementById(id);
@@ -174,10 +156,7 @@ export default {
         disableEdit(id) {
             const element = document.getElementById(id);
             element.disabled = true;
-            if (
-                this.user.dateOfBirth == undefined &&
-                id === "dateOfBirthInput"
-            ) {
+            if (this.user.dateOfBirth == undefined && id === "dateOfBirthInput") {
                 element.hidden = true;
             }
         },
@@ -202,10 +181,14 @@ export default {
             }, 200);
             this.genderModal = false;
         },
+        editImage() {
+            this.showImageModal = true;
+        },
     },
 };
 </script>
-<style scoped src="../static/css/profile.css">
+<style scoped src="../static/css/profile.css"></style>
+<style scoped>
 ::v-deep .modal-container {
     display: flex;
     justify-content: center;
@@ -217,5 +200,6 @@ export default {
     margin: 0;
     border: none;
     border-radius: 0.25rem;
+    max-width: max-content;
 }
 </style>
