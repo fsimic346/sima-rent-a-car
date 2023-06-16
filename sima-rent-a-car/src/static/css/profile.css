@@ -89,6 +89,7 @@
     color: rgba(var(--clr-text), 50%);
     font-size: 18px;
     align-items: center;
+    transition: all 0.2s linear;
 }
 
 .label i {
@@ -207,6 +208,7 @@
 .tabs-overflow {
     overflow-x: auto;
     width: 100%;
+    padding-bottom: 1.5rem;
 }
 
 .roles-commands {
@@ -215,4 +217,10 @@
     padding: 1.5rem;
     width: 100%;
     overflow: auto;
+}
+
+.selected {
+    color: rgb(var(--clr-primary-300));
+    transform: scale(1.01);
+    /* font-weight: bold; */
 }

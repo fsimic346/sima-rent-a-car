@@ -27,9 +27,11 @@ export default {
     color: rgb(var(--clr-text));
     border-radius: 0.6rem;
     font-size: 20px;
-    flex: 0 0 20%;
+    flex: 1 0 0;
     white-space: nowrap;
     transition: 0.4s;
+    min-width: 17.5rem;
+    max-width: max-content;
 }
 
 .tab:hover {

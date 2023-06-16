@@ -29,24 +29,15 @@
                     <div class="info-container">
                         <div class="label">
                             <span>Gender</span>
-                            <i
-                                class="fa-solid fa-pen"
-                                @click="showGenderModal()"
-                            ></i>
+                            <i class="fa-solid fa-pen" @click="showGenderModal()"></i>
                         </div>
                         <div class="data">{{ user.gender }}</div>
                         <div class="gender-overlay" id="genderOverlay">
-                            <div
-                                class="gender-container male"
-                                @click="setGender('Male')"
-                            >
+                            <div class="gender-container male" @click="setGender('Male')">
                                 <i class="fa-solid fa-mars"></i>
                                 <span>Male</span>
                             </div>
-                            <div
-                                class="gender-container female"
-                                @click="setGender('Female')"
-                            >
+                            <div class="gender-container female" @click="setGender('Female')">
                                 <i class="fa-solid fa-venus"></i>
                                 <span>Female</span>
                             </div>
@@ -67,10 +58,7 @@
                         <div class="data">{{ user.email }}</div>
                         <div class="label">
                             <span>Date of birth</span>
-                            <i
-                                class="fa-solid fa-pen"
-                                @click="enableEdit('dateOfBirthInput')"
-                            ></i>
+                            <i class="fa-solid fa-pen" @click="enableEdit('dateOfBirthInput')"></i>
                         </div>
                         <div class="data">
                             <input
@@ -80,20 +68,12 @@
                                 v-model="user.dateOfBirth"
                                 disabled
                                 @blur="disableEdit('dateOfBirthInput')"
-                                @keypress="
-                                    disableEditOnEnter(
-                                        $event,
-                                        'dateOfBirthInput'
-                                    )
-                                "
+                                @keypress="disableEditOnEnter($event, 'dateOfBirthInput')"
                             />
                         </div>
                         <div class="label">
                             <span>Phone number</span>
-                            <i
-                                class="fa-solid fa-pen"
-                                @click="enableEdit('phoneNumberInput')"
-                            ></i>
+                            <i class="fa-solid fa-pen" @click="enableEdit('phoneNumberInput')"></i>
                         </div>
                         <div class="data">
                             <input
@@ -102,12 +82,7 @@
                                 v-model="user.phoneNumber"
                                 disabled
                                 @focusout="disableEdit('phoneNumberInput')"
-                                @keypress="
-                                    disableEditOnEnter(
-                                        $event,
-                                        'phoneNumberInput'
-                                    )
-                                "
+                                @keypress="disableEditOnEnter($event, 'phoneNumberInput')"
                                 @keyup="checkIfNumber()"
                             />
                         </div>
@@ -115,21 +90,14 @@
                     </div>
                 </div>
                 <div class="row push-bottom">
-                    <Button
-                        :text="saveText"
-                        @click="edit"
-                        ref="saveBtn"
-                    ></Button>
+                    <Button :text="saveText" @click="edit" ref="saveBtn"></Button>
                 </div>
             </div>
         </div>
         <div class="roles-commands">
             <div class="tabs-overflow">
                 <div class="tabs-container">
-                    <Tab
-                        text="Create Menager"
-                        icon="fa-solid fa-user-tie"
-                    ></Tab>
+                    <Tab text="Create Manager" icon="fa-solid fa-user-tie"></Tab>
                     <Tab text="Create Agency" icon="fa-solid fa-car"></Tab>
                     <Tab text="Users" icon="fa-solid fa-users"></Tab>
                 </div>
@@ -173,9 +141,7 @@ export default {
             document.getElementById("dateOfBirthInput").hidden = false;
         }
         const navHeight = document.querySelector("nav").clientHeight + 1;
-        document.getElementById(
-            "container"
-        ).style.height = `calc(100% - ${navHeight}px)`;
+        document.getElementById("container").style.height = `calc(100% - ${navHeight}px)`;
 
         this.user = JSON.parse(localStorage.getItem("user"));
         document.addEventListener("click", (e) => {
@@ -188,8 +154,7 @@ export default {
                 element.style.opacity = 0;
                 this.genderModal = false;
                 setTimeout(() => {
-                    document.getElementById("genderOverlay").style.display =
-                        "none";
+                    document.getElementById("genderOverlay").style.display = "none";
                 }, 200);
             }
         });
@@ -199,10 +164,7 @@ export default {
             try {
                 this.saveText = "";
                 this.$refs.saveBtn.enabled = false;
-                await this.axios.patch(
-                    "http://localhost:8080/api/user",
-                    this.user
-                );
+                await this.axios.patch("http://localhost:8080/api/user", this.user);
                 this.$refs.saveBtn.enabled = true;
                 this.saveText = "Save";
             } catch (err) {
@@ -221,14 +183,13 @@ export default {
                 }, 1);
             }
             element.focus();
+            element.parentElement.previousElementSibling.classList.toggle("selected");
         },
         disableEdit(id) {
             const element = document.getElementById(id);
             element.disabled = true;
-            if (
-                this.user.dateOfBirth == undefined &&
-                id === "dateOfBirthInput"
-            ) {
+            element.parentElement.previousElementSibling.classList.toggle("selected");
+            if (this.user.dateOfBirth == undefined && id === "dateOfBirthInput") {
                 element.hidden = true;
             }
         },
@@ -257,10 +218,7 @@ export default {
             this.showImageModal = true;
         },
         checkIfNumber() {
-            if (
-                this.user.phoneNumber !== null &&
-                isNaN(this.user.phoneNumber)
-            ) {
+            if (this.user.phoneNumber !== null && isNaN(this.user.phoneNumber)) {
                 this.error = "Invalid phone number";
                 this.$refs.saveBtn.enabled = false;
                 return;
