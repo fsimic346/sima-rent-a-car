@@ -97,12 +97,29 @@
         <div class="roles-commands">
             <div class="tabs-overflow">
                 <div class="tabs-container">
-                    <Tab text="Create Manager" icon="fa-solid fa-user-tie"></Tab>
-                    <Tab text="Create Agency" icon="fa-solid fa-car"></Tab>
-                    <Tab text="Users" icon="fa-solid fa-users"></Tab>
+                    <Tab
+                        text="Create Manager"
+                        ref="CreateManager"
+                        icon="fa-solid fa-user-tie"
+                        @selectedTabChanged="selectedTabChanged"
+                    ></Tab>
+                    <Tab
+                        text="Create Agency"
+                        ref="CreateAgency"
+                        icon="fa-solid fa-car"
+                        @selectedTabChanged="selectedTabChanged"
+                    ></Tab>
+                    <Tab
+                        text="Users"
+                        ref="Users"
+                        icon="fa-solid fa-users"
+                        @selectedTabChanged="selectedTabChanged"
+                    ></Tab>
                 </div>
             </div>
-            <div class="tab-content"></div>
+            <div class="tab-content">
+                <!-- <Component v-if:"selectedTab==='Component'"/> -->
+            </div>
         </div>
     </div>
     <vue-final-modal
@@ -127,6 +144,7 @@ export default {
             genderModal: false,
             saveText: "Save",
             error: "",
+            selectedTab: "",
         };
     },
     components: {
@@ -226,6 +244,13 @@ export default {
 
             this.$refs.saveBtn.enabled = true;
             this.error = "";
+        },
+        selectedTabChanged(ref) {
+            if (ref === this.selectedTab) return;
+            if (this.selectedTab !== "") {
+                this.$refs[this.selectedTab].selected = false;
+            }
+            this.selectedTab = ref;
         },
     },
 };

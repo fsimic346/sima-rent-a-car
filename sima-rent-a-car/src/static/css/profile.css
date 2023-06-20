@@ -224,3 +224,8 @@
     transform: scale(1.01);
     /* font-weight: bold; */
 }
+
+.selected-tab {
+    border-color: rgb(var(--clr-primary-300)) !important;
+    color: rgb(var(--clr-primary-300));
+}

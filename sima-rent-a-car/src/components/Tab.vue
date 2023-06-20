@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="tab">
+    <div class="tab" :class="{ 'selected-tab': selected }" @click="setSelected">
         <div class="icon">
             <i :class="icon"></i>
         </div>
@@ -13,6 +13,18 @@ export default {
     props: {
         text: String,
         icon: String,
+    },
+    expose: ["selected"],
+    data() {
+        return {
+            selected: false,
+        };
+    },
+    methods: {
+        setSelected() {
+            this.selected = true;
+            this.$emit("selectedTabChanged", this.text.replace(/ /g, ""));
+        },
     },
 };
 </script>
@@ -29,15 +41,16 @@ export default {
     font-size: 20px;
     flex: 1 0 0;
     white-space: nowrap;
-    transition: 0.4s;
+    transition: 0.3s ease-in-out;
     min-width: 17.5rem;
     max-width: max-content;
 }
 
 .tab:hover {
-    background-color: rgba(var(--clr-background), 0.8);
-    border-color: rgb(var(--clr-primary-300));
-    color: rgb(var(--clr-primary-300));
+    /* background-color: rgba(var(--clr-text-contrast), 0.8); */
+    border-color: rgb(var(--clr-text));
+    filter: brightness(1.1);
+    /* color: rgb(var(--clr-primary-300)); */
     cursor: pointer;
 }
 
