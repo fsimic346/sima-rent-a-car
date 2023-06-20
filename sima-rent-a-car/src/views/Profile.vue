@@ -118,7 +118,8 @@
                 </div>
             </div>
             <div class="tab-content">
-                <!-- <Component v-if:"selectedTab==='Component'"/> -->
+                <!-- <Component v-if="selectedTab==='Component'"/> -->
+                <CreateManager v-if="selectedTab === 'CreateManager'" />
             </div>
         </div>
     </div>
@@ -134,6 +135,7 @@
 import Button from "@/components/Button.vue";
 import { VueFinalModal, ModalsContainer } from "vue-final-modal";
 import ImageForm from "@/components/ImageForm.vue";
+import CreateManager from "@/components/tabs/CreateManager.vue";
 import Tab from "@/components/Tab.vue";
 
 export default {
@@ -153,10 +155,14 @@ export default {
         ModalsContainer,
         ImageForm,
         Tab,
+        CreateManager,
     },
     mounted() {
         if (this.user.dateOfBirth !== null) {
             document.getElementById("dateOfBirthInput").hidden = false;
+        }
+        if (this.user.dateOfBirth === undefined) {
+            document.getElementById("dateOfBirthInput").hidden = true;
         }
         const navHeight = document.querySelector("nav").clientHeight + 1;
         document.getElementById("container").style.height = `calc(100% - ${navHeight}px)`;

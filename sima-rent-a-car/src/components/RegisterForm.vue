@@ -31,12 +31,7 @@
                 </div>
             </div>
             <div class="error-msg">{{ error }}</div>
-            <Button
-                class="register-btn"
-                :text="registerText"
-                @click="register"
-                ref="registerBtn"
-            />
+            <Button class="register-btn" :text="registerText" @click="register" ref="registerBtn" />
         </form>
     </div>
 </template>
@@ -67,10 +62,7 @@ export default {
             try {
                 this.registerText = "";
                 this.$refs.registerBtn.enabled = false;
-                const res = await this.axios.post(
-                    "http://localhost:8080/api/user",
-                    this.user
-                );
+                const res = await this.axios.post("http://localhost:8080/api/user", this.user);
                 this.$cookie.setCookie("token", res.data.token);
                 localStorage.setItem("user", JSON.stringify(res.data.user));
                 this.$router.go("/");
