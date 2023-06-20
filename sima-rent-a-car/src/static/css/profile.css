@@ -225,10 +225,19 @@
   border-radius: 0.5rem;
 }
 
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(var(--clr-background-secondary));
+  height: 100%;
+  border-radius: 0.5rem;
+}
+
 .roles-commands {
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
+  padding-bottom: 0rem;
   width: 100%;
   overflow: auto;
 }
@@ -240,6 +249,6 @@
 }
 
 .selected-tab {
-    border-color: rgb(var(--clr-primary-300)) !important;
-    color: rgb(var(--clr-primary-300));
+  border-color: rgb(var(--clr-primary-300)) !important;
+  color: rgb(var(--clr-primary-300));
 }
