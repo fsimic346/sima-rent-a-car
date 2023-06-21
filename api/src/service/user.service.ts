@@ -18,10 +18,7 @@ export default class UserService {
         if (!result.success) {
             return result;
         }
-        const hashedPassword: string = await bcrypt.hash(
-            data.password,
-            saltRounds
-        );
+        const hashedPassword: string = await bcrypt.hash(data.password, saltRounds);
         const user: User = {
             username: data.username,
             email: data.email,
@@ -31,6 +28,36 @@ export default class UserService {
             lastName: data.lastName,
             gender: data.gender as Gender,
             role: Role.Customer,
+            dateOfBirth: data.dateOfBirth,
+            deleted: false,
+            id: result.value,
+            phoneNumber: data.phoneNumber,
+        };
+        // if (!user.imageUrl.match(/\.(jpeg|jpg|gif|png)$/)) {
+        user.imageUrl =
+            "https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0";
+        // }
+        this.repository?.save(user);
+        result.value = omit(user, ["password"]);
+        return result;
+    }
+
+    async addManager(data: any): Promise<Result> {
+        const result = this.validateNewManagerData(data);
+
+        if (!result.success) {
+            return result;
+        }
+        const hashedPassword: string = await bcrypt.hash(data.password, saltRounds);
+        const user: User = {
+            username: data.username,
+            email: data.email,
+            password: hashedPassword,
+            imageUrl: data.imageUrl,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            gender: data.gender as Gender,
+            role: Role.Manager,
             dateOfBirth: data.dateOfBirth,
             deleted: false,
             id: result.value,
@@ -68,21 +95,14 @@ export default class UserService {
     }
 
     getByUsername(username: string): User | undefined {
-        return (this.repository?.getAll() as User[]).find(
-            (x) => x.username == username
-        );
+        return (this.repository?.getAll() as User[]).find((x) => x.username == username);
     }
 
     getByEmail(email: string): User | undefined {
-        return (this.repository?.getAll() as User[]).find(
-            (x) => x.email == email
-        );
+        return (this.repository?.getAll() as User[]).find((x) => x.email == email);
     }
 
-    async login(
-        usernameOrEmail: string,
-        password: string
-    ): Promise<User | undefined> {
+    async login(usernameOrEmail: string, password: string): Promise<User | undefined> {
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
         let user: User | undefined;
         if (usernameOrEmail.match(emailFormat)) {
@@ -105,30 +125,72 @@ export default class UserService {
         const list: User[] = this.repository?.getAll() as User[];
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
-        if (list?.find((x) => x.username === data.username)) {
+        if (data.username === "" || !("username" in data)) {
+            result.message = "Invalid username.";
+            return result;
+        } else if (list?.find((x) => x.username === data.username)) {
             result.message = "Username already exists.";
             return result;
-        } else if (data.username === "") {
-            result.message = "Invalid username.";
+        } else if (data.email === "" || !("email" in data)) {
+            result.message = "Invalid email.";
+            return result;
+        } else if (!data.email.match(emailFormat)) {
+            result.message = "Invalid email.";
             return result;
         } else if (list?.find((x) => x.email === data.email)) {
             result.message = "Email already exists.";
             return result;
-        } else if (!data.email.match(emailFormat) || data.email === "") {
-            result.message = "Invalid email.";
-            return result;
         } else if (data.password !== data.confirmPassword) {
             result.message = "Passwords don't match.";
             return result;
-        } else if (data.password === "") {
+        } else if (data.password === "" || !("password" in data)) {
             result.message = "Invalid password.";
-        } else if (data.firstName === "") {
+            return result;
+        } else if (data.firstName === "" || !("firstName" in data)) {
             result.message = "Invalid first name.";
-        } else if (data.lastName === "") {
+            return result;
+        } else if (data.lastName === "" || !("lastName" in data)) {
             result.message = "Invalid last name.";
+            return result;
         }
         result.success = true;
         result.message = "successful registration";
+        result.value = list === undefined ? 1 : list?.length + 1;
+        return result;
+    }
+
+    validateNewManagerData(data: any): Result {
+        let result: Result = new Result();
+        const list: User[] = this.repository?.getAll() as User[];
+        const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+        if (data.username === "" || !("username" in data)) {
+            result.message = "Invalid username.";
+            return result;
+        } else if (list?.find((x) => x.username === data.username)) {
+            result.message = "Username already exists.";
+            return result;
+        } else if (data.email === "" || !("email" in data)) {
+            result.message = "Invalid email.";
+            return result;
+        } else if (list?.find((x) => x.email === data.email)) {
+            result.message = "Email already exists.";
+            return result;
+        } else if (!data.email.match(emailFormat)) {
+            result.message = "Invalid email.";
+            return result;
+        } else if (data.password === "" || !("password" in data)) {
+            result.message = "Invalid password.";
+            return result;
+        } else if (data.firstName === "" || !("firstName" in data)) {
+            result.message = "Invalid first name.";
+            return result;
+        } else if (data.lastName === "" || !("lastName" in data)) {
+            result.message = "Invalid last name.";
+            return result;
+        }
+        result.success = true;
+        result.message = "successful manager registration";
         result.value = list === undefined ? 1 : list?.length + 1;
         return result;
     }
@@ -137,20 +199,22 @@ export default class UserService {
     validateUpdatedUserData(data: any): Result {
         let result: Result = new Result();
 
-        if (data.firstName === "") {
+        if (data.firstName === "" || !("firstName" in data)) {
             result.message = "Invalid first name.";
             return result;
-        } else if (data.lastName === "") {
+        } else if (data.lastName === "" || !("lastName" in data)) {
             result.message = "Invalid last name.";
             return result;
         } else if (
             data.gender !== "" &&
+            "gender" in data &&
             !Object.values(Gender).includes(data.gender)
         ) {
             result.message = "Gender doesn't exist.";
             return result;
         } else if (
             data.imageUrl !== null &&
+            "imageUrl" in data &&
             !data.imageUrl.match(/\.(jpeg|jpg|gif|png)$/)
         ) {
             result.message = "Invalid image url.";

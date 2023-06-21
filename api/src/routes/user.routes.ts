@@ -8,6 +8,7 @@ import {
 } from "../utils/jwtAuthenticator";
 import { CustomRequest } from "../utils/jwtAuthenticator";
 import { omit } from "lodash";
+import { Role } from "../model/user.model";
 
 export const userRouter = Router();
 
@@ -34,6 +35,19 @@ userRouter.post("/", notAuthenticated, async (req: Request, res: Response) => {
     }
 });
 
+userRouter.post("/manager", authenticateToken, async (req: Request, res: Response) => {
+    if (userService.getByUsername((req as CustomRequest).username)?.role !== Role.Admin) {
+        res.sendStatus(401);
+        return;
+    }
+    const result = await userService.addManager(req.body);
+    if (result.success) {
+        res.sendStatus(200);
+        return;
+    }
+    res.status(400).send(result.message);
+});
+
 userRouter.get("/", authenticateToken, (req: Request, res: Response) => {
     const user = userService.getByUsername((req as CustomRequest).username);
     if (!user) {
@@ -42,14 +56,10 @@ userRouter.get("/", authenticateToken, (req: Request, res: Response) => {
     res.send(omit(user, ["password", "deleted"]));
 });
 
-userRouter.get(
-    "/:username",
-    authenticateToken,
-    (req: Request, res: Response) => {
-        const user = userService.getByUsername(req.params.username);
-        if (!user) {
-            res.sendStatus(401);
-        }
-        res.send(omit(user, ["password", "deleted"]));
+userRouter.get("/:username", authenticateToken, (req: Request, res: Response) => {
+    const user = userService.getByUsername(req.params.username);
+    if (!user) {
+        res.sendStatus(401);
     }
-);
+    res.send(omit(user, ["password", "deleted"]));
+});

@@ -65,4 +65,8 @@ export default {
     width: 20px;
     height: 20px;
 }
+.selected-tab {
+    border-color: rgb(var(--clr-primary-300)) !important;
+    color: rgb(var(--clr-primary-300));
+}
 </style>
