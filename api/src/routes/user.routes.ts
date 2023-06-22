@@ -17,7 +17,7 @@ const userService = container.resolve(UserService);
 userRouter.patch("/", (req: Request, res: Response) => {
     const result = userService.update(req.body);
     if (result.success) {
-        res.sendStatus(200);
+        res.status(200).send(result.message);
     } else {
         res.status(400).send(result.message);
     }

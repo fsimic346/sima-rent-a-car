@@ -33,6 +33,8 @@
         "lastName": "manager",
         "role": "Manager",
         "deleted": false,
-        "id": 3
+        "id": 3,
+        "gender": "Male",
+        "agencyId": 6
     }
 ]

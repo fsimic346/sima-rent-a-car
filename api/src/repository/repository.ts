@@ -9,8 +9,8 @@ export default class Repository {
         return (jsonfile.readFileSync(this.path) as IEntity[]).filter((entity) => !entity.deleted);
     }
 
-    getById(id: Number) {
-        this.getAll().find((entity) => entity.id == id);
+    getById(id: Number): IEntity {
+        return this.getAll().find((entity) => entity.id == id) as IEntity;
     }
 
     save(entity: IEntity) {

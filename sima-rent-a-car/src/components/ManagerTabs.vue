@@ -1,7 +1,7 @@
 <template>
     <Tab
-        text="Agency"
-        ref="Agency"
+        text="Agency Overview"
+        ref="AgencyOverview"
         icon="fa-solid fa-building"
         @selectedTabChanged="selectedTabChanged"
     ></Tab>

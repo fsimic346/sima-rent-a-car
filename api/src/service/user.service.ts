@@ -5,12 +5,14 @@ import Result from "../utils/Result";
 import config from "config";
 import bcrypt from "bcrypt";
 import { omit } from "lodash";
+import AgencyRepository from "../repository/agency.repository";
+import { Agency } from "../model/agency.model";
 
 const saltRounds = config.get<number>("saltRounds");
 
 @autoInjectable()
 export default class UserService {
-    constructor(private repository?: UserRepository) {}
+    constructor(private repository: UserRepository, private agencyRepository: AgencyRepository) {}
 
     async add(data: any): Promise<Result> {
         const result = this.validateNewUserData(data);
@@ -91,15 +93,36 @@ export default class UserService {
     }
 
     getById(id: number): User | undefined {
-        return (this.repository?.getAll() as User[]).find((x) => x.id == id);
+        const user: User | undefined = (this.repository?.getAll() as User[]).find(
+            (x) => x.id == id
+        );
+        if (user === undefined) return;
+        if (user.role === Role.Manager && user.agencyId !== undefined) {
+            user.agency = this.agencyRepository.getById(user.agencyId) as Agency;
+        }
+        return user;
     }
 
     getByUsername(username: string): User | undefined {
-        return (this.repository?.getAll() as User[]).find((x) => x.username == username);
+        const user: User | undefined = (this.repository?.getAll() as User[]).find(
+            (x) => x.username == username
+        );
+        if (user === undefined) return;
+        if (user.role === Role.Manager && user.agencyId !== undefined) {
+            user.agency = this.agencyRepository.getById(user.agencyId) as Agency;
+        }
+        return user;
     }
 
     getByEmail(email: string): User | undefined {
-        return (this.repository?.getAll() as User[]).find((x) => x.email == email);
+        const user: User | undefined = (this.repository?.getAll() as User[]).find(
+            (x) => x.email == email
+        );
+        if (user === undefined) return;
+        if (user.role === Role.Manager && user.agencyId !== undefined) {
+            user.agency = this.agencyRepository.getById(user.agencyId) as Agency;
+        }
+        return user;
     }
 
     async login(usernameOrEmail: string, password: string): Promise<User | undefined> {
@@ -215,11 +238,13 @@ export default class UserService {
         } else if (
             data.imageUrl !== null &&
             "imageUrl" in data &&
+            data.imageUrl !=
+                "https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0" &&
             !data.imageUrl.match(/\.(jpeg|jpg|gif|png)$/)
         ) {
             result.message = "Invalid image url.";
             return result;
-        } else if (isNaN(data.phoneNumber)) {
+        } else if (isNaN(data.phoneNumber) && "phoneNumber" in data && data.phoneNumber !== "") {
             result.message = "Invalid phone number";
             return result;
         }

@@ -37,5 +37,6 @@ export interface User extends IEntity {
     customerType?: CustomerType;
 
     // optional manager props
+    agencyId?: number;
     agency?: Agency;
 }

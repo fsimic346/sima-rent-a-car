@@ -110,6 +110,7 @@
             <div class="tab-content">
                 <CreateAgency v-if="selectedTab === 'CreateAgency'" />
                 <CreateManager v-if="selectedTab === 'CreateManager'" />
+                <AgencyOverview v-if="selectedTab === 'AgencyOverview'" :agency="user.agency" />
             </div>
         </div>
     </div>
@@ -129,11 +130,12 @@ import CreateManager from "@/components/tabs/CreateManager.vue";
 import CreateAgency from "@/components/tabs/CreateAgency.vue";
 import AdminTabs from "@/components/AdminTabs.vue";
 import ManagerTabs from "@/components/ManagerTabs.vue";
+import AgencyOverview from "@/components/tabs/AgencyOverview.vue";
 
 export default {
     data() {
         return {
-            user: "",
+            user: {},
             showImageModal: false,
             genderModal: false,
             saveText: "Save",
@@ -150,6 +152,7 @@ export default {
         CreateAgency,
         AdminTabs,
         ManagerTabs,
+        AgencyOverview,
     },
     mounted() {
         if (this.user.dateOfBirth !== null) {
