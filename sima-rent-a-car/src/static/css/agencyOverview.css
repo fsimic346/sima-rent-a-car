@@ -1,0 +1,115 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    color: rgb(var(--clr-text));
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.row {
+    display: flex;
+    height: max-content;
+    gap: 2rem;
+    align-items: center;
+}
+
+.logo {
+    width: 20rem;
+    height: 20rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    gap: 0.5rem;
+}
+
+.name {
+    font-family: var(--fnt-header);
+    font-size: 4rem;
+}
+
+.location {
+    font-size: 1.7rem;
+}
+
+.hours {
+    font-size: 1.5rem;
+}
+
+.rating {
+    color: rgb(var(--clr-text));
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.icons {
+    color: rgb(var(--clr-warning-500));
+}
+
+.vehicle-container {
+    display: flex;
+    width: 100%;
+    gap: 1.5rem;
+    padding: 0.5rem;
+    height: 100%;
+}
+
+.vehicle-overflow {
+    overflow-x: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.vehicle-card {
+    height: 100%;
+    flex: 1 0 0;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(var(--clr-background));
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    transition: all 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+.vehicle-card:hover {
+    cursor: pointer;
+    transform: scale(1.04);
+    filter: brightness(1.04);
+}
+
+.vehicle-image {
+    width: 100%;
+    height: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.vehicle-info {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    flex-grow: 1;
+}
+
+.vehicle-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-family: var(--fnt-header);
+}
+
+.vehicle-price {
+    margin-top: auto;
+    font-size: 1.2rem;
+}

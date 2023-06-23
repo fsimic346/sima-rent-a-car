@@ -5,14 +5,14 @@ import Result from "../utils/Result";
 import config from "config";
 import bcrypt from "bcrypt";
 import { omit } from "lodash";
-import AgencyRepository from "../repository/agency.repository";
 import { Agency } from "../model/agency.model";
+import AgencyService from "./agency.service";
 
 const saltRounds = config.get<number>("saltRounds");
 
 @autoInjectable()
 export default class UserService {
-    constructor(private repository: UserRepository, private agencyRepository: AgencyRepository) {}
+    constructor(private repository: UserRepository, private agencyService: AgencyService) {}
 
     async add(data: any): Promise<Result> {
         const result = this.validateNewUserData(data);
@@ -98,7 +98,7 @@ export default class UserService {
         );
         if (user === undefined) return;
         if (user.role === Role.Manager && user.agencyId !== undefined) {
-            user.agency = this.agencyRepository.getById(user.agencyId) as Agency;
+            user.agency = this.agencyService.getById(user.agencyId) as Agency;
         }
         return user;
     }
@@ -109,7 +109,7 @@ export default class UserService {
         );
         if (user === undefined) return;
         if (user.role === Role.Manager && user.agencyId !== undefined) {
-            user.agency = this.agencyRepository.getById(user.agencyId) as Agency;
+            user.agency = this.agencyService.getById(user.agencyId) as Agency;
         }
         return user;
     }
@@ -120,7 +120,7 @@ export default class UserService {
         );
         if (user === undefined) return;
         if (user.role === Role.Manager && user.agencyId !== undefined) {
-            user.agency = this.agencyRepository.getById(user.agencyId) as Agency;
+            user.agency = this.agencyService.getById(user.agencyId) as Agency;
         }
         return user;
     }

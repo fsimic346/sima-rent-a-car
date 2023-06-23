@@ -1,0 +1,62 @@
+[
+    {
+        "brand": "Toyota",
+        "model": "Corolla",
+        "price": "$20,000",
+        "vehicleType": "Car",
+        "agencyId": 6,
+        "transmissionType": "Automatic",
+        "fuelType": "Gasoline",
+        "consumption": 8.5,
+        "doorNumber": 4,
+        "passangerNumber": 5,
+        "description": "A reliable and fuel-efficient sedan.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg/800px-2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg",
+        "isAvailable": true
+    },
+    {
+        "brand": "BMW",
+        "model": "X5",
+        "price": "$60,000",
+        "vehicleType": "Car",
+        "agencyId": 6,
+        "transmissionType": "Automatic",
+        "fuelType": "Diesel",
+        "consumption": 10.2,
+        "doorNumber": 5,
+        "passangerNumber": 7,
+        "description": "A luxurious and spacious SUV.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/f/f1/2019_BMW_X5_M50d_Automatic_3.0.jpg",
+        "isAvailable": true
+    },
+    {
+        "brand": "Honda",
+        "model": "Civic",
+        "price": "$18,500",
+        "vehicleType": "Car",
+        "agencyId": 6,
+        "transmissionType": "Manual",
+        "fuelType": "Gasoline",
+        "consumption": 7.9,
+        "doorNumber": 2,
+        "passangerNumber": 4,
+        "description": "A sporty and stylish coupe.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/2017_Honda_Civic_SR_VTEC_1.0_Front.jpg",
+        "isAvailable": false
+    },
+    {
+        "brand": "Ford",
+        "model": "F-150",
+        "price": "$35,000",
+        "vehicleType": "Truck",
+        "agencyId": 6,
+        "transmissionType": "Automatic",
+        "fuelType": "Gasoline",
+        "consumption": 12.5,
+        "doorNumber": 4,
+        "passangerNumber": 5,
+        "description": "A rugged and powerful pickup truck.",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg",
+        "isAvailable": true
+    }
+]
