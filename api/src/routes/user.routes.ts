@@ -55,6 +55,17 @@ userRouter.post(
   }
 );
 
+userRouter.get("/all", authenticateToken, (req: Request, res: Response) => {
+  if (
+    userService.getByUsername((req as CustomRequest).username)?.role !==
+    Role.Admin
+  ) {
+    res.sendStatus(401);
+    return;
+  }
+  res.send(userService.getAll().map((x) => omit(x, ["password", "deleted"])));
+});
+
 userRouter.get("/", authenticateToken, (req: Request, res: Response) => {
   const user = userService.getByUsername((req as CustomRequest).username);
   if (!user) {
@@ -82,6 +93,7 @@ userRouter.get(
     const user = userService.getByUsername(req.params.username);
     if (!user) {
       res.sendStatus(401);
+      return;
     }
     res.send(omit(user, ["password", "deleted"]));
   }

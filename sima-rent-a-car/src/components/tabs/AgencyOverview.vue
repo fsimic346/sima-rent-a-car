@@ -6,16 +6,19 @@
                 <div class="name">{{ agency.name }}</div>
                 <div class="rating-data">
                     <span class="rating"
-                        >4.2{{ agency.rating }}
+                        >{{ agency.rating }}
                         <span class="icons">
-                            <i class="fa-sharp fa-solid fa-star"></i
-                            ><i class="fa-sharp fa-solid fa-star"></i
-                            ><i class="fa-sharp fa-solid fa-star"></i
-                            ><i class="fa-sharp fa-solid fa-star"></i
-                            ><i class="fa-sharp fa-regular fa-star"></i>
+                            <i
+                                class="fa-sharp fa-solid fa-star"
+                                v-for="n in Math.floor(agency.rating)"
+                            ></i>
+                            <i
+                                class="fa-sharp fa-regular fa-star"
+                                v-for="n in 5 - Math.floor(agency.rating)"
+                            ></i>
                         </span>
                     </span>
-                    <span class="rating-count">(1,204{{ agency.ratingCount }})</span>
+                    <span class="rating-count">({{ agency.ratingCount }})</span>
                 </div>
                 <div class="location">
                     {{ agency.location.address }}, {{ agency.location.city }}

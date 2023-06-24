@@ -142,11 +142,16 @@ export default class UserService {
     if (user === undefined) {
       return user;
     }
+
     const match = await bcrypt.compare(password, user.password);
     if (match) {
       return user;
     }
     return undefined;
+  }
+
+  getAll(): User[] {
+    return this.repository.getAll() as User[];
   }
 
   getManagers(): User[] {
