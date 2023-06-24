@@ -36,12 +36,24 @@
             </div>
         </div>
     </div>
+    <div class="users-overflow">
+        <div class="users-container">
+            <div class="user-card" v-for="user in users">
+                <div class="user-image" :style="{ backgroundImage: `url(${user.imageUrl})` }"></div>
+                <div class="user-info">
+                    {{ user.username + ` (${user.firstName + " " + user.lastName})` }}
+                </div>
+                <div class="user-role">{{ user.role }}</div>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
 export default {
     data() {
         return {
             sortOrder: "descending",
+            users: [],
         };
     },
     methods: {
@@ -52,6 +64,13 @@ export default {
             }
             this.sortOrder = "descending";
         },
+    },
+    async mounted() {
+        try {
+            this.users = (await this.axios.get("http://localhost:8080/api/user/all")).data;
+        } catch (err) {
+            console.log(err.response.data);
+        }
     },
 };
 </script>
@@ -94,5 +113,60 @@ export default {
 
 i:hover {
     cursor: pointer;
+}
+
+.users-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    padding: 2rem;
+    height: 100%;
+}
+
+.users-overflow {
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    color: rgb(var(--clr-text));
+    margin-inline: auto;
+    font-size: 1.2rem;
+    border: 1px solid rgb(var(--clr-neutral-500));
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    transition: 0.3s ease-in-out;
+}
+
+.user-image {
+    width: 4rem;
+    height: 4rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.user-info {
+    width: 40ch;
+    display: flex;
+    align-items: center;
+}
+
+.user-role {
+    width: 10ch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-card:hover {
+    cursor: pointer;
+    transform: scale(1.02);
 }
 </style>

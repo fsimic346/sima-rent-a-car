@@ -74,9 +74,9 @@ nav {
 
 .dropdown-menu {
     position: absolute;
-    left: 0;
+    left: -50%;
     right: 0;
-    margin-inline: auto;
+    margin-right: auto;
     top: 100%;
     background-color: rgb(var(--clr-background-secondary));
     /* display: flex; */

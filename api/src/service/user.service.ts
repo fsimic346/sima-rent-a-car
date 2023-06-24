@@ -125,6 +125,10 @@ export default class UserService {
         return user;
     }
 
+    getAll(): User[] {
+        return this.repository.getAll() as User[];
+    }
+
     async login(usernameOrEmail: string, password: string): Promise<User | undefined> {
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
         let user: User | undefined;
