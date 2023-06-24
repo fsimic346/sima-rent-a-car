@@ -64,4 +64,5 @@ input:focus {
 
 .error-msg {
     min-height: 24px;
+    color: rgb(var(--clr-error));
 }

@@ -5,7 +5,7 @@
     height: 100%;
     color: rgb(var(--clr-text));
     padding: 1rem;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 .row {
@@ -68,7 +68,7 @@
 }
 
 .vehicle-card {
-    height: 100%;
+    height: 98%;
     flex: 1 0 0;
     max-width: 300px;
     display: flex;
