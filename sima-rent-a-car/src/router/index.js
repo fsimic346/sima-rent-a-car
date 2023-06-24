@@ -53,19 +53,22 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth)) {
-        if (localStorage.getItem("user") == null) {
+        if (!localStorage.getItem("user")) {
             next({
                 path: "/login",
                 params: { nextUrl: to.fullPath },
             });
+            return;
         }
     }
     if (to.matched.some((record) => record.meta.requiresNoAuth)) {
-        if (localStorage.getItem("user") !== null) {
+        console.log(localStorage.getItem("user"));
+        if (localStorage.getItem("user")) {
             next({
                 path: "/profile",
                 params: { nextUrl: to.fullPath },
             });
+            return;
         }
     } else {
         next();

@@ -95,7 +95,7 @@ export default {
         },
         logout() {
             this.$cookie.setCookie("token", "");
-            this.$cookie.setCookie("user", "");
+            localStorage.setItem("user", "");
             this.authorized = false;
             this.$router.push("/");
         },

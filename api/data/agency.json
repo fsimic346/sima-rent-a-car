@@ -97,7 +97,9 @@
             "state": "WA",
             "zip": "98101"
         },
-        "logo": "https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png"
+        "logo": "https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png",
+        "rating": 4.2,
+        "ratingCount": 1204
     },
     {
         "id": "7",
