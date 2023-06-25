@@ -134,6 +134,12 @@ export default class UserService {
         return user;
     }
 
+    getAvailableManagers(): User[] {
+        return (this.repository.getAll() as User[]).filter(
+            x => x.role === "Manager" && x.agencyId === undefined,
+        );
+    }
+
     getAll(): User[] {
         return this.repository.getAll() as User[];
     }

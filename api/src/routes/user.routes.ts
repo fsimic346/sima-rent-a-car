@@ -8,7 +8,7 @@ import {
 } from "../utils/jwtAuthenticator";
 import { CustomRequest } from "../utils/jwtAuthenticator";
 import { omit } from "lodash";
-import { Role } from "../model/user.model";
+import { Role, User } from "../model/user.model";
 
 export const userRouter = Router();
 
@@ -75,7 +75,23 @@ userRouter.get("/", authenticateToken, (req: Request, res: Response) => {
 });
 
 userRouter.get(
-    "/:username",
+    "/availableManagers",
+    authenticateToken,
+    (req: Request, res: Response) => {
+        if (
+            userService.getByUsername((req as CustomRequest).username)?.role !==
+            Role.Admin
+        ) {
+            res.sendStatus(401);
+            return;
+        }
+        const users: User[] = userService.getAvailableManagers();
+        res.send(users.map(x => omit(x, ["password", "deleted"])));
+    },
+);
+
+userRouter.get(
+    "/get/:username",
     authenticateToken,
     (req: Request, res: Response) => {
         const user = userService.getByUsername(req.params.username);

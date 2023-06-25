@@ -36,7 +36,7 @@ export default {
     async mounted() {
         try {
             const res = await this.axios.get(
-                `http://localhost:8080/api/user/${this.$route.params.username}`,
+                `http://localhost:8080/api/user/get/${this.$route.params.username}`,
             );
             this.user = res.data;
         } catch (err) {
