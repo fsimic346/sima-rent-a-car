@@ -14,7 +14,7 @@ export default {
         text: String,
         icon: String,
     },
-    expose: ["selected"],
+    expose: ["selected", "setSelected"],
     data() {
         return {
             selected: false,

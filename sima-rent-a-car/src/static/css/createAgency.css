@@ -1,78 +1,78 @@
 h1 {
-  color: rgb(var(--clr-text));
-  font-family: var(--fnt-header);
+    color: rgb(var(--clr-text));
+    font-family: var(--fnt-header);
 }
 
 .row {
-  display: flex;
-  gap: 2rem;
-  width: 100%;
-  height: 100%;
-  padding: 1rem;
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    flex-grow: 1;
+    padding: 1rem;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
 }
 
 .map {
-  background-color: rgb(var(--clr-background));
-  flex-grow: 1;
-  height: 100%;
+    background-color: rgb(var(--clr-background));
+    flex-grow: 1;
+    height: 100%;
 }
 
 .new-manager {
-  position: relative;
-  background-color: rgb(var(--clr-background));
-  flex-grow: 1;
-  height: 100%;
+    position: relative;
+    background-color: rgb(var(--clr-background));
+    flex-grow: 1;
+    height: 100%;
 }
 
 .add-menager {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  margin: auto;
-  width: 100%;
-  height: 100%;
-  font-size: 2.5rem;
-  color: rgb(var(--clr-text));
-  transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    font-size: 2.5rem;
+    color: rgb(var(--clr-text));
+    transition: 0.3s;
 }
 
 .text {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
 }
 
 .add-menager:hover {
-  background-color: rgba(var(--clr-neutral-100), 0.1);
-  cursor: pointer;
+    background-color: rgba(var(--clr-neutral-100), 0.1);
+    cursor: pointer;
 }
 
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  color: rgb(var(--clr-text));
-  font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    color: rgb(var(--clr-text));
+    font-size: 20px;
 }
 
 .wrapper input {
-  background-color: rgb(var(--clr-background));
-  border-radius: 0.4rem;
-  color: rgb(var(--clr-text));
-  font-size: 1.2rem;
-  border: 2px solid rgb(var(--clr-text));
-  padding-inline: 1ch;
-  padding-block: 0.2rem;
-  outline: none;
+    background-color: rgb(var(--clr-background));
+    border-radius: 0.4rem;
+    color: rgb(var(--clr-text));
+    font-size: 1.2rem;
+    border: 2px solid rgb(var(--clr-text));
+    padding-inline: 1ch;
+    padding-block: 0.2rem;
+    outline: none;
 }
 
 .add-btn {
-  align-self: flex-end;
+    align-self: flex-end;
 }
