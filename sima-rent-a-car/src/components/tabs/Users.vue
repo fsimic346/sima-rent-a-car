@@ -39,9 +39,15 @@
     <div class="users-overflow">
         <div class="users-container">
             <div class="user-card" v-for="user in users">
-                <div class="user-image" :style="{ backgroundImage: `url(${user.imageUrl})` }"></div>
+                <div
+                    class="user-image"
+                    :style="{ backgroundImage: `url(${user.imageUrl})` }"
+                ></div>
                 <div class="user-info">
-                    {{ user.username + ` (${user.firstName + " " + user.lastName})` }}
+                    {{
+                        user.username +
+                        ` (${user.firstName + " " + user.lastName})`
+                    }}
                 </div>
                 <div class="user-role">{{ user.role }}</div>
             </div>
@@ -67,7 +73,9 @@ export default {
     },
     async mounted() {
         try {
-            this.users = (await this.axios.get("http://localhost:8080/api/user/all")).data;
+            this.users = (
+                await this.axios.get("http://localhost:8080/api/user/all")
+            ).data;
         } catch (err) {
             console.log(err.response.data);
         }

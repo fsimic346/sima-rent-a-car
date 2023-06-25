@@ -83,7 +83,7 @@
                                 @keypress="
                                     disableEditOnEnter(
                                         $event,
-                                        'dateOfBirthInput'
+                                        'dateOfBirthInput',
                                     )
                                 "
                             />
@@ -105,7 +105,7 @@
                                 @keypress="
                                     disableEditOnEnter(
                                         $event,
-                                        'phoneNumberInput'
+                                        'phoneNumberInput',
                                     )
                                 "
                                 @keyup="checkIfNumber()"
@@ -156,7 +156,7 @@
         classes="modal-container"
         content-class="modal-content"
     >
-        <ImageForm @imageChanged="(val) => (this.user.imageUrl = val)" />
+        <ImageForm @imageChanged="val => (this.user.imageUrl = val)" />
     </vue-final-modal>
 </template>
 <script>
@@ -202,11 +202,11 @@ export default {
         }
         const navHeight = document.querySelector("nav").clientHeight + 1;
         document.getElementById(
-            "container"
+            "container",
         ).style.height = `calc(100% - ${navHeight}px)`;
 
         this.user = JSON.parse(localStorage.getItem("user"));
-        document.addEventListener("click", (e) => {
+        document.addEventListener("click", e => {
             let element = document.getElementById("genderOverlay");
             if (element == null) {
                 return;
@@ -229,7 +229,7 @@ export default {
                 this.$refs.saveBtn.enabled = false;
                 await this.axios.patch(
                     "http://localhost:8080/api/user",
-                    this.user
+                    this.user,
                 );
                 this.$refs.saveBtn.enabled = true;
                 this.saveText = "Save";
@@ -250,14 +250,14 @@ export default {
             }
             element.focus();
             element.parentElement.previousElementSibling.classList.toggle(
-                "selected"
+                "selected",
             );
         },
         disableEdit(id) {
             const element = document.getElementById(id);
             element.disabled = true;
             element.parentElement.previousElementSibling.classList.toggle(
-                "selected"
+                "selected",
             );
             if (
                 this.user.dateOfBirth == undefined &&

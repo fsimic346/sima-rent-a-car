@@ -52,7 +52,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!localStorage.getItem("user")) {
             next({
                 path: "/login",
@@ -61,7 +61,7 @@ router.beforeEach((to, from, next) => {
             return;
         }
     }
-    if (to.matched.some((record) => record.meta.requiresNoAuth)) {
+    if (to.matched.some(record => record.meta.requiresNoAuth)) {
         console.log(localStorage.getItem("user"));
         if (localStorage.getItem("user")) {
             next({

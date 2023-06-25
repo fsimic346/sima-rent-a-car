@@ -28,7 +28,7 @@ export default {
     async mounted() {
         try {
             const res = await this.axios.get(
-                "http://localhost:8080/api/user/manager"
+                "http://localhost:8080/api/user/manager",
             );
             this.managers = res.data;
             console.log(this.managers);

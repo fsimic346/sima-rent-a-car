@@ -27,7 +27,7 @@ export default {
         },
     },
     async mounted() {
-        this.axios.interceptors.request.use((config) => {
+        this.axios.interceptors.request.use(config => {
             config.headers.Authorization = this.$cookie.getCookie("token");
             return config;
         });

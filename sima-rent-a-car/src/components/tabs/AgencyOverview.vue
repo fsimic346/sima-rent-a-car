@@ -1,7 +1,10 @@
 <template>
     <div class="wrapper">
         <div class="row">
-            <div class="logo" :style="{ backgroundImage: `url('${agency.logo}')` }"></div>
+            <div
+                class="logo"
+                :style="{ backgroundImage: `url('${agency.logo}')` }"
+            ></div>
             <div class="data">
                 <div class="name">{{ agency.name }}</div>
                 <div class="rating-data">
@@ -28,7 +31,10 @@
         </div>
         <div class="vehicle-overflow">
             <div class="vehicle-container">
-                <div class="vehicle-card" v-for="vehicle in agency.availableVehicles">
+                <div
+                    class="vehicle-card"
+                    v-for="vehicle in agency.availableVehicles"
+                >
                     <div
                         class="vehicle-image"
                         :style="{ backgroundImage: `url('${vehicle.image}')` }"
@@ -40,9 +46,13 @@
                             <span class="vehicle-name">{{
                                 vehicle.brand + " " + vehicle.model
                             }}</span>
-                            <span class="vehicle-type"> {{ `(${vehicle.vehicleType})` }}</span>
+                            <span class="vehicle-type">
+                                {{ `(${vehicle.vehicleType})` }}</span
+                            >
                         </div>
-                        <div class="vehicle-description">{{ vehicle.description }}</div>
+                        <div class="vehicle-description">
+                            {{ vehicle.description }}
+                        </div>
                         <div class="vehicle-price">{{ vehicle.price }}</div>
                     </div>
                 </div>

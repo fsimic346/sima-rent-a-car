@@ -11,32 +11,32 @@ import VehicleRepository from "../repository/vehicle.repository";
 export default class AgencyService {
     constructor(
         private repository: AgencyRepository,
-        private vehicleRepository: VehicleRepository
+        private vehicleRepository: VehicleRepository,
     ) {}
 
     getAll(): Agency[] {
         const agencies: Agency[] = this.repository?.getAll() as Agency[];
 
         for (const agency of agencies) {
-            agency.availableVehicles = (this.vehicleRepository.getAll() as Vehicle[]).filter(
-                (x) => x.agencyId === agency.id
-            );
+            agency.availableVehicles = (
+                this.vehicleRepository.getAll() as Vehicle[]
+            ).filter(x => x.agencyId === agency.id);
         }
 
         return agencies;
     }
 
     getById(id: number): Agency | undefined {
-        const agency: Agency | undefined = (this.repository?.getAll() as Agency[]).find(
-            (x) => x.id == id
-        );
+        const agency: Agency | undefined = (
+            this.repository?.getAll() as Agency[]
+        ).find(x => x.id == id);
 
         if (agency !== undefined) {
-            agency.availableVehicles = (this.vehicleRepository.getAll() as Vehicle[]).filter(
-                (x) => {
-                    return x.agencyId == agency.id;
-                }
-            );
+            agency.availableVehicles = (
+                this.vehicleRepository.getAll() as Vehicle[]
+            ).filter(x => {
+                return x.agencyId == agency.id;
+            });
         }
 
         return agency;
@@ -67,15 +67,19 @@ export default class AgencyService {
     validateData(data: any): Result {
         let result: Result = new Result();
         const agencies: Agency[] = this.repository?.getAll() as Agency[];
-        const businessHoursFormat = /^(0[0-9]{1}|1[0-9]{1}|2[0-3]{1}){1}:([0-5]{1}[0-9]{1})$/;
+        const businessHoursFormat =
+            /^(0[0-9]{1}|1[0-9]{1}|2[0-3]{1}){1}:([0-5]{1}[0-9]{1})$/;
 
-        if (agencies?.find((x) => x.name === data.name)) {
+        if (agencies?.find(x => x.name === data.name)) {
             result.message = "name already in use";
             return result;
         } else if (data.name === "") {
             result.message = "invalid name";
             return result;
-        } else if (!data.businessHours.match(businessHoursFormat) || data.businessHours === "") {
+        } else if (
+            !data.businessHours.match(businessHoursFormat) ||
+            data.businessHours === ""
+        ) {
             result.message = "invalid format";
             return result;
         } else if (!Object.values(Status).includes(data.status)) {

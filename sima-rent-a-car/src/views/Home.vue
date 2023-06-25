@@ -9,8 +9,9 @@
     <div class="overlay">
         <h1>Lorem ipsum dolor sit amet.</h1>
         <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro fugiat eos eligendi
-            optio non possimus nesciunt minima deserunt aliquid totam.
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro
+            fugiat eos eligendi optio non possimus nesciunt minima deserunt
+            aliquid totam.
         </p>
         <Button text="Show Agencies" @click="agencies" />
     </div>

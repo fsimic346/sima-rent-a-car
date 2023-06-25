@@ -33,5 +33,5 @@ homeRouter.post(
             token: generateAccessToken(user),
             user: omit(user, ["password", "deleted"]),
         });
-    }
+    },
 );

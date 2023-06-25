@@ -8,12 +8,20 @@
             <div
                 class="error-msg"
                 :style="{
-                    color: error === '' ? 'rgb(var(--clr-success))' : 'rgb(var(--clr-error))',
+                    color:
+                        error === ''
+                            ? 'rgb(var(--clr-success))'
+                            : 'rgb(var(--clr-error))',
                 }"
             >
                 {{ error === "" ? success : error }}
             </div>
-            <Button class="register-btn" :text="editText" @click="edit" ref="registerBtn" />
+            <Button
+                class="register-btn"
+                :text="editText"
+                @click="edit"
+                ref="registerBtn"
+            />
         </form>
     </div>
 </template>

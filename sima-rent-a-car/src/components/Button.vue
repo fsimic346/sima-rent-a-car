@@ -4,7 +4,9 @@
         class="btn"
         :disabled="!enabled"
         :style="{
-            backgroundColor: [color === undefined ? 'rgb(var(--clr-primary-500))' : color],
+            backgroundColor: [
+                color === undefined ? 'rgb(var(--clr-primary-500))' : color,
+            ],
         }"
         @click="onClick"
     >

@@ -47,7 +47,7 @@ export default {
     },
     async beforeMount() {
         const res = await this.axios.get(
-            "http://localhost:8080/api/agency/all"
+            "http://localhost:8080/api/agency/all",
         );
         const agencies = res.data;
 
@@ -57,7 +57,7 @@ export default {
 
         for (const agency of agencies) {
             agency.isOpen = isOpen(
-                getBusinessHours(agency.businessHours.split(" "))
+                getBusinessHours(agency.businessHours.split(" ")),
             );
         }
 
@@ -102,7 +102,7 @@ export default {
     mounted() {
         const navHeight = document.querySelector("nav").clientHeight + 1;
         document.getElementById(
-            "cardContainer"
+            "cardContainer",
         ).style.height = `calc(100% - ${navHeight}px)`;
     },
 };

@@ -6,11 +6,13 @@ export default class Repository {
     path: string = "";
 
     getAll(): IEntity[] {
-        return (jsonfile.readFileSync(this.path) as IEntity[]).filter((entity) => !entity.deleted);
+        return (jsonfile.readFileSync(this.path) as IEntity[]).filter(
+            entity => !entity.deleted,
+        );
     }
 
     getById(id: Number): IEntity {
-        return this.getAll().find((entity) => entity.id == id) as IEntity;
+        return this.getAll().find(entity => entity.id == id) as IEntity;
     }
 
     save(entity: IEntity) {
@@ -22,9 +24,9 @@ export default class Repository {
     update(entity: IEntity) {
         const list = this.getAll();
         list.splice(
-            list.findIndex((x) => x.id === entity.id),
+            list.findIndex(x => x.id === entity.id),
             1,
-            entity
+            entity,
         );
 
         jsonfile.writeFileSync(this.path, list);
@@ -33,8 +35,8 @@ export default class Repository {
     delete(id: number) {
         const list = this.getAll();
         const deletedEntity: IEntity = list.splice(
-            list.findIndex((x) => x.id === id),
-            1
+            list.findIndex(x => x.id === id),
+            1,
         )[0];
 
         deletedEntity.deleted = true;

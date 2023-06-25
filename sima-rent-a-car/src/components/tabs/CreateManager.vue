@@ -24,7 +24,10 @@
         <div
             class="error-msg"
             :style="{
-                color: error === '' ? 'rgb(var(--clr-success))' : 'rgb(var(--clr-error))',
+                color:
+                    error === ''
+                        ? 'rgb(var(--clr-success))'
+                        : 'rgb(var(--clr-error))',
             }"
         >
             {{ error === "" ? success : error }}
@@ -55,7 +58,7 @@ export default {
                 this.$refs.saveBtn.enabled = false;
                 const res = await this.axios.post(
                     "http://localhost:8080/api/user/manager",
-                    this.user
+                    this.user,
                 );
                 this.success = "Successfully created a new manager.";
                 this.saveText = "Create";
