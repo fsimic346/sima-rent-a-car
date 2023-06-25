@@ -1,19 +1,19 @@
-import IEntity from './IEntity'
-import { Location } from './location.model'
-import { Vehicle } from './vehicle.model'
+import IEntity from "./IEntity";
+import { Location } from "./location.model";
+import { Vehicle } from "./vehicle.model";
 
 export enum Status {
-  Open = 'Open',
-  Closed = 'Closed',
+    Open = "Open",
+    Closed = "Closed",
 }
 
 export interface Agency extends IEntity {
-  name: string
-  availableVehicles: Vehicle[]
-  businessHours: string
-  status: Status
-  location: Location
-  logo: string
-  rating: number
-  ratingCount: number
+    name: string;
+    availableVehicles: Vehicle[];
+    businessHours: string;
+    status: Status;
+    location: Location;
+    logo: string;
+    rating: number;
+    ratingCount: number;
 }

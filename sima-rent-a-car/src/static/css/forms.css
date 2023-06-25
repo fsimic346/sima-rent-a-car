@@ -1,68 +1,68 @@
 .container {
-  display: flex;
-  background-color: rgba(var(--clr-background), 0.4);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  padding-inline: 2rem;
-  padding-block: 2rem;
-  border: 4px solid rgb(var(--clr-primary-300));
-  color: rgb(var(--clr-text));
-  max-width: max-content;
+    display: flex;
+    background-color: rgba(var(--clr-background), 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding-inline: 2rem;
+    padding-block: 2rem;
+    border: 4px solid rgb(var(--clr-primary-300));
+    color: rgb(var(--clr-text));
+    max-width: max-content;
 }
 
 .user-form {
-  display: flex;
-  flex-direction: column;
-  width: max-content;
-  padding: 1rem;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: auto;
 }
 
 .row {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .row .form-element {
-  width: 18ch;
+    width: 18ch;
 }
 
 .form-element {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 38ch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 38ch;
 }
 
 select {
-  height: 30px;
-  border: 2px solid transparent;
-  background-color: white;
-  border-radius: 5px;
-  outline: 3px solid transparent;
-  transition: outline ease-in-out 0.15s;
+    height: 30px;
+    border: 2px solid transparent;
+    background-color: white;
+    border-radius: 5px;
+    outline: 3px solid transparent;
+    transition: outline ease-in-out 0.15s;
 }
 
 select:focus {
-  outline: 3px solid rgba(var(--clr-primary-300));
+    outline: 3px solid rgba(var(--clr-primary-300));
 }
 
 input {
-  border-radius: 5px;
-  border: 2px solid transparent;
-  outline: 3px solid transparent;
-  transition: outline ease-in-out 0.15s;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    outline: 3px solid transparent;
+    transition: outline ease-in-out 0.15s;
 }
 
 input:focus {
-  outline: 3px solid rgba(var(--clr-primary-300));
+    outline: 3px solid rgba(var(--clr-primary-300));
 }
 
 .error-msg {
-  min-height: 24px;
-  color: rgb(var(--clr-error));
+    min-height: 24px;
+    color: rgb(var(--clr-error));
 }

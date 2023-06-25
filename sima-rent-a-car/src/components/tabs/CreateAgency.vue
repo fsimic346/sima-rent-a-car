@@ -1,87 +1,89 @@
 <template>
-  <div class="row">
-    <form @submit="onSubmit">
-      <h1>New Agency</h1>
-      <div class="wrapper">
-        <label>Name:</label>
-        <input type="text" />
-      </div>
-      <div class="wrapper">
-        <label>Business hours:</label>
-        <input type="text" />
-      </div>
-      <div class="wrapper">
-        <label>Logo:</label>
-        <input class="logo-input" type="text" />
-      </div>
-    </form>
-    <div class="map"></div>
-  </div>
-  <div class="row"></div>
+    <div class="row">
+        <form @submit="onSubmit">
+            <h1>New Agency</h1>
+            <div class="wrapper">
+                <label>Name:</label>
+                <input type="text" />
+            </div>
+            <div class="wrapper">
+                <label>Business hours:</label>
+                <input type="text" />
+            </div>
+            <div class="wrapper">
+                <label>Logo:</label>
+                <input class="logo-input" type="text" />
+            </div>
+        </form>
+        <div class="map"></div>
+    </div>
+    <div class="row">
+        <div class="new-manager">
+            <div class="add-menager" @click="addManager()">
+                <i class="fa-solid fa-user-plus"></i>
+                <div class="text">Add Manager</div>
+            </div>
+        </div>
+        <Button text="Create" class="add-btn" />
+    </div>
+
+    <vue-final-modal
+        v-model="showManagerModal"
+        classes="modal-container"
+        content-class="modal-content"
+    >
+        <AvailableManagers />
+    </vue-final-modal>
 </template>
 
 <script>
-import Button from '@/components/Button.vue'
+import Button from "@/components/Button.vue";
+import { VueFinalModal, ModalsContainer } from "vue-final-modal";
+import AvailableManagers from "@/components/AvailableManagers.vue";
 
 export default {
-  data() {
-    return {
-      agency: {
-        name: '',
-        businessHours: '',
-        adress: '',
-        city: '',
-        state: '',
-        zip: '',
-        logo: '',
-      },
-    }
-  },
-}
+    data() {
+        return {
+            agency: {
+                name: "",
+                businessHours: "",
+                adress: "",
+                city: "",
+                state: "",
+                zip: "",
+                logo: "",
+            },
+            showManagerModal: false,
+        };
+    },
+
+    components: {
+        Button,
+        VueFinalModal,
+        ModalsContainer,
+        AvailableManagers,
+    },
+
+    methods: {
+        addManager() {
+            this.showManagerModal = true;
+        },
+    },
+};
 </script>
 
-<style scoped>
-h1 {
-  color: rgb(var(--clr-text));
-  font-family: var(--fnt-header);
+<style scoped src="../../static/css/createAgency.css">
+::v-deep .modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-.row {
-  display: flex;
-  gap: 2rem;
-  width: 100%;
-  padding: 1rem;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  gap: 1rem;
-}
-
-.map {
-  background-color: rgb(var(--clr-background));
-  flex-grow: 1;
-  height: 100%;
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  color: rgb(var(--clr-text));
-  font-size: 20px;
-}
-
-.wrapper input {
-  background-color: rgb(var(--clr-background));
-  border-radius: 0.4rem;
-  color: rgb(var(--clr-text));
-  font-size: 1.2rem;
-  border: 2px solid rgb(var(--clr-text));
-  padding-inline: 1ch;
-  padding-block: 0.2rem;
-  outline: none;
+::v-deep .modal-content {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: none;
+    border-radius: 0.25rem;
+    max-width: max-content;
 }
 </style>

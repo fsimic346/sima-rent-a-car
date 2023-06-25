@@ -1,77 +1,77 @@
 .container {
-  display: flex;
-  width: 100%;
-  color: rgb(var(--clr-text));
+    display: flex;
+    width: 100%;
+    color: rgb(var(--clr-text));
 }
 .filter-container {
-  display: flex;
-  flex-direction: column;
-  border-right: 2px solid white;
-  height: 100%;
-  width: 30rem;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid white;
+    height: 100%;
+    width: 30rem;
+    align-items: center;
 }
 .card-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 4rem;
-  overflow-y: scroll;
-  max-height: 200rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 4rem;
+    overflow-y: scroll;
+    max-height: 200rem;
 }
 
 .agency-card {
-  background-color: rgb(var(--clr-background-secondary));
-  display: flex;
-  width: 42rem;
-  transition: 0.3s ease-in-out;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    background-color: rgb(var(--clr-background-secondary));
+    display: flex;
+    width: 42rem;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .agency-card:hover {
-  cursor: pointer;
-  filter: brightness(1.05);
-  transform: scale(1.025);
+    cursor: pointer;
+    filter: brightness(1.05);
+    transform: scale(1.025);
 }
 
 .agency-logo {
-  width: 14rem;
-  height: 13rem;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+    width: 14rem;
+    height: 13rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .agency-info {
-  display: flex;
-  padding-inline: 1rem;
-  padding-block: 2rem;
-  justify-content: space-between;
-  flex-grow: 1;
+    display: flex;
+    padding-inline: 1rem;
+    padding-block: 2rem;
+    justify-content: space-between;
+    flex-grow: 1;
 }
 
 .agency-column {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .agency-location {
-  margin-top: auto;
+    margin-top: auto;
 }
 
 .agency-name {
-  font-weight: bold;
-  font-size: 1.2rem;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .agency-hours {
-  font-weight: bold;
-  color: rgb(var(--clr-error));
+    font-weight: bold;
+    color: rgb(var(--clr-error));
 }
 
 .open .agency-hours {
-  color: rgb(var(--clr-success));
+    color: rgb(var(--clr-success));
 }

@@ -1,15 +1,15 @@
 <template>
-  <Register />
+    <Register />
 </template>
 
 <script>
-import Register from '@/components/RegisterForm.vue'
+import Register from "@/components/RegisterForm.vue";
 
 export default {
-  components: {
-    Register,
-  },
-}
+    components: {
+        Register,
+    },
+};
 </script>
 
 <style scoped></style>
