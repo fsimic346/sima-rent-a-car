@@ -1,4 +1,4 @@
 export default interface IEntity {
-  id: number;
-  deleted: boolean;
+  id: number
+  deleted: boolean
 }

@@ -1,68 +1,68 @@
 .container {
-    display: flex;
-    align-items: flex-start;
-    margin-top: 1rem;
-    width: 60%;
-    height: 80%;
-    border-radius: 1rem;
-    margin-inline: auto;
-    background-color: rgb(30, 36, 43);
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  display: flex;
+  align-items: flex-start;
+  margin-top: 1rem;
+  width: 60%;
+  height: 80%;
+  border-radius: 1rem;
+  margin-inline: auto;
+  background-color: rgb(30, 36, 43);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .profile-image:hover {
-    cursor: pointer;
-    border-color: rgb(var(--clr-primary-300));
+  cursor: pointer;
+  border-color: rgb(var(--clr-primary-300));
 }
 
 .profile-image {
-    margin-top: 4rem;
-    margin-left: 6rem;
-    margin-right: 4rem;
-    margin-bottom: 4rem;
-    width: 21rem;
-    height: 21rem;
-    border-radius: 50%;
-    border: 2px solid rgb(var(--clr-neutral-100));
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
+  margin-top: 4rem;
+  margin-left: 6rem;
+  margin-right: 4rem;
+  margin-bottom: 4rem;
+  width: 21rem;
+  height: 21rem;
+  border-radius: 50%;
+  border: 2px solid rgb(var(--clr-neutral-100));
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
 }
 
 .basic-information {
-    width: 30rem;
-    height: 20rem;
-    margin-top: 6rem;
-    display: flex;
-    flex-direction: column;
+  width: 30rem;
+  height: 20rem;
+  margin-top: 6rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .full-name {
-    display: flex;
-    gap: 1rem;
-    font-size: 45px;
-    color: rgb(var(--clr-neutral-100));
+  display: flex;
+  gap: 1rem;
+  font-size: 45px;
+  color: rgb(var(--clr-neutral-100));
 }
 
 .username {
-    color: rgb(var(--clr-primary-300));
+  color: rgb(var(--clr-primary-300));
 }
 
 .user-icon {
-    margin-top: 8rem;
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    color: rgba(var(--clr-neutral-100), 50%);
+  margin-top: 8rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  color: rgba(var(--clr-neutral-100), 50%);
 }
 
 .about {
-    border-top: 1px solid rgba(var(--clr-neutral-100), 50%);
-    color: rgb(var(--clr-neutral-100));
+  border-top: 1px solid rgba(var(--clr-neutral-100), 50%);
+  color: rgb(var(--clr-neutral-100));
 }
 
 .about-info {
-    font-size: 20px;
-    margin-top: 2rem;
+  font-size: 20px;
+  margin-top: 2rem;
 }

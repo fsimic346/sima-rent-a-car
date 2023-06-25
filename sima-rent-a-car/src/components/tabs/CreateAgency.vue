@@ -21,23 +21,23 @@
 </template>
 
 <script>
-import Button from "@/components/Button.vue";
+import Button from '@/components/Button.vue'
 
 export default {
   data() {
     return {
       agency: {
-        name: "",
-        businessHours: "",
-        adress: "",
-        city: "",
-        state: "",
-        zip: "",
-        logo: "",
+        name: '',
+        businessHours: '',
+        adress: '',
+        city: '',
+        state: '',
+        zip: '',
+        logo: '',
       },
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped>

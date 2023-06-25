@@ -1,48 +1,48 @@
 img {
-    object-fit: cover;
-    height: 50rem;
-    width: 100%;
-    filter: blur(3px);
+  object-fit: cover;
+  height: 50rem;
+  width: 100%;
+  filter: blur(3px);
 }
 
 .img-container {
-    width: 100%;
+  width: 100%;
 }
 
 .carousel::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    background-color: black;
-    opacity: 0.5;
-    z-index: 1;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 1;
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    height: 50rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: rgb(var(--clr-neutral-100));
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  height: 50rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: rgb(var(--clr-neutral-100));
 }
 
 .overlay h1 {
-    font-size: 4rem;
-    font-family: var(--fnt-header);
+  font-size: 4rem;
+  font-family: var(--fnt-header);
 }
 
 .overlay p {
-    font-size: 1.2rem;
-    max-width: 60ch;
-    text-align: center;
-    margin-bottom: 2rem;
+  font-size: 1.2rem;
+  max-width: 60ch;
+  text-align: center;
+  margin-bottom: 2rem;
 }
