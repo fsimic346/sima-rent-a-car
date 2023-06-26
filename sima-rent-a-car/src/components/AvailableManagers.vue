@@ -1,7 +1,12 @@
 <template lang="">
     <div class="container">
         <h1>Available Managers:</h1>
-        <div class="available-managers" v-for="manager in managers">
+        <div
+            class="available-managers"
+            v-for="manager in managers"
+            :value="manager"
+            @click="selectManager(manager)"
+        >
             <div
                 class="manager-logo"
                 :style="{
@@ -36,10 +41,13 @@ export default {
             console.log(err);
         }
     },
-    emits: ["createManager"],
+    emits: ["createManager", "selectManager"],
     methods: {
         createManager() {
             this.$emit("createManager", "CreateManager");
+        },
+        selectManager(manager) {
+            this.$emit("selectManager", manager);
         },
     },
 };

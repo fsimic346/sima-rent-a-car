@@ -75,7 +75,6 @@
                         <div class="data">
                             <input
                                 type="date"
-                                hidden
                                 id="dateOfBirthInput"
                                 v-model="user.dateOfBirth"
                                 disabled
@@ -194,18 +193,19 @@ export default {
         Users,
     },
     mounted() {
-        if (
-            this.user.dateOfBirth === undefined ||
-            this.user.dateOfBirth === ""
-        ) {
-            document.getElementById("dateOfBirthInput").hidden = true;
-        }
         const navHeight = document.querySelector("nav").clientHeight + 1;
         document.getElementById(
             "container",
         ).style.height = `calc(100% - ${navHeight}px)`;
 
         this.user = JSON.parse(localStorage.getItem("user"));
+        if (
+            this.user.dateOfBirth === undefined ||
+            this.user.dateOfBirth === ""
+        ) {
+            document.getElementById("dateOfBirthInput").hidden = true;
+            console.log("PIZDARIJA");
+        }
         document.addEventListener("click", e => {
             let element = document.getElementById("genderOverlay");
             if (element == null) {
