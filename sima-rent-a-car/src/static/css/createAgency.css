@@ -1,14 +1,14 @@
-h1 {
-    color: rgb(var(--clr-text));
-    font-family: var(--fnt-header);
-}
-
 .row {
     display: flex;
     gap: 2rem;
     width: 100%;
     flex-grow: 1;
     padding: 1rem;
+}
+
+h1 {
+    color: rgb(var(--clr-text));
+    font-family: var(--fnt-header);
 }
 
 form {
@@ -31,7 +31,7 @@ form {
     height: 100%;
 }
 
-.add-menager {
+.add-manager {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,15 +43,16 @@ form {
     font-size: 2.5rem;
     color: rgb(var(--clr-text));
     transition: 0.3s;
+    z-index: 3;
+}
+
+.add-manager:hover {
+    background-color: rgba(var(--clr-neutral-100), 0.1);
+    cursor: pointer;
 }
 
 .text {
     font-size: 1.2rem;
-}
-
-.add-menager:hover {
-    background-color: rgba(var(--clr-neutral-100), 0.1);
-    cursor: pointer;
 }
 
 .wrapper {
@@ -75,4 +76,59 @@ form {
 
 .add-btn {
     align-self: flex-end;
+    margin-inline: 5.65rem;
+}
+
+.appointed-manager {
+    display: flex;
+    height: 100%;
+    padding: 1rem;
+    opacity: 0;
+    justify-content: end;
+}
+
+.appointed-manager i {
+    margin-right: auto;
+    margin-block: auto;
+    margin-left: 5rem;
+    font-size: 5rem;
+    color: rgba(var(--clr-text), 50%);
+    transition: 0.3s;
+}
+
+.appointed-manager i:hover {
+    color: rgb(var(--clr-primary-300));
+    cursor: pointer;
+}
+
+.manager-profile-img {
+    height: 100%;
+    border-radius: 2rem;
+    border: 2px solid rgb(var(--clr-neutral-100));
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+}
+.credentials {
+    font-size: 2rem;
+    width: 100%;
+    color: rgb(var(--clr-text));
+    margin-inline: 2.5rem;
+    max-height: 100%;
+    text-align: right;
+}
+
+.username {
+    color: rgb(var(--clr-primary-300));
+}
+
+.full-name {
+    display: flex;
+    justify-content: end;
+    gap: 0.5rem;
+}
+
+.email {
+    justify-self: center;
 }
