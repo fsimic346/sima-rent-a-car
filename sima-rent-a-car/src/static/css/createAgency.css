@@ -74,9 +74,12 @@ form {
     outline: none;
 }
 
-.add-btn {
-    align-self: flex-end;
-    margin-inline: 5.65rem;
+.create {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    color: rgb(var(--clr-success));
 }
 
 .appointed-manager {
@@ -112,7 +115,6 @@ form {
 }
 .credentials {
     font-size: 2rem;
-    width: 100%;
     color: rgb(var(--clr-text));
     margin-inline: 2.5rem;
     max-height: 100%;
@@ -131,4 +133,9 @@ form {
 
 .email {
     justify-self: center;
+}
+
+.error {
+    color: rgb(var(--clr-error));
+    font-size: 16px;
 }

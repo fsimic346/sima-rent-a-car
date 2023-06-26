@@ -7,6 +7,7 @@ import bcrypt from "bcrypt";
 import { omit } from "lodash";
 import { Agency } from "../model/agency.model";
 import AgencyService from "./agency.service";
+import AgencyRepository from "../repository/agency.repository";
 
 const saltRounds = config.get<number>("saltRounds");
 
@@ -14,7 +15,7 @@ const saltRounds = config.get<number>("saltRounds");
 export default class UserService {
     constructor(
         private repository: UserRepository,
-        private agencyService: AgencyService,
+        private agencyRepository: AgencyRepository,
     ) {}
 
     async add(data: any): Promise<Result> {
@@ -112,13 +113,27 @@ export default class UserService {
         return result;
     }
 
+    assignAgency(username: string, agency: Agency) {
+        const manager: User | undefined = this.getByUsername(username);
+        if (!manager) return;
+        const updatedManager: User = {
+            ...manager,
+            agencyId: agency.id,
+            agency,
+        };
+
+        this.repository.update(updatedManager);
+    }
+
     getById(id: number): User | undefined {
         const user: User | undefined = (
             this.repository?.getAll() as User[]
         ).find(x => x.id == id);
         if (user === undefined) return;
         if (user.role === Role.Manager && user.agencyId !== undefined) {
-            user.agency = this.agencyService.getById(user.agencyId) as Agency;
+            user.agency = this.agencyRepository.getById(
+                user.agencyId,
+            ) as Agency;
         }
         return user;
     }
@@ -129,7 +144,9 @@ export default class UserService {
         ).find(x => x.username == username);
         if (user === undefined) return;
         if (user.role === Role.Manager && user.agencyId !== undefined) {
-            user.agency = this.agencyService.getById(user.agencyId) as Agency;
+            user.agency = this.agencyRepository.getById(
+                user.agencyId,
+            ) as Agency;
         }
         return user;
     }
@@ -140,7 +157,9 @@ export default class UserService {
         ).find(x => x.email == email);
         if (user === undefined) return;
         if (user.role === Role.Manager && user.agencyId !== undefined) {
-            user.agency = this.agencyService.getById(user.agencyId) as Agency;
+            user.agency = this.agencyRepository.getById(
+                user.agencyId,
+            ) as Agency;
         }
         return user;
     }

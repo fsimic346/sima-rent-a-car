@@ -7,7 +7,7 @@ export const agencyRouter = Router();
 const agencyService = container.resolve(AgencyService);
 
 agencyRouter.post("/", (req: Request, res: Response) => {
-    const result = agencyService.add(req.body);
+    const result = agencyService.add(req.body.agency, req.body.manager);
     if (result.success) {
         res.sendStatus(200);
     } else {
