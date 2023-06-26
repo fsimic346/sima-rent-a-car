@@ -83,6 +83,17 @@ export default class UserService {
         return result;
     }
 
+    banUser(username: string): Result {
+        const result = new Result();
+        result.message = "Failed to ban " + username;
+        const user = this.getByUsername(username);
+        if (user === undefined || user.banned) return result;
+        const bannedUser: User = { ...user, banned: true };
+        this.repository?.update(bannedUser);
+        result.success = true;
+        result.message = "Banned user " + username;
+        return result;
+    }
     update(data: any): Result {
         const result = this.validateUpdatedUserData(data);
 
@@ -144,10 +155,9 @@ export default class UserService {
         return this.repository.getAll() as User[];
     }
 
-    async login(
-        usernameOrEmail: string,
-        password: string,
-    ): Promise<User | undefined> {
+    async login(usernameOrEmail: string, password: string): Promise<Result> {
+        let result: Result = new Result();
+
         const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
         let user: User | undefined;
         if (usernameOrEmail.match(emailFormat)) {
@@ -155,14 +165,23 @@ export default class UserService {
         } else {
             user = this.getByUsername(usernameOrEmail);
         }
+        result.message = "Invalid login credentials.";
+        result.value = user;
+        if (user?.banned) {
+            result.message = "User is banned.";
+            return result;
+        }
+
         if (user === undefined) {
-            return user;
+            return result;
         }
         const match = await bcrypt.compare(password, user.password);
         if (match) {
-            return user;
+            result.message = "Successful login.";
+            result.success = true;
+            return result;
         }
-        return undefined;
+        return result;
     }
 
     validateNewUserData(data: any): Result {

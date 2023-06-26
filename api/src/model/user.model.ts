@@ -30,6 +30,7 @@ export interface User extends IEntity {
     email: string;
     imageUrl: string;
     phoneNumber: string;
+    banned?: Boolean;
     // optional customer props
     rentedCars?: Vehicle[];
     cart?: string; //to-do cart

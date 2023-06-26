@@ -25,7 +25,8 @@
         "id": 2,
         "dateOfBirth": "2001-06-15",
         "phoneNumber": "069624564",
-        "gender": "Male"
+        "gender": "Male",
+        "banned": true
     },
     {
         "username": "manager",

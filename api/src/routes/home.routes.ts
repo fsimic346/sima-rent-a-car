@@ -7,6 +7,7 @@ import {
     notAuthenticated,
 } from "../utils/jwtAuthenticator";
 import { omit } from "lodash";
+import Result from "../utils/Result";
 
 export const homeRouter = Router();
 
@@ -25,9 +26,13 @@ homeRouter.post(
     notAuthenticated,
     async (req: Request, res: Response) => {
         const { usernameOrEmail, password } = req.body;
-        const user = await userService.login(usernameOrEmail, password);
-        if (user === undefined) {
-            return res.status(401).send("Invalid username or password.");
+        const result: Result = await userService.login(
+            usernameOrEmail,
+            password,
+        );
+        const user = result.value;
+        if (!result.success) {
+            return res.status(401).send(result.message);
         }
         res.send({
             token: generateAccessToken(user),

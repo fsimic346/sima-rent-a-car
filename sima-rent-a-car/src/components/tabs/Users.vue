@@ -55,6 +55,7 @@
                     }}
                 </div>
                 <div class="user-role">{{ user.role }}</div>
+                <i class="fa-solid fa-ban" @click="banUser(user)"></i>
             </div>
         </div>
     </div>
@@ -127,6 +128,17 @@ export default {
                         : sortVal * -1;
                 });
             }
+        },
+        banUser(user) {
+            try {
+                const res = this.axios.get(
+                    "http://localhost:8080/api/user/ban/" + user.username,
+                );
+            } catch (error) {
+                console.log(error);
+            }
+            // oznaciti banovane korisnike
+            alert(`${user.username} banned.`);
         },
     },
     async mounted() {
@@ -218,6 +230,18 @@ i:hover {
     transition: 0.3s ease-in-out;
 }
 
+.user-card i {
+    color: rgb(var(--clr-error));
+    font-size: 2rem;
+    transition: 0.1s;
+}
+
+.user-card i:hover {
+    filter: contrast(1.2);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
 .user-image {
     width: 4rem;
     height: 4rem;
@@ -241,7 +265,6 @@ i:hover {
 }
 
 .user-card:hover {
-    cursor: pointer;
     transform: scale(1.02);
 }
 </style>

@@ -42,6 +42,8 @@ export async function authenticateToken(
             return res.sendStatus(401);
         }
 
+        if (authenticatedUser.banned) return res.sendStatus(401);
+
         (req as CustomRequest).username = decodedToken.username;
         next();
     } catch (err) {

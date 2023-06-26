@@ -9,6 +9,7 @@ import {
 import { CustomRequest } from "../utils/jwtAuthenticator";
 import { omit } from "lodash";
 import { Role, User } from "../model/user.model";
+import Result from "../utils/Result";
 
 export const userRouter = Router();
 
@@ -100,5 +101,25 @@ userRouter.get(
             return;
         }
         res.send(omit(user, ["password", "deleted"]));
+    },
+);
+
+userRouter.get(
+    "/ban/:username",
+    authenticateToken,
+    (req: Request, res: Response) => {
+        if (
+            userService.getByUsername((req as CustomRequest).username)?.role !==
+            Role.Admin
+        ) {
+            res.sendStatus(401);
+            return;
+        }
+        const result: Result = userService.banUser(req.params.username);
+        if (result.success) {
+            res.send(result.message);
+        } else {
+            res.sendStatus(400);
+        }
     },
 );
