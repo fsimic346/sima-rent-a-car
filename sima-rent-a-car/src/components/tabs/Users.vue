@@ -113,8 +113,8 @@ export default {
                 this.users = this.users.sort((a, b) => {
                     if (this.sort === "points")
                         return this.sortOrder === "ascending"
-                            ? b.points - a.points
-                            : a.points - b.points;
+                            ? a.points - b.points
+                            : b.points - a.points;
 
                     let sortVal = 0;
                     if (a[this.sort].toLowerCase() < b[this.sort].toLowerCase())
