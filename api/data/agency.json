@@ -2,10 +2,6 @@
     {
         "id": "3",
         "name": "QuickDrive Rentals",
-        "availableVehicles": [
-            { "make": "Nissan", "model": "Altima", "year": 2023 },
-            { "make": "Toyota", "model": "Rav4", "year": 2022 }
-        ],
         "businessHours": "7:00 AM - 1:00 PM",
         "status": "Closed",
         "location": {
@@ -14,7 +10,9 @@
             "state": "IL",
             "zip": "60601"
         },
-        "logo": "https://example.com/logos/quickdrive-rentals.png"
+        "logo": "https://example.com/logos/quickdrive-rentals.png",
+        "rating": 0,
+        "ratingCount": 0
     },
     {
         "id": "4",
@@ -31,15 +29,13 @@
             "state": "FL",
             "zip": "33101"
         },
-        "logo": "https://example.com/logos/sunshine-car-hire.png"
+        "logo": "https://example.com/logos/sunshine-car-hire.png",
+        "rating": 0,
+        "ratingCount": 0
     },
     {
         "id": "5",
         "name": "City Wheels",
-        "availableVehicles": [
-            { "make": "BMW", "model": "X5", "year": 2023 },
-            { "make": "Mercedes-Benz", "model": "E-Class", "year": 2022 }
-        ],
         "businessHours": "9:00 AM - 7:00 PM",
         "status": "Open",
         "location": {
@@ -48,15 +44,13 @@
             "state": "CA",
             "zip": "94101"
         },
-        "logo": "https://example.com/logos/city-wheels.png"
+        "logo": "https://example.com/logos/city-wheels.png",
+        "rating": 0,
+        "ratingCount": 0
     },
     {
         "id": "6",
         "name": "Coastal Auto Rentals",
-        "availableVehicles": [
-            { "make": "Kia", "model": "Sorento", "year": 2023 },
-            { "make": "Subaru", "model": "Forester", "year": 2022 }
-        ],
         "businessHours": "8:00 AM - 6:00 PM",
         "status": "Closed",
         "location": {
@@ -72,10 +66,6 @@
     {
         "id": "7",
         "name": "FastLane Car Hire",
-        "availableVehicles": [
-            { "make": "Audi", "model": "A4", "year": 2023 },
-            { "make": "Lexus", "model": "RX 350", "year": 2022 }
-        ],
         "businessHours": "9:00 AM - 5:00 PM",
         "status": "Open",
         "location": {
@@ -84,15 +74,13 @@
             "state": "TX",
             "zip": "78701"
         },
-        "logo": "https://example.com/logos/fastlane-car-hire.png"
+        "logo": "https://example.com/logos/fastlane-car-hire.png",
+        "rating": 0,
+        "ratingCount": 0
     },
     {
         "id": "8",
         "name": "MegaDrive Rent-A-Car",
-        "availableVehicles": [
-            { "make": "Jeep", "model": "Wrangler", "year": 2023 },
-            { "make": "GMC", "model": "Sierra", "year": 2022 }
-        ],
         "businessHours": "8:30 AM - 6:30 PM",
         "status": "Open",
         "location": {
@@ -101,15 +89,13 @@
             "state": "CO",
             "zip": "80201"
         },
-        "logo": "https://example.com/logos/megadrive-rent-a-car.png"
+        "logo": "https://example.com/logos/megadrive-rent-a-car.png",
+        "rating": 0,
+        "ratingCount": 0
     },
     {
         "id": "9",
         "name": "Pacific Auto Rentals",
-        "availableVehicles": [
-            { "make": "Mazda", "model": "CX-5", "year": 2023 },
-            { "make": "Ford", "model": "Mustang", "year": 2022 }
-        ],
         "businessHours": "9:00 AM - 6:00 PM",
         "status": "Closed",
         "location": {
@@ -118,21 +104,8 @@
             "state": "HI",
             "zip": "96801"
         },
-        "logo": "https://example.com/logos/pacific-auto-rentals.png"
-    },
-    {
-        "name": "fdgdf",
-        "businessHours": "11:00 AM - 6:00 PM",
-        "location": {
-            "address": "Omladinskog pokreta 12c",
-            "city": "Novi Sad",
-            "state": "Srbija",
-            "zip": "21000"
-        },
-        "logo": "https://randomwordgenerator.com/img/picture-generator/57e7dc454f54ae14f1dc8460962e33791c3ad6e04e507440742a7ad19148cc_640.jpg",
+        "logo": "https://example.com/logos/pacific-auto-rentals.png",
         "rating": 0,
-        "ratingCount": 0,
-        "id": 8,
-        "deleted": false
+        "ratingCount": 0
     }
 ]

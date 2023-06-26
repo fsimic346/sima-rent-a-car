@@ -47,6 +47,7 @@ export default class UserService {
             "https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0";
         // }
         this.repository?.save(user);
+        result.success = true;
         result.value = omit(user, ["password"]);
         return result;
     }
@@ -237,7 +238,7 @@ export default class UserService {
             return result;
         }
         result.success = true;
-        result.message = "successful registration";
+        result.message = "Successful registration.";
         result.value = list === undefined ? 1 : list?.length + 1;
         return result;
     }

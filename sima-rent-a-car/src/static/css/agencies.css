@@ -10,6 +10,10 @@
     height: 100%;
     width: 30rem;
     align-items: center;
+    background-color: rgb(var(--clr-background-secondary));
+    padding: 1rem;
+    gap: 1rem;
+    font-size: 1.2rem;
 }
 .card-container {
     display: flex;
@@ -74,4 +78,48 @@
 
 .open .agency-hours {
     color: rgb(var(--clr-success));
+}
+
+input,
+select {
+    border: 2px solid rgb(var(--clr-neutral-500));
+    background-color: rgb(var(--clr-background));
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    color: rgb(var(--clr-text));
+    padding-inline: 1ch;
+    padding-block: 0.2rem;
+    transition: 0.3s;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border: 2px solid rgba(var(--clr-primary-300));
+    box-shadow: 0px 5px 10px 0px rgba(var(--clr-primary-300), 0.2);
+}
+
+.search {
+    height: max-content;
+    width: 30ch;
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.filter > * {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+}
+
+.sort {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }

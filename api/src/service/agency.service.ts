@@ -24,7 +24,7 @@ export default class AgencyService {
         for (const agency of agencies) {
             agency.availableVehicles = (
                 this.vehicleRepository.getAll() as Vehicle[]
-            ).filter(x => x.agencyId === agency.id);
+            ).filter(x => x.agencyId == agency.id);
         }
 
         return agencies;
