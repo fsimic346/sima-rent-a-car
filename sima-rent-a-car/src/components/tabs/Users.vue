@@ -1,14 +1,19 @@
 <template>
     <div class="search-bar">
-        <input type="text" class="search" placeholder="Search..." />
+        <input
+            type="text"
+            class="search"
+            placeholder="Search..."
+            @keyup="search($event)"
+        />
         <div class="search-options">
             <div class="filter">
                 <div>Filter:</div>
-                <select name="filter" id="filter">
-                    <option value="none">None</option>
-                    <option value="customers">Customers</option>
-                    <option value="managers">Managers</option>
-                    <option value="admins">Admins</option>
+                <select name="filter" id="filter" v-model="filter">
+                    <option value="none" selected>None</option>
+                    <option value="customer">Customers</option>
+                    <option value="manager">Managers</option>
+                    <option value="admin">Admins</option>
                     <option value="bronze">Bronze Customers</option>
                     <option value="silver">Silver Customers</option>
                     <option value="gold">Gold Customers</option>
@@ -16,10 +21,10 @@
             </div>
             <div class="sort">
                 <div>Sort by:</div>
-                <select name="sort" id="sort">
-                    <option value="none">None</option>
-                    <option value="firstname">First Name</option>
-                    <option value="lastname">Last Name</option>
+                <select name="sort" id="sort" v-model="sort">
+                    <option value="none" selected>None</option>
+                    <option value="firstName">First Name</option>
+                    <option value="lastName">Last Name</option>
                     <option value="username">Username</option>
                     <option value="points">Points</option>
                 </select>
@@ -50,6 +55,7 @@
                     }}
                 </div>
                 <div class="user-role">{{ user.role }}</div>
+                <i class="fa-solid fa-ban" @click="banUser(user)"></i>
             </div>
         </div>
     </div>
@@ -59,26 +65,99 @@ export default {
     data() {
         return {
             sortOrder: "descending",
+            searchParams: "",
+            filter: "none",
+            sort: "none",
             users: [],
+            allUsers: [],
         };
     },
     methods: {
         changeSortOrder() {
             if (this.sortOrder === "descending") {
                 this.sortOrder = "ascending";
+                this.filterUsers();
                 return;
             }
             this.sortOrder = "descending";
+            this.filterUsers();
+        },
+        search(e) {
+            this.searchParams = e.target.value.toLowerCase();
+
+            this.filterUsers();
+        },
+        filterUsers() {
+            this.users = this.allUsers.filter(x => {
+                return (
+                    x.firstName.toLowerCase().includes(this.searchParams) ||
+                    x.lastName.toLowerCase().includes(this.searchParams) ||
+                    x.username.toLowerCase().includes(this.searchParams)
+                );
+            });
+
+            if (this.filter !== "none" && this.filter !== "") {
+                this.users = this.users.filter(x => {
+                    if (this.filter in ["bronze", "silver", "gold"]) {
+                        return (
+                            x.role.toLowerCase() === "customer" &&
+                            x.customerType.toLowerCase() ===
+                                this.filter.toLowerCase()
+                        );
+                    }
+                    return x.role.toLowerCase() === this.filter.toLowerCase();
+                });
+            }
+
+            if (this.sort !== "none") {
+                this.users = this.users.sort((a, b) => {
+                    if (this.sort === "points")
+                        return this.sortOrder === "ascending"
+                            ? b.points - a.points
+                            : a.points - b.points;
+
+                    let sortVal = 0;
+                    if (a[this.sort].toLowerCase() < b[this.sort].toLowerCase())
+                        sortVal = 1;
+                    else if (
+                        a[this.sort].toLowerCase() > b[this.sort].toLowerCase()
+                    )
+                        sortVal = -1;
+                    return this.sortOrder === "ascending"
+                        ? sortVal
+                        : sortVal * -1;
+                });
+            }
+        },
+        banUser(user) {
+            try {
+                const res = this.axios.get(
+                    "http://localhost:8080/api/user/ban/" + user.username,
+                );
+            } catch (error) {
+                console.log(error);
+            }
+            // oznaciti banovane korisnike
+            alert(`${user.username} banned.`);
         },
     },
     async mounted() {
         try {
-            this.users = (
+            this.allUsers = (
                 await this.axios.get("http://localhost:8080/api/user/all")
             ).data;
+            this.users = this.allUsers;
         } catch (err) {
             console.log(err.response.data);
         }
+    },
+    watch: {
+        filter(val) {
+            this.filterUsers();
+        },
+        sort(val) {
+            this.filterUsers();
+        },
     },
 };
 </script>
@@ -151,6 +230,18 @@ i:hover {
     transition: 0.3s ease-in-out;
 }
 
+.user-card i {
+    color: rgb(var(--clr-error));
+    font-size: 2rem;
+    transition: 0.1s;
+}
+
+.user-card i:hover {
+    filter: contrast(1.2);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
 .user-image {
     width: 4rem;
     height: 4rem;
@@ -174,7 +265,6 @@ i:hover {
 }
 
 .user-card:hover {
-    cursor: pointer;
     transform: scale(1.02);
 }
 </style>
