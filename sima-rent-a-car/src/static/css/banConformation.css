@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(var(--clr-background), 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding-top: 1rem;
+    gap: 1.5rem;
+    padding-bottom: 0rem;
+    border: 4px solid rgb(var(--clr-primary-300));
+    color: rgb(var(--clr-text));
+    max-width: max-content;
+}
+
+.headher {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 2rem;
+    margin-inline: 2rem;
+}
+
+.username {
+    color: rgb(var(--clr-primary-300));
+}
+
+.buttons {
+    display: flex;
+    margin-top: auto;
+    width: 100%;
+    justify-content: center;
+}
+
+Button {
+    width: 100%;
+    transition: 0.2s;
+    font-weight: bold;
+}
+
+Button:hover {
+    cursor: pointer;
+    background-color: rgb(var(--clr-text), 10%) !important;
+}

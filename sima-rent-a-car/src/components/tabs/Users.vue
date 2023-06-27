@@ -59,8 +59,19 @@
             </div>
         </div>
     </div>
+
+    <vue-final-modal
+        v-model="showBanModal"
+        classes="modal-container"
+        content-class="modal-content"
+    >
+        <BanConformation :user="user" @closeModal="closeBanModal" />
+    </vue-final-modal>
 </template>
 <script>
+import { VueFinalModal, ModalsContainer } from "vue-final-modal";
+import BanConformation from "@/components/BanConformation.vue";
+
 export default {
     data() {
         return {
@@ -70,7 +81,14 @@ export default {
             sort: "none",
             users: [],
             allUsers: [],
+            showBanModal: false,
+            user: "",
         };
+    },
+    components: {
+        VueFinalModal,
+        ModalsContainer,
+        BanConformation,
     },
     methods: {
         changeSortOrder() {
@@ -130,15 +148,11 @@ export default {
             }
         },
         banUser(user) {
-            try {
-                const res = this.axios.get(
-                    "http://localhost:8080/api/user/ban/" + user.username,
-                );
-            } catch (error) {
-                console.log(error);
-            }
-            // oznaciti banovane korisnike
-            alert(`${user.username} banned.`);
+            this.user = user;
+            this.showBanModal = true;
+        },
+        closeBanModal() {
+            this.showBanModal = false;
         },
     },
     async mounted() {
@@ -266,5 +280,19 @@ i:hover {
 
 .user-card:hover {
     transform: scale(1.02);
+}
+
+::v-deep .modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+::v-deep .modal-content {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: none;
+    border-radius: 0.25rem;
+    max-width: max-content;
 }
 </style>
