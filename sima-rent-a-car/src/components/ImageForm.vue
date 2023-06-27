@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <form @submit="onSubmit" class="user-form">
-            <h1>Profile image url:</h1>
+            <h1>{{ header }}</h1>
             <div class="form-element">
                 <input type="text" v-model="imageUrl" />
             </div>
@@ -38,11 +38,16 @@ export default {
             editText: "Save",
         };
     },
+    props: {
+        header: String,
+        image: String,
+    },
     components: {
         Button,
     },
     mounted() {
-        this.imageUrl = JSON.parse(localStorage.getItem("user")).imageUrl;
+        console.log(this.image);
+        this.imageUrl = this.image;
     },
     methods: {
         async edit() {

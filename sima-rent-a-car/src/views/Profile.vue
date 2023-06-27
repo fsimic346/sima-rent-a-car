@@ -146,6 +146,7 @@
                     v-if="selectedTab === 'AgencyOverview'"
                     :agency="user.agency"
                 />
+                <AddVehicle v-if="selectedTab === 'AddVehicle'" />
                 <Users v-if="selectedTab === 'Users'" />
             </div>
         </div>
@@ -155,7 +156,11 @@
         classes="modal-container"
         content-class="modal-content"
     >
-        <ImageForm @imageChanged="val => (this.user.imageUrl = val)" />
+        <ImageForm
+            :image="user.imageUrl"
+            header="Profile image url:"
+            @imageChanged="val => (this.user.imageUrl = val)"
+        />
     </vue-final-modal>
 </template>
 <script>
@@ -163,6 +168,7 @@ import Button from "@/components/Button.vue";
 import { VueFinalModal, ModalsContainer } from "vue-final-modal";
 import ImageForm from "@/components/ImageForm.vue";
 import CreateManager from "@/components/tabs/CreateManager.vue";
+import AddVehicle from "@/components/tabs/AddVehicle.vue";
 import CreateAgency from "@/components/tabs/CreateAgency.vue";
 import AdminTabs from "@/components/AdminTabs.vue";
 import ManagerTabs from "@/components/ManagerTabs.vue";
@@ -191,6 +197,10 @@ export default {
         ManagerTabs,
         AgencyOverview,
         Users,
+        AddVehicle,
+    },
+    created() {
+        this.user = JSON.parse(localStorage.getItem("user"));
     },
     mounted() {
         const navHeight = document.querySelector("nav").clientHeight + 1;
@@ -198,13 +208,11 @@ export default {
             "container",
         ).style.height = `calc(100% - ${navHeight}px)`;
 
-        this.user = JSON.parse(localStorage.getItem("user"));
         if (
             this.user.dateOfBirth === undefined ||
             this.user.dateOfBirth === ""
         ) {
             document.getElementById("dateOfBirthInput").hidden = true;
-            console.log("PIZDARIJA");
         }
         document.addEventListener("click", e => {
             let element = document.getElementById("genderOverlay");
