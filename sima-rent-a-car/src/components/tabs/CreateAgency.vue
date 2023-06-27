@@ -1,65 +1,70 @@
 <template>
-    <div class="row">
-        <form @submit="onSubmit">
-            <h1>New Agency</h1>
-            <div class="wrapper">
-                <label>Name:</label>
-                <input type="text" v-model="agency.name" />
-                <div class="error">{{ errorName }}</div>
-            </div>
-            <div class="wrapper">
-                <label>Business hours:</label>
-                <input type="text" v-model="agency.businessHours" />
-                <div class="error">{{ errorBusinessHours }}</div>
-                <div class="error" v-if="this.errorBusinessHours !== ''">
-                    (9:00-18:00)
+    <div class="flex-wrapper">
+        <div class="column">
+            <form @submit="onSubmit">
+                <h1>New Agency</h1>
+                <div class="wrapper">
+                    <label>Name:</label>
+                    <input type="text" v-model="agency.name" />
+                    <div class="error">{{ errorName }}</div>
                 </div>
-            </div>
-            <div class="wrapper">
-                <label>Logo:</label>
-                <input type="text" v-model="agency.logo" />
-                <div class="error">{{ errorLogo }}</div>
-            </div>
-        </form>
-        <div class="map"></div>
-    </div>
-    <div class="row">
-        <div class="create">
-            <Button
-                text="Create"
-                class="add-btn"
-                ref="createBtn"
-                @click="createAgency"
-            />
-            <div class="success">{{ success }}</div>
-            <div class="error">{{ error }}</div>
-        </div>
-        <div class="new-manager">
-            <div
-                v-if="!isManagerSelected"
-                class="add-manager"
-                @click="addManager()"
-            >
-                <i class="fa-solid fa-user-plus"></i>
-                <div class="text">Add Manager</div>
-                <div class="error">{{ errorManager }}</div>
-            </div>
-
-            <div id="appointManager" class="appointed-manager">
-                <i class="fa-solid fa-pen" @click="addManager"></i>
-                <div class="credentials">
-                    <div class="full-name">
-                        <div>{{ manager.firstName }}</div>
-                        <div>{{ manager.lastName }}</div>
+                <div class="wrapper">
+                    <label>Business hours:</label>
+                    <input type="text" v-model="agency.businessHours" />
+                    <div class="error">{{ errorBusinessHours }}</div>
+                    <div class="error" v-if="this.errorBusinessHours !== ''">
+                        (9:00-18:00)
                     </div>
-                    <div class="username">@{{ manager.username }}</div>
-                    <div class="email">{{ manager.email }}</div>
                 </div>
+                <div class="wrapper">
+                    <label>Logo:</label>
+                    <input type="text" v-model="agency.logo" />
+                    <div class="error">{{ errorLogo }}</div>
+                </div>
+            </form>
+            <div class="create">
+                <Button
+                    text="Create"
+                    class="add-btn"
+                    ref="createBtn"
+                    @click="createAgency"
+                />
+                <div class="success">{{ success }}</div>
+                <div class="error">{{ error }}</div>
+            </div>
+        </div>
+        <div class="column max-width">
+            <div class="map"></div>
+
+            <div class="new-manager">
                 <div
-                    class="manager-profile-img"
-                    :style="{ backgroundImage: `url('${manager.imageUrl}')` }"
-                    id="managerImg"
-                ></div>
+                    v-if="!isManagerSelected"
+                    class="add-manager"
+                    @click="addManager()"
+                >
+                    <i class="fa-solid fa-user-plus"></i>
+                    <div class="text">Add Manager</div>
+                    <div class="error">{{ errorManager }}</div>
+                </div>
+
+                <div id="appointManager" class="appointed-manager">
+                    <i class="fa-solid fa-pen" @click="addManager"></i>
+                    <div class="credentials">
+                        <div class="full-name">
+                            <div>{{ manager.firstName }}</div>
+                            <div>{{ manager.lastName }}</div>
+                        </div>
+                        <div class="username">@{{ manager.username }}</div>
+                        <div class="email">{{ manager.email }}</div>
+                    </div>
+                    <div
+                        class="manager-profile-img"
+                        :style="{
+                            backgroundImage: `url('${manager.imageUrl}')`,
+                        }"
+                        id="managerImg"
+                    ></div>
+                </div>
             </div>
         </div>
     </div>

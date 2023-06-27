@@ -1,8 +1,13 @@
-.row {
+.flex-wrapper {
     display: flex;
-    gap: 2rem;
     width: 100%;
-    flex-grow: 1;
+    height: 100%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     padding: 1rem;
 }
 
@@ -21,14 +26,14 @@ form {
 .map {
     background-color: rgb(var(--clr-background));
     flex-grow: 1;
-    height: 100%;
+    width: 100%;
 }
 
 .new-manager {
     position: relative;
     background-color: rgb(var(--clr-background));
-    flex-grow: 1;
-    height: 100%;
+    flex-grow: 0.05;
+    width: 100%;
 }
 
 .add-manager {
@@ -80,6 +85,7 @@ form {
     align-items: center;
     justify-content: flex-end;
     color: rgb(var(--clr-success));
+    margin-top: auto;
 }
 
 .appointed-manager {
@@ -138,4 +144,12 @@ form {
 .error {
     color: rgb(var(--clr-error));
     font-size: 16px;
+}
+
+input {
+    max-width: 25ch;
+}
+
+.max-width {
+    width: 100%;
 }

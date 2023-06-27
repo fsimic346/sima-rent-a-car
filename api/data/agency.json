@@ -107,5 +107,20 @@
         "logo": "https://example.com/logos/pacific-auto-rentals.png",
         "rating": 0,
         "ratingCount": 0
+    },
+    {
+        "name": "fdgdf",
+        "businessHours": "11:00 AM - 6:00 PM",
+        "location": {
+            "address": "Omladinskog pokreta 12c",
+            "city": "Novi Sad",
+            "state": "Srbija",
+            "zip": "21000"
+        },
+        "logo": "https://randomwordgenerator.com/img/picture-generator/57e7dc454f54ae14f1dc8460962e33791c3ad6e04e507440742a7ad19148cc_640.jpg",
+        "rating": 0,
+        "ratingCount": 0,
+        "id": 10,
+        "deleted": false
     }
 ]

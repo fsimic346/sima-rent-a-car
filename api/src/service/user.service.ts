@@ -127,42 +127,15 @@ export default class UserService {
     }
 
     getById(id: number): User | undefined {
-        const user: User | undefined = (
-            this.repository?.getAll() as User[]
-        ).find(x => x.id == id);
-        if (user === undefined) return;
-        if (user.role === Role.Manager && user.agencyId !== undefined) {
-            user.agency = this.agencyRepository.getById(
-                user.agencyId,
-            ) as Agency;
-        }
-        return user;
+        return this.repository.getById(id);
     }
 
     getByUsername(username: string): User | undefined {
-        const user: User | undefined = (
-            this.repository?.getAll() as User[]
-        ).find(x => x.username == username);
-        if (user === undefined) return;
-        if (user.role === Role.Manager && user.agencyId !== undefined) {
-            user.agency = this.agencyRepository.getById(
-                user.agencyId,
-            ) as Agency;
-        }
-        return user;
+        return this.repository.getByUsername(username);
     }
 
-    getByEmail(email: string): User | undefined {
-        const user: User | undefined = (
-            this.repository?.getAll() as User[]
-        ).find(x => x.email == email);
-        if (user === undefined) return;
-        if (user.role === Role.Manager && user.agencyId !== undefined) {
-            user.agency = this.agencyRepository.getById(
-                user.agencyId,
-            ) as Agency;
-        }
-        return user;
+    getByEmail(email: string): User {
+        return this.repository.getByEmail(email);
     }
 
     getAvailableManagers(): User[] {
@@ -172,7 +145,7 @@ export default class UserService {
     }
 
     getAll(): User[] {
-        return this.repository.getAll() as User[];
+        return this.repository.getAll();
     }
 
     async login(usernameOrEmail: string, password: string): Promise<Result> {

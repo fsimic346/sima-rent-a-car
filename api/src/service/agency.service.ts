@@ -19,31 +19,11 @@ export default class AgencyService {
     ) {}
 
     getAll(): Agency[] {
-        const agencies: Agency[] = this.repository?.getAll() as Agency[];
-
-        for (const agency of agencies) {
-            agency.availableVehicles = (
-                this.vehicleRepository.getAll() as Vehicle[]
-            ).filter(x => x.agencyId == agency.id);
-        }
-
-        return agencies;
+        return this.repository.getAll();
     }
 
-    getById(id: number): Agency | undefined {
-        const agency: Agency | undefined = (
-            this.repository?.getAll() as Agency[]
-        ).find(x => x.id == id);
-
-        if (agency !== undefined) {
-            agency.availableVehicles = (
-                this.vehicleRepository.getAll() as Vehicle[]
-            ).filter(x => {
-                return x.agencyId == agency.id;
-            });
-        }
-
-        return agency;
+    getById(id: number): Agency {
+        return this.repository.getById(id);
     }
 
     add(dataAgency: any, dataManager: any): Result {

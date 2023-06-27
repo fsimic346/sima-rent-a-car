@@ -152,9 +152,9 @@ export default {
 
             if (this.typeFilter !== "none") {
                 this.agencies = this.agencies.filter(x => {
-                    return x.availableVehicles.some(
-                        x => x.vehicleType.toLowerCase() === this.typeFilter,
-                    );
+                    return x.availableVehicles.some(x => {
+                        return x.vehicleType.toLowerCase() === this.typeFilter;
+                    });
                 });
             }
 
