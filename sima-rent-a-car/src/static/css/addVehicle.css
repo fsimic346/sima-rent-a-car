@@ -1,0 +1,142 @@
+.container {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+Button {
+    margin-inline: auto;
+    margin-top: auto;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    gap: 1.4rem;
+}
+
+.car-image-placeholder {
+    position: relative;
+    width: 30rem;
+    height: 30rem;
+    border: 2px solid rgb(var(--clr-text));
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 2rem;
+    color: rgb(var(--clr-text));
+    transition: 0.2s;
+}
+
+h1 {
+    color: rgb(var(--clr-text));
+    margin-inline: auto;
+    font-family: var(--fnt-header);
+}
+
+.car-image-placeholder:hover {
+    color: rgb(var(--clr-primary-300));
+    background-color: rgba(var(--clr-text), 10%);
+    border-color: rgb(var(--clr-primary-300));
+    cursor: pointer;
+}
+
+.add-icon {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    font-size: 10rem;
+    width: 100%;
+    height: 100%;
+    border-radius: 2rem;
+}
+
+.change-icon {
+    opacity: 0;
+    transition: opacity 0.2s;
+    box-shadow: inset 0 0 0 1000px rgba(var(--clr-primary-300), 0.2);
+}
+
+.change-icon:hover {
+    opacity: 1;
+}
+
+.primary-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    background-color: rgb(var(--clr-background));
+    color: rgb(var(--clr-text));
+    border-radius: 1rem;
+    padding-block: 1rem;
+    padding-inline: 3rem;
+    flex-grow: 1;
+}
+
+form {
+    display: flex;
+    gap: 13rem;
+    justify-content: space-between;
+}
+
+.input {
+    background-color: rgb(var(--clr-background));
+    border-radius: 0.4rem;
+    color: rgb(var(--clr-text));
+    font-size: 1.2rem;
+    border: 2px solid rgb(var(--clr-text));
+    padding-inline: 1ch;
+    padding-block: 0.2rem;
+    outline: none;
+    width: 25ch;
+}
+
+.textarea {
+    width: 100%;
+    height: 100%;
+}
+
+.number {
+    width: 8rem;
+}
+
+.primary-info label {
+    font-size: 1.5rem;
+}
+
+.max-width {
+    width: 100%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    height: 100%;
+}
+
+.error {
+    color: rgb(var(--clr-error));
+}
+
+.success {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    color: rgb(var(--clr-success));
+}
+
+.error-center {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}

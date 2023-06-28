@@ -24,7 +24,7 @@
             </form>
             <div class="create">
                 <Button
-                    text="Create"
+                    :text="btnText"
                     class="add-btn"
                     ref="createBtn"
                     @click="createAgency"
@@ -102,7 +102,7 @@ export default {
                 email: "placeholder",
             },
             isManagerSelected: false,
-            btnText: "",
+            btnText: "Create",
             error: "",
             success: "",
             errorName: "",
@@ -177,6 +177,7 @@ export default {
                 document.getElementById("appointManager").style.opacity = 0;
                 this.isManagerSelected = false;
                 this.error = "";
+                this.btnText = "Create";
             } catch (err) {
                 this.btnText = "Create";
                 this.$refs.createBtn.enabled = true;
