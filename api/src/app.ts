@@ -17,10 +17,12 @@ app.use(cookieParser());
 import { homeRouter } from "./routes/home.routes";
 import { userRouter } from "./routes/user.routes";
 import { agencyRouter } from "./routes/agency.routes";
+import { vehicleRouter } from "./routes/vehicle.routes";
 
 app.use("/api/", homeRouter);
 app.use("/api/user", userRouter);
 app.use("/api/agency", agencyRouter);
+app.use("/api/vehicle", vehicleRouter);
 
 app.listen(port, async () => {
     console.log(`Server running at port ${port}`);

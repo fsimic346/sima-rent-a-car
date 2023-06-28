@@ -146,7 +146,10 @@
                     v-if="selectedTab === 'AgencyOverview'"
                     :agency="user.agency"
                 />
-                <AddVehicle v-if="selectedTab === 'AddVehicle'" />
+                <AddVehicle
+                    :agencyId="user.agencyId"
+                    v-if="selectedTab === 'AddVehicle'"
+                />
                 <Users v-if="selectedTab === 'Users'" />
             </div>
         </div>
@@ -159,7 +162,9 @@
         <ImageForm
             :image="user.imageUrl"
             header="Profile image url:"
-            @imageChanged="val => (this.user.imageUrl = val)"
+            @imageChanged="
+                (val => (this.user.imageUrl = val), (showImageModal = false))
+            "
         />
     </vue-final-modal>
 </template>

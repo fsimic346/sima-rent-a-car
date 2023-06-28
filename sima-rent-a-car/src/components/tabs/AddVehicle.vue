@@ -9,8 +9,14 @@
                 <div class="add-icon" v-if="!hasImage">
                     <i class="fa-solid fa-camera"></i>
                 </div>
+                <div class="add-icon change-icon" v-if="hasImage">
+                    <i class="fa-solid fa-pen"></i>
+                </div>
             </div>
-            <Button text="Add" @click="addVehicle"></Button>
+            <div class="error error-center">{{ errorImage }}</div>
+            <Button :text="btnText" ref="addBtn" @click="addVehicle"></Button>
+            <div class="success">{{ success }}</div>
+            <div class="error error-center">{{ error }}</div>
         </div>
         <div class="column max-width">
             <div class="primary-info">
@@ -55,7 +61,6 @@
                             <label>Transmission type*:</label>
                             <select
                                 class="input"
-                                type="text"
                                 v-model="vehicle.transmissionType"
                             >
                                 <option value="Manual">Manual</option>
@@ -90,12 +95,16 @@
                         <div class="error">
                             {{ errorConsumption }}
                         </div>
+                        <div class="error" v-if="this.errorConsumption !== ''">
+                            (8.5)
+                        </div>
                         <div class="row">
                             <div class="wrapper">
                                 <label>Doors*:</label>
                                 <input
                                     class="input number"
                                     type="number"
+                                    min="0"
                                     v-model="vehicle.doorNumber"
                                 />
                                 <div class="error">
@@ -107,6 +116,7 @@
                                 <input
                                     class="input number"
                                     type="number"
+                                    min="0"
                                     v-model="vehicle.passangerNumber"
                                 />
                                 <div class="error">
@@ -123,9 +133,6 @@
                             />
                             <div class="error">
                                 {{ errorPrice }}
-                            </div>
-                            <div class="error" v-if="this.errorPrice !== ''">
-                                ($1000)
                             </div>
                         </div>
                     </div>
@@ -147,7 +154,12 @@
             :image="vehicle.image"
             header="Vehicle image url:"
             @imageChanged="
-                val => ((this.vehicle.image = val), (this.hasImage = true))
+                val => {
+                    this.vehicle.image = val;
+                    console.log(this.vehicle.image);
+                    this.hasImage = true;
+                    showImageModal = false;
+                }
             "
         />
     </vue-final-modal>
@@ -183,7 +195,11 @@ export default {
             errorDoors: "",
             errorPassangers: "",
             errorPrice: "",
+            errorImage: "",
+            error: "",
+            success: "",
             showImageModal: false,
+            btnText: "Add",
         };
     },
     components: {
@@ -192,10 +208,45 @@ export default {
         VueFinalModal,
         ModalsContainer,
     },
+    props: { agencyId: Number },
     methods: {
-        addVehicle() {
+        async addVehicle() {
             const errorMessage = this.validation();
             if (errorMessage !== "") return;
+
+            try {
+                this.btnText = "";
+                this.$refs.addBtn.enabled = false;
+                const res = await this.axios.post(
+                    "http://localhost:8080/api/vehicle/",
+                    {
+                        vehicle: this.vehicle,
+                        agencyId: this.agencyId,
+                    },
+                );
+
+                this.$refs.addBtn.enabled = true;
+                this.success = "Successfully Added";
+
+                this.vehicle.image = "";
+                this.vehicle.brand = "";
+                this.vehicle.model = "";
+                this.vehicle.vehicleType = "";
+                this.vehicle.transmissionType = "";
+                this.vehicle.fuelType = "";
+                this.vehicle.consumption = "";
+                this.vehicle.doorNumber = "";
+                this.vehicle.passangerNumber = "";
+                this.vehicle.price = "";
+                this.hasImage = false;
+                this.error = "";
+                this.btnText = "Add";
+            } catch (err) {
+                this.btnText = "Create";
+                this.$refs.addBtn.enabled = true;
+                console.log(err);
+                this.error = err.response.data;
+            }
         },
         addOrEditImage() {
             this.showImageModal = true;
@@ -210,8 +261,10 @@ export default {
             this.errorDoors = "";
             this.errorPassangers = "";
             this.errorPrice = "";
+            this.errorImage = "";
 
-            const priceRegex = "^\$[1-9][0-9]*$";
+            const priceRegex = "^\[1-9][0-9]*$";
+            const consumptionRegex = "^\[1-9][0-9]*.[0-9]*$";
 
             if (this.vehicle.brand === "") {
                 this.errorBrand = "invalid brand";
@@ -221,7 +274,7 @@ export default {
                 return this.errorModel;
             } else if (
                 this.vehicle.price === "" ||
-                !this.vehicle.price.match(this.priceRegex)
+                !this.vehicle.price.match(priceRegex)
             ) {
                 this.errorPrice = "invalid price";
                 return this.errorPrice;
@@ -234,7 +287,10 @@ export default {
             } else if (this.vehicle.fuelType === "") {
                 this.errorFuelType = "invalid fuel type";
                 return this.errorFuelType;
-            } else if (this.vehicle.consumption === "") {
+            } else if (
+                this.vehicle.consumption === "" ||
+                !this.vehicle.consumption.match(consumptionRegex)
+            ) {
                 this.errorConsumption = "invalid consumption";
                 return this.errorConsumption;
             } else if (this.vehicle.doorNumber === "") {
@@ -243,6 +299,9 @@ export default {
             } else if (this.vehicle.passangerNumber === "") {
                 this.errorPassangers = "invalid passanger number";
                 return this.errorPassangers;
+            } else if (!this.hasImage) {
+                this.errorImage = "invalid image";
+                return this.errorImage;
             }
 
             return "";
@@ -250,127 +309,7 @@ export default {
     },
 };
 </script>
-<style scoped>
-.container {
-    display: flex;
-    gap: 2rem;
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
-    flex-grow: 1;
-}
-
-Button {
-    margin-inline: auto;
-    margin-top: auto;
-}
-
-.column {
-    display: flex;
-    flex-direction: column;
-}
-
-.row {
-    display: flex;
-    gap: 1.4rem;
-}
-
-.car-image-placeholder {
-    position: relative;
-    width: 30rem;
-    height: 30rem;
-    border: 2px solid rgb(var(--clr-text));
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 2rem;
-    color: rgb(var(--clr-text));
-    transition: 0.3s;
-}
-
-h1 {
-    color: rgb(var(--clr-text));
-    margin-inline: auto;
-    font-family: var(--fnt-header);
-}
-
-.car-image-placeholder:hover {
-    color: rgb(var(--clr-primary-300));
-    background-color: rgba(var(--clr-text), 10%);
-    border-color: rgb(var(--clr-primary-300));
-    cursor: pointer;
-}
-
-.add-icon {
-    display: flex;
-    position: absolute;
-    align-items: center;
-    justify-content: center;
-    font-size: 10rem;
-    width: 100%;
-    height: 100%;
-    border-radius: 2rem;
-}
-
-.primary-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    width: 100%;
-    background-color: rgb(var(--clr-background));
-    color: rgb(var(--clr-text));
-    border-radius: 1rem;
-    padding-block: 1rem;
-    padding-inline: 3rem;
-    flex-grow: 1;
-}
-
-form {
-    display: flex;
-    gap: 13rem;
-    justify-content: space-between;
-}
-
-.input {
-    background-color: rgb(var(--clr-background));
-    border-radius: 0.4rem;
-    color: rgb(var(--clr-text));
-    font-size: 1.2rem;
-    border: 2px solid rgb(var(--clr-text));
-    padding-inline: 1ch;
-    padding-block: 0.2rem;
-    outline: none;
-    width: 25ch;
-}
-
-.textarea {
-    width: 100%;
-    height: 100%;
-}
-
-.number {
-    width: 8rem;
-}
-
-.primary-info label {
-    font-size: 1.5rem;
-}
-
-.max-width {
-    width: 100%;
-}
-
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-    height: 100%;
-}
-
-.error {
-    color: rgb(var(--clr-error));
-}
-
+<style scoped src="../../static/css/addVehicle.css">
 ::v-deep .modal-container {
     display: flex;
     justify-content: center;

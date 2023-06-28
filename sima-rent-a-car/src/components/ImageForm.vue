@@ -46,7 +46,6 @@ export default {
         Button,
     },
     mounted() {
-        console.log(this.image);
         this.imageUrl = this.image;
     },
     methods: {
