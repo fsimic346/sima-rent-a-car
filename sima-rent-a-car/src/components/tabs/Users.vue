@@ -53,9 +53,19 @@
                         user.username +
                         ` (${user.firstName + " " + user.lastName})`
                     }}
+                    <span class="banned" v-if="user.banned">BANNED</span>
                 </div>
                 <div class="user-role">{{ user.role }}</div>
-                <i class="fa-solid fa-ban" @click="banUser(user)"></i>
+                <i
+                    class="fa-solid fa-user-xmark"
+                    v-if="user.role !== 'Admin' && !user.banned"
+                    @click="banUser(user)"
+                ></i>
+                <i
+                    class="fa-solid fa-user-check unban"
+                    v-if="user.banned"
+                    @click="unbanUser(user)"
+                ></i>
             </div>
         </div>
     </div>
@@ -151,8 +161,13 @@ export default {
             this.user = user;
             this.showBanModal = true;
         },
-        closeBanModal() {
+        unbanUser(user) {
+            this.user = user;
+            this.showBanModal = true;
+        },
+        closeBanModal(banned) {
             this.showBanModal = false;
+            this.user.banned = banned;
         },
     },
     async mounted() {
@@ -221,8 +236,9 @@ i:hover {
     flex-direction: column;
     width: 100%;
     gap: 1rem;
-    padding: 2rem;
     height: 100%;
+    overflow: auto;
+    padding: 2rem;
 }
 
 .users-overflow {
@@ -242,12 +258,14 @@ i:hover {
     border-radius: 10px;
     padding: 0.6rem 1rem;
     transition: 0.3s ease-in-out;
+    width: 100%;
 }
 
 .user-card i {
     color: rgb(var(--clr-error));
     font-size: 2rem;
     transition: 0.1s;
+    margin-left: auto;
 }
 
 .user-card i:hover {
@@ -280,6 +298,16 @@ i:hover {
 
 .user-card:hover {
     transform: scale(1.02);
+}
+
+.banned {
+    color: rgb(var(--clr-error));
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+.unban {
+    color: rgb(var(--clr-success)) !important;
 }
 
 ::v-deep .modal-container {

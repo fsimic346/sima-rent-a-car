@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="headher">
-            <div>Ban</div>
+            <div>{{ user.banned ? "Unban" : "Ban" }}</div>
             <div class="username">@{{ user.username }}</div>
             <div>?</div>
         </div>
@@ -16,7 +16,7 @@
                 text="No"
                 class="btn"
                 color="transparent"
-                @click="closeModal"
+                @click="closeModal(user.banned)"
             ></Button>
         </div>
     </div>
@@ -36,20 +36,30 @@ export default {
         Button,
     },
     methods: {
-        closeModal() {
-            this.$emit("closeModal");
+        closeModal(banned) {
+            this.$emit("closeModal", banned);
         },
         banUser() {
             try {
-                const res = this.axios.get(
-                    "http://localhost:8080/api/user/ban/" + this.user.username,
-                );
+                if (!this.user.banned) {
+                    const res = this.axios.get(
+                        "http://localhost:8080/api/user/ban/" +
+                            this.user.username,
+                    );
+                    this.closeModal(true);
+                } else {
+                    const res = this.axios.get(
+                        "http://localhost:8080/api/user/unban/" +
+                            this.user.username,
+                    );
+                    this.closeModal(false);
+                }
             } catch (error) {
                 console.log(error);
             }
             //toDo: oznaciti banovane korisnike
             //toDo: banovanima omoguciti unban
-            alert(`${this.user.username} banned.`);
+            // alert(`${this.user.username} banned.`);
         },
     },
 };

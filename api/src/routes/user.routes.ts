@@ -123,3 +123,23 @@ userRouter.get(
         }
     },
 );
+
+userRouter.get(
+    "/unban/:username",
+    authenticateToken,
+    (req: Request, res: Response) => {
+        if (
+            userService.getByUsername((req as CustomRequest).username)?.role !==
+            Role.Admin
+        ) {
+            res.sendStatus(401);
+            return;
+        }
+        const result: Result = userService.unbanUser(req.params.username);
+        if (result.success) {
+            res.send(result.message);
+        } else {
+            res.sendStatus(400);
+        }
+    },
+);
