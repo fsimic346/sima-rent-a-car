@@ -6,7 +6,6 @@ import config from "config";
 import bcrypt from "bcrypt";
 import { omit } from "lodash";
 import { Agency } from "../model/agency.model";
-import AgencyService from "./agency.service";
 import AgencyRepository from "../repository/agency.repository";
 
 const saltRounds = config.get<number>("saltRounds");
@@ -112,7 +111,7 @@ export default class UserService {
 
         if (!result.success) return result;
 
-        const user: User = this.getById(data.id) as User;
+        const user: User = this.getById(data.id);
         user.firstName = data.firstName;
         user.lastName = data.lastName;
         user.dateOfBirth = data.dateOfBirth;
@@ -137,7 +136,7 @@ export default class UserService {
         this.repository.update(updatedManager);
     }
 
-    getById(id: number): User | undefined {
+    getById(id: number): User {
         return this.repository.getById(id);
     }
 

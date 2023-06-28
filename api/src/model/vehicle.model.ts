@@ -25,7 +25,7 @@ export enum FuelType {
 export interface Vehicle extends IEntity {
     brand: string;
     model: string;
-    price: string;
+    price: number;
     vehicleType: VehicleType;
     agencyId: number;
     transmissionType: TransmissionType;
