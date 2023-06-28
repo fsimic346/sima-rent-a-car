@@ -96,6 +96,17 @@ export default class UserService {
         result.message = "Banned user " + username;
         return result;
     }
+    unbanUser(username: string): Result {
+        const result = new Result();
+        result.message = "Failed to unban " + username;
+        const user = this.getByUsername(username);
+        if (!user || !user.banned) return result;
+        user.banned = false;
+        this.repository.update(user);
+        result.message = "Unbanned user " + username;
+        result.success = true;
+        return result;
+    }
     update(data: any): Result {
         const result = this.validateUpdatedUserData(data);
 

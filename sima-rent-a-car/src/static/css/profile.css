@@ -16,6 +16,7 @@
     background-color: rgb(var(--clr-background-secondary));
     padding-inline: 1rem;
     padding-bottom: 3rem;
+    overflow: hidden;
 }
 
 .row {
@@ -242,7 +243,6 @@
     padding-bottom: 0rem;
     width: 100%;
     gap: 0.5rem;
-    overflow: auto;
 }
 
 .selected {
@@ -257,4 +257,5 @@
     border-radius: 0.5rem;
     background-color: rgb(var(--clr-background-secondary));
     align-items: center;
+    overflow: auto;
 }
