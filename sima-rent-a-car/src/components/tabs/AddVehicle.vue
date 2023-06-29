@@ -139,7 +139,10 @@
                 </form>
                 <div class="wrapper">
                     <label>Description:</label>
-                    <textarea class="input textarea"></textarea>
+                    <textarea
+                        class="input textarea"
+                        v-model="vehicle.description"
+                    ></textarea>
                 </div>
             </div>
         </div>
@@ -202,6 +205,7 @@ export default {
             btnText: "Add",
         };
     },
+    emits: ["updateAvailableVehicle"],
     components: {
         Button,
         ImageForm,
@@ -241,10 +245,11 @@ export default {
                 this.hasImage = false;
                 this.error = "";
                 this.btnText = "Add";
+                this.$emit("updateAvailableVehicle");
             } catch (err) {
+                console.log(err);
                 this.btnText = "Create";
                 this.$refs.addBtn.enabled = true;
-                console.log(err);
                 this.error = err.response.data;
             }
         },
@@ -264,7 +269,7 @@ export default {
             this.errorImage = "";
 
             const priceRegex = "^\[1-9][0-9]*$";
-            const consumptionRegex = "^\[1-9][0-9]*.[0-9]*$";
+            const consumptionRegex = "^\[1-9][0-9]*.?[0-9]*$";
 
             if (this.vehicle.brand === "") {
                 this.errorBrand = "invalid brand";

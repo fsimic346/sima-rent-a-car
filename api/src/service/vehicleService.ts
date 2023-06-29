@@ -8,6 +8,9 @@ import {
     VehicleType,
 } from "../model/vehicle.model";
 import AgencyRepository from "../repository/agency.repository";
+import { response } from "express";
+import { result } from "lodash";
+import { Role } from "../model/user.model";
 
 @autoInjectable()
 @singleton()
@@ -37,17 +40,32 @@ export default class VehicleService {
             id: result.value,
             deleted: false,
             isAvailable: true,
-            agencyId: dataAgency.id,
+            agencyId: dataAgency,
         };
 
         this.vehicleRepository?.save(vehicle);
 
         return result;
     }
+
+    delete(dataVehicle: any): Result {
+        let result: Result = new Result();
+        const vehicle = this.vehicleRepository.getById(dataVehicle);
+        if (!vehicle) {
+            result.message = "invalid vehicle";
+            return result;
+        }
+
+        this.vehicleRepository.delete(vehicle.id);
+        result.success = true;
+
+        return result;
+    }
+
     validateData(dataVehicle: any, dataAgency: any): Result {
         let result: Result = new Result();
         const priceRegex = "^[1-9][0-9]*$";
-        const consumptionRegex = "^[1-9][0-9]*.[0-9]*$";
+        const consumptionRegex = "^[1-9][0-9]*.?[0-9]*$";
 
         const vehicles: Vehicle[] =
             this.vehicleRepository?.getAll() as Vehicle[];

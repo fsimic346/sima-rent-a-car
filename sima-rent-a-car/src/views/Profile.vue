@@ -146,10 +146,12 @@
                 <AgencyOverview
                     v-if="selectedTab === 'AgencyOverview'"
                     :agency="user.agency"
+                    @removeVehicle="updateAvailableVehicle"
                 />
                 <AddVehicle
                     :agencyId="user.agencyId"
                     v-if="selectedTab === 'AddVehicle'"
+                    @updateAvailableVehicle="updateAvailableVehicle"
                 />
                 <Users v-if="selectedTab === 'Users'" />
             </div>
@@ -237,6 +239,11 @@ export default {
         });
     },
     methods: {
+        async updateAvailableVehicle() {
+            const res = await this.axios.get("http://localhost:8080/api/user");
+            localStorage.setItem("user", JSON.stringify(res.data));
+            this.user = res.data;
+        },
         async edit() {
             try {
                 this.saveText = "";

@@ -1,8 +1,9 @@
 [
     {
+        "id": 1,
         "brand": "Toyota",
         "model": "Corolla",
-        "price": "20000",
+        "price": "$20,000",
         "vehicleType": "Car",
         "agencyId": 6,
         "transmissionType": "Automatic",
@@ -15,9 +16,10 @@
         "isAvailable": true
     },
     {
+        "id": 2,
         "brand": "BMW",
         "model": "X5",
-        "price": "60000",
+        "price": "$60,000",
         "vehicleType": "Car",
         "agencyId": 6,
         "transmissionType": "Automatic",
@@ -30,9 +32,10 @@
         "isAvailable": true
     },
     {
+        "id": 3,
         "brand": "Honda",
         "model": "Civic",
-        "price": "18500",
+        "price": "$18,500",
         "vehicleType": "Car",
         "agencyId": 6,
         "transmissionType": "Manual",
@@ -45,9 +48,10 @@
         "isAvailable": false
     },
     {
+        "id": 4,
         "brand": "Ford",
         "model": "F-150",
-        "price": "35000",
+        "price": "$35,000",
         "vehicleType": "Truck",
         "agencyId": 6,
         "transmissionType": "Automatic",
@@ -57,6 +61,24 @@
         "passangerNumber": 5,
         "description": "A rugged and powerful pickup truck.",
         "image": "https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg",
-        "isAvailable": true
+        "isAvailable": true,
+        "deleted": false
+    },
+    {
+        "brand": "fdg",
+        "model": "fgd",
+        "vehicleType": "Van",
+        "transmissionType": "Manual",
+        "fuelType": "Gasoline",
+        "image": "https://randompicturegenerator.com/img/car-generator/gc435ee26c2e5dec954dcea18e0514989db75a8fb49ba278b3949b044c55178712f1df259d75795859c8e006213de0d9c_640.jpg",
+        "consumption": "5",
+        "doorNumber": 5,
+        "passangerNumber": 5,
+        "price": "46876",
+        "description": "Dobar",
+        "id": 5,
+        "deleted": true,
+        "isAvailable": true,
+        "agencyId": 6
     }
 ]
