@@ -4,7 +4,6 @@ import AgencyRepository from "../repository/agency.repository";
 import { Comment } from "../model/comment.model";
 import Result from "../utils/Result";
 import CommentRepository from "../repository/comment.repository";
-import UserService from "./user.service";
 import { Agency } from "../model/agency.model";
 import { omit } from "lodash";
 
@@ -12,9 +11,17 @@ import { omit } from "lodash";
 export default class CommentService {
     constructor(
         private repository: CommentRepository,
-        private userService: UserService,
+        private userRepository: UserRepository,
         private agencyRepository: AgencyRepository,
     ) {}
+
+    getById(id: number): Comment {
+        return this.repository.getById(id);
+    }
+
+    getAll(): Comment[] {
+        return this.repository.getAll();
+    }
 
     add(data: any): Result {
         const result = this.validateCommentData(data);
@@ -22,10 +29,8 @@ export default class CommentService {
         if (!result.success) {
             return result;
         }
-        const user = this.userService.getByUsername(data.user.username);
+        const user = this.userRepository.getByUsername(data.user.username);
         const agency = this.agencyRepository.getById(data.agency.id) as Agency;
-        if (user === undefined) return result; // nikada nece uci u ovo, ts momenat
-        if (agency === undefined) return result; // nikada nece uci u ovo, ts momenat
 
         const comment: Comment = {
             id: result.value,
@@ -51,7 +56,10 @@ export default class CommentService {
             result.message = "Invalid comment.";
             return result;
         }
-        if (!data.user || !this.userService.getByUsername(data.user.username)) {
+        if (
+            !data.user ||
+            !this.userRepository.getByUsername(data.user.username)
+        ) {
             result.message = "Invalid user.";
             return result;
         }

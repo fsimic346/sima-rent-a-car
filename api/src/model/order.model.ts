@@ -3,7 +3,7 @@ import { Agency } from "./agency.model";
 import { User } from "./user.model";
 import { Vehicle } from "./vehicle.model";
 
-enum Status {
+export enum Status {
     Pending = "Pending",
     Approved = "Approved",
     Denied = "Denied",
