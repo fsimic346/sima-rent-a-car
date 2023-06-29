@@ -15,7 +15,6 @@
                     <option value="location">Location</option>
                     <option value="rating">Rating</option>
                 </select>
-
                 <i
                     class="fa-solid"
                     :class="{
@@ -68,7 +67,7 @@
             >
                 <div
                     class="agency-logo"
-                    style="background-image: url('https://picsum.photos/200')"
+                    :style="{ backgroundImage: `url('${agency.logo}')` }"
                 ></div>
                 <div class="agency-info">
                     <div class="agency-column">

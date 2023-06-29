@@ -105,21 +105,24 @@ select:focus {
     width: 30ch;
 }
 
-.filter {
+.filter,
+.sort {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
 
-.filter > * {
+.filter > *,
+.sort > * {
     flex-grow: 1;
     flex-shrink: 0;
     flex-basis: 0;
 }
 
-.sort {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.sort select {
+    flex-grow: 0.85;
+}
+.sort i {
+    flex-grow: 0;
 }
