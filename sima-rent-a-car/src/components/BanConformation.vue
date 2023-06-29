@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="headher">
+        <div class="header">
             <div>{{ user.banned ? "Unban" : "Ban" }}</div>
             <div class="username">@{{ user.username }}</div>
             <div>?</div>
@@ -64,7 +64,7 @@ export default {
     },
 };
 </script>
-<style scoped src="../static/css/banConformation.css">
+<style scoped src="../static/css/dialogModal.css">
 ::v-deep .modal-container {
     display: flex;
     justify-content: center;

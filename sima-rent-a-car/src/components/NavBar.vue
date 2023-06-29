@@ -5,7 +5,9 @@
             <Button text="Login" v-if="!authorized" @click="login" />
             <Button text="Register" v-if="!authorized" @click="register" />
             <div class="profile" v-if="authorized">
-                <span class="username">{{ username }}</span>
+                <span class="username" @click="gotoProfile">{{
+                    username
+                }}</span>
                 <div
                     class="profile-image"
                     :style="{ backgroundImage: `url('${profileImage}')` }"
@@ -102,6 +104,9 @@ export default {
         darkThemeUpdate() {
             const darkTheme = document.getElementById("enableDarkTheme");
             darkTheme.click();
+        },
+        gotoProfile() {
+            this.$router.push("/profile");
         },
     },
     watch: {

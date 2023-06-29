@@ -132,6 +132,7 @@
                     />
                     <ManagerTabs
                         v-if="user.role === 'Manager'"
+                        :user="user"
                         @selectedTabChanged="selectedTabChanged"
                     />
                 </div>
@@ -163,7 +164,7 @@
             :image="user.imageUrl"
             header="Profile image url:"
             @imageChanged="
-                (val => (this.user.imageUrl = val), (showImageModal = false))
+                val => (this.user.imageUrl = val), (showImageModal = false)
             "
         />
     </vue-final-modal>

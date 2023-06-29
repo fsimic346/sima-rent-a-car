@@ -129,16 +129,17 @@ export default {
             this.filterAgencies();
         },
         filterAgencies() {
+            const params = this.searchParams.split(" ");
+
             this.agencies = this.allAgencies.filter(x => {
-                return (
-                    x.name.toLowerCase().includes(this.searchParams) ||
-                    x.location.city.toLowerCase().includes(this.searchParams) ||
-                    x.location.address
-                        .toLowerCase()
-                        .includes(this.searchParams) ||
-                    x.availableVehicles.some(x =>
-                        x.vehicleType.toLowerCase().includes(this.searchParams),
-                    )
+                return params.some(
+                    param =>
+                        x.name.toLowerCase().includes(param) ||
+                        x.location.city.toLowerCase().includes(param) ||
+                        x.location.address.toLowerCase().includes(param) ||
+                        x.availableVehicles.some(veh =>
+                            veh.vehicleType.toLowerCase().includes(param),
+                        ),
                 );
             });
 

@@ -1,5 +1,9 @@
 <template lang="">
-    <div class="tab" :class="{ 'selected-tab': selected }" @click="setSelected">
+    <div
+        class="tab"
+        :class="{ 'selected-tab': selected, disabled: disabled }"
+        @click="setSelected"
+    >
         <div class="icon">
             <i :class="icon"></i>
         </div>
@@ -13,6 +17,7 @@ export default {
     props: {
         text: String,
         icon: String,
+        disabled: Boolean,
     },
     expose: ["selected", "setSelected"],
     data() {
@@ -22,6 +27,7 @@ export default {
     },
     methods: {
         setSelected() {
+            if (this.disabled) return;
             this.selected = true;
             this.$emit("selectedTabChanged", this.text.replace(/ /g, ""));
         },
@@ -68,5 +74,11 @@ export default {
 .selected-tab {
     border-color: rgb(var(--clr-primary-300)) !important;
     color: rgb(var(--clr-primary-300));
+}
+
+.disabled {
+    /* color: rgb(var(--clr-neutral-300)); */
+    filter: grayscale(1);
+    pointer-events: none;
 }
 </style>

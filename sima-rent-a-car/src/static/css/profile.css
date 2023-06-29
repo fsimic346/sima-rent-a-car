@@ -1,6 +1,8 @@
 .container {
     display: flex;
     height: calc(100% - 4rem);
+    width: 100%;
+    overflow: auto;
 }
 
 .profile-container {
@@ -243,6 +245,7 @@
     padding-bottom: 0rem;
     width: 100%;
     gap: 0.5rem;
+    overflow: auto;
 }
 
 .selected {
