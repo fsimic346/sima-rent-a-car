@@ -165,7 +165,7 @@
             :image="user.imageUrl"
             header="Profile image url:"
             @imageChanged="
-                (val => (this.user.imageUrl = val), (showImageModal = false))
+                val => (this.user.imageUrl = val), (showImageModal = false)
             "
         />
     </vue-final-modal>

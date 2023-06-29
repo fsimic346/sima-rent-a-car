@@ -8,6 +8,7 @@
     },
     "dependencies": {
         "axios": "^1.4.0",
+        "comma-number": "^2.1.0",
         "core-js": "^3.8.3",
         "vue": "^3.2.13",
         "vue-axios": "^3.5.2",
@@ -17,6 +18,7 @@
         "vue3-carousel": "^0.3.1"
     },
     "devDependencies": {
+        "@types/comma-number": "^2.1.0",
         "@vue/cli-plugin-babel": "~5.0.0",
         "@vue/cli-plugin-router": "~5.0.0",
         "@vue/cli-service": "~5.0.0"
