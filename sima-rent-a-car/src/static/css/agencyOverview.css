@@ -110,6 +110,30 @@
 }
 
 .vehicle-price {
-    margin-top: auto;
     font-size: 1.2rem;
+}
+
+.data-row {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    width: 100%;
+    gap: 1rem;
+}
+
+.remove {
+    margin-left: auto;
+    transition: 0.2;
+}
+
+.remove:hover {
+    color: rgb(var(--clr-error));
+}
+
+.edit {
+    transition: 0.2s;
+}
+
+.edit:hover {
+    color: rgb(var(--clr-primary-300));
 }

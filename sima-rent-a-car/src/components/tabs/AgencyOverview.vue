@@ -24,7 +24,8 @@
                     <span class="rating-count">({{ agency.ratingCount }})</span>
                 </div>
                 <div class="location">
-                    {{ agency.location.address }}, {{ agency.location.city }}
+                    {{ agency.location.address }},
+                    {{ agency.location.city }}
                 </div>
                 <div class="hours">{{ agency.businessHours }}</div>
             </div>
@@ -53,7 +54,15 @@
                         <div class="vehicle-description">
                             {{ vehicle.description }}
                         </div>
-                        <div class="vehicle-price">{{ vehicle.price }}</div>
+                        <div class="data-row">
+                            <div class="vehicle-price">{{ vehicle.price }}</div>
+                            <div class="remove" @click="remove(vehicle)">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </div>
+                            <div class="edit">
+                                <i class="fa-solid fa-pen"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,6 +73,21 @@
 export default {
     props: {
         agency: Object,
+    },
+    emits: ["removeVehicle"],
+    methods: {
+        async remove(vehicle) {
+            try {
+                const res = await this.axios.delete(
+                    "http://localhost:8080/api/vehicle/" + vehicle.id,
+                );
+
+                this.$emit("removeVehicle");
+            } catch (err) {
+                console.log(err);
+                this.error = err.response.data;
+            }
+        },
     },
 };
 </script>
