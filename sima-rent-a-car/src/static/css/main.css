@@ -50,6 +50,8 @@
     font-family: var(--fnt-body);
     background-color: rgb(var(--clr-background));
     color: var(--clr-text);
+
+    overflow-x: hidden;
 }
 
 ::selection {

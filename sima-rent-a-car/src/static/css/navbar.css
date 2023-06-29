@@ -35,6 +35,7 @@ nav {
 }
 
 .username {
+    position: relative;
     transition: color 0.2s ease-in-out;
 }
 
@@ -75,7 +76,7 @@ nav {
 .dropdown-menu {
     position: absolute;
     left: -50%;
-    right: 0;
+    right: 50%;
     margin-right: auto;
     top: 100%;
     background-color: rgb(var(--clr-background-secondary));

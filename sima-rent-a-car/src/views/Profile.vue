@@ -135,6 +135,11 @@
                         :user="user"
                         @selectedTabChanged="selectedTabChanged"
                     />
+                    <UserTabs
+                        v-if="user.role === 'Customer'"
+                        :user="user"
+                        @selectedTabChanged="selectedTabChanged"
+                    />
                 </div>
             </div>
             <div class="tab-content">
@@ -180,6 +185,7 @@ import AddVehicle from "@/components/tabs/AddVehicle.vue";
 import CreateAgency from "@/components/tabs/CreateAgency.vue";
 import AdminTabs from "@/components/AdminTabs.vue";
 import ManagerTabs from "@/components/ManagerTabs.vue";
+import UserTabs from "@/components/UserTabs.vue";
 import AgencyOverview from "@/components/tabs/AgencyOverview.vue";
 import Users from "@/components/tabs/Users.vue";
 
@@ -203,6 +209,7 @@ export default {
         CreateAgency,
         AdminTabs,
         ManagerTabs,
+        UserTabs,
         AgencyOverview,
         Users,
         AddVehicle,
