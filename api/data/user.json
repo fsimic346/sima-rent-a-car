@@ -17,7 +17,7 @@
         "username": "gagi",
         "email": "gagimaslac@gmail.com",
         "password": "$2b$13$skBwJW7P.IeJjqyCQRLL6uMop8z.m4/ABQ6WD9nDN6rUHz8t3SElm",
-        "imageUrl": "https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0",
+        "imageUrl": "https://cdn.discordapp.com/attachments/605735235476520972/1124026813883088906/1688059270900.jpg",
         "firstName": "Dragoslav",
         "lastName": "Maslać",
         "role": "Customer",
@@ -26,7 +26,7 @@
         "dateOfBirth": "2001-06-15",
         "phoneNumber": "069624564",
         "gender": "Male",
-        "banned": true
+        "banned": false
     },
     {
         "username": "manager",
@@ -56,6 +56,7 @@
             "ratingCount": 1204,
             "availableVehicles": [
                 {
+                    "id": 1,
                     "brand": "Toyota",
                     "model": "Corolla",
                     "price": "$20,000",
@@ -71,6 +72,7 @@
                     "isAvailable": true
                 },
                 {
+                    "id": 2,
                     "brand": "BMW",
                     "model": "X5",
                     "price": "$60,000",
@@ -86,6 +88,7 @@
                     "isAvailable": true
                 },
                 {
+                    "id": 3,
                     "brand": "Honda",
                     "model": "Civic",
                     "price": "$18,500",
@@ -101,6 +104,7 @@
                     "isAvailable": false
                 },
                 {
+                    "id": 4,
                     "brand": "Ford",
                     "model": "F-150",
                     "price": "$35,000",
@@ -113,7 +117,8 @@
                     "passangerNumber": 5,
                     "description": "A rugged and powerful pickup truck.",
                     "image": "https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg",
-                    "isAvailable": true
+                    "isAvailable": true,
+                    "deleted": false
                 }
             ]
         },
@@ -124,9 +129,9 @@
         "username": "sima",
         "email": "sima@gmail.com",
         "password": "$2b$13$VJzpsfHMB87omt/j.2.XSummWtGJ5pAtOzxovU1UNlMmd9u9W1FgO",
-        "imageUrl": "https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0",
+        "imageUrl": "https://cdn.discordapp.com/attachments/605735235476520972/1124044994450296862/1688063602482.jpg",
         "firstName": "Filip",
-        "lastName": "Simic",
+        "lastName": "Simić",
         "role": "Manager",
         "deleted": false,
         "id": 4,
@@ -138,7 +143,7 @@
         "password": "$2b$13$0vw1zDyjw2bXUtR7Z6bnku4GcoIUEFNKAJoC6DI8nHHzS4272XMo2",
         "imageUrl": "https://cdn.discordapp.com/attachments/765980520370274304/1122971538690425153/WhatsApp_Image_2023-06-26_at_21.26.29.png",
         "firstName": "Marko",
-        "lastName": "Krstic",
+        "lastName": "Krstić",
         "role": "Manager",
         "deleted": false,
         "id": 5,
@@ -146,5 +151,49 @@
         "gender": "Male",
         "phoneNumber": "062473858",
         "banned": true
+    },
+    {
+        "username": "snagator",
+        "email": "cekice@cekic.com",
+        "password": "$2b$13$5.mlvKPTl1Mi2x2Bu8Nzk.hv2x1SQC9FFnNOC/A7ihABLeEOXwsJG",
+        "imageUrl": "https://cdn.discordapp.com/attachments/605735235476520972/1124027867081220176/Untitled.png",
+        "firstName": "Marko",
+        "lastName": "Čekerinac",
+        "role": "Customer",
+        "deleted": false,
+        "id": 6
+    },
+    {
+        "username": "dong",
+        "email": "stvarnosetakozove@markomarkovic.com",
+        "password": "$2b$13$8m7WAqhlubZmDkVZrXLHJeMv5hrjyXkTjdw2aP2/OyMXb0pPdSeSi",
+        "imageUrl": "https://media.discordapp.net/attachments/605735235476520972/1124026376886952018/1688059166967.jpg",
+        "firstName": "Marko",
+        "lastName": "Marković",
+        "role": "Customer",
+        "deleted": false,
+        "id": 7
+    },
+    {
+        "username": "buki",
+        "email": "shadowallrotmg@gmail.com",
+        "password": "$2b$13$01beipq.7kxBwFotsC8/C.5sAfuhYItxbX3nRqrYEEr0lVxV/Tl1i",
+        "imageUrl": "https://cdn.discordapp.com/attachments/605735235476520972/1124030955535994910/1688060252303.jpg",
+        "firstName": "Mihajlo",
+        "lastName": "Burlica",
+        "role": "Customer",
+        "deleted": false,
+        "id": 8
+    },
+    {
+        "username": "kure",
+        "email": "moki@ruma.com",
+        "password": "$2b$13$Y3t8HvoZQpUuV/9tomNLv.LiNred.qKddvlkkwnsU5XMfu/ksPtT2",
+        "imageUrl": "https://cdn.discordapp.com/attachments/605735235476520972/1124046597962084392/1688063981338.jpg",
+        "firstName": "Mihailo",
+        "lastName": "Babić",
+        "role": "Customer",
+        "deleted": false,
+        "id": 9
     }
 ]

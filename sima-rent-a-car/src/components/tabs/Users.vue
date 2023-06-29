@@ -116,11 +116,13 @@ export default {
             this.filterUsers();
         },
         filterUsers() {
+            const params = this.searchParams.split(" ");
             this.users = this.allUsers.filter(x => {
-                return (
-                    x.firstName.toLowerCase().includes(this.searchParams) ||
-                    x.lastName.toLowerCase().includes(this.searchParams) ||
-                    x.username.toLowerCase().includes(this.searchParams)
+                return params.some(
+                    param =>
+                        x.firstName.toLowerCase().includes(param) ||
+                        x.lastName.toLowerCase().includes(param) ||
+                        x.username.toLowerCase().includes(param),
                 );
             });
 

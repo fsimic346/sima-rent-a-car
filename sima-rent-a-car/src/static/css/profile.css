@@ -1,6 +1,8 @@
 .container {
     display: flex;
     height: calc(100% - 4rem);
+    width: 100%;
+    overflow: auto;
 }
 
 .profile-container {
@@ -75,6 +77,7 @@
     max-height: 13rem;
     max-width: 22.5rem;
     position: relative;
+    overflow: hidden;
 }
 
 .data input {
@@ -243,6 +246,7 @@
     padding-bottom: 0rem;
     width: 100%;
     gap: 0.5rem;
+    overflow: auto;
 }
 
 .selected {

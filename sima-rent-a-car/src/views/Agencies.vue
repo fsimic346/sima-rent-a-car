@@ -15,7 +15,6 @@
                     <option value="location">Location</option>
                     <option value="rating">Rating</option>
                 </select>
-
                 <i
                     class="fa-solid"
                     :class="{
@@ -68,7 +67,7 @@
             >
                 <div
                     class="agency-logo"
-                    style="background-image: url('https://picsum.photos/200')"
+                    :style="{ backgroundImage: `url('${agency.logo}')` }"
                 ></div>
                 <div class="agency-info">
                     <div class="agency-column">
@@ -129,16 +128,17 @@ export default {
             this.filterAgencies();
         },
         filterAgencies() {
+            const params = this.searchParams.split(" ");
+
             this.agencies = this.allAgencies.filter(x => {
-                return (
-                    x.name.toLowerCase().includes(this.searchParams) ||
-                    x.location.city.toLowerCase().includes(this.searchParams) ||
-                    x.location.address
-                        .toLowerCase()
-                        .includes(this.searchParams) ||
-                    x.availableVehicles.some(x =>
-                        x.vehicleType.toLowerCase().includes(this.searchParams),
-                    )
+                return params.some(
+                    param =>
+                        x.name.toLowerCase().includes(param) ||
+                        x.location.city.toLowerCase().includes(param) ||
+                        x.location.address.toLowerCase().includes(param) ||
+                        x.availableVehicles.some(veh =>
+                            veh.vehicleType.toLowerCase().includes(param),
+                        ),
                 );
             });
 
