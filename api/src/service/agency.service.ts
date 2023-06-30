@@ -31,12 +31,7 @@ export default class AgencyService {
 
         if (!resultAgency.success) return resultAgency;
 
-        dataAgency.location = {
-            address: "Omladinskog pokreta 12c",
-            city: "Novi Sad",
-            state: "Srbija",
-            zip: "21000",
-        };
+        dataAgency.location = dataAgency.location;
 
         dataAgency.businessHours = this.convertDate(dataAgency.businessHours);
 
