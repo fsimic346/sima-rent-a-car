@@ -36,7 +36,6 @@ export default {
                 "http://localhost:8080/api/user/availableManagers",
             );
             this.managers = res.data;
-            console.log(this.managers);
         } catch (err) {
             console.log(err);
         }

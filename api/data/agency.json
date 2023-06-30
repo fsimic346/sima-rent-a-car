@@ -63,6 +63,7 @@
         "ratingCount": 1204,
         "availableVehicles": [
             {
+                "id": 1,
                 "brand": "Toyota",
                 "model": "Corolla",
                 "price": "$20,000",
@@ -78,6 +79,7 @@
                 "isAvailable": true
             },
             {
+                "id": 2,
                 "brand": "BMW",
                 "model": "X5",
                 "price": "$60,000",
@@ -93,6 +95,7 @@
                 "isAvailable": true
             },
             {
+                "id": 3,
                 "brand": "Honda",
                 "model": "Civic",
                 "price": "$18,500",
@@ -108,6 +111,7 @@
                 "isAvailable": false
             },
             {
+                "id": 4,
                 "brand": "Ford",
                 "model": "F-150",
                 "price": "$35,000",
@@ -120,7 +124,8 @@
                 "passangerNumber": 5,
                 "description": "A rugged and powerful pickup truck.",
                 "image": "https://upload.wikimedia.org/wikipedia/commons/f/f0/2018_Ford_F-150_XLT_Crew_Cab%2C_front_11.10.19.jpg",
-                "isAvailable": true
+                "isAvailable": true,
+                "deleted": false
             }
         ]
     },
@@ -171,5 +176,30 @@
         "rating": 0,
         "ratingCount": 0,
         "availableVehicles": []
+    },
+    {
+        "name": "domaja",
+        "businessHours": "0:00 AM - 11:59 PM",
+        "location": {
+            "amenity": "Novi Sad University",
+            "road": "Strazilovska",
+            "neighbourhood": "МЗ Лиман",
+            "suburb": "Liman",
+            "city_district": "Novi Sad",
+            "city": "Novi Sad City",
+            "county": "South Backa Administrative District",
+            "ISO3166-2-lvl6": "RS-06",
+            "state": "Vojvodina",
+            "ISO3166-2-lvl4": "RS-VO",
+            "postcode": "21101",
+            "country": "Serbia",
+            "country_code": "rs",
+            "house_number": 4
+        },
+        "logo": "https://media.tenor.com/jHvyFefhKmcAAAAM/mujikcboro-seriymujik.gif",
+        "rating": 0,
+        "ratingCount": 0,
+        "id": 8,
+        "deleted": false
     }
 ]

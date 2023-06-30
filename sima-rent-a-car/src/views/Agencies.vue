@@ -99,7 +99,11 @@
                         <div class="agency-location">
                             <i class="fa-solid fa-location-dot"></i>
                             {{
-                                ` ${agency.location.address}, ${agency.location.city}`
+                                ` ${
+                                    agency.location.road +
+                                    " " +
+                                    agency.location.house_number
+                                }, ${agency.location.city}`
                             }}
                         </div>
                     </div>

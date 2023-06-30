@@ -29,13 +29,14 @@
                     ref="createBtn"
                     @click="createAgency"
                 />
+
+                <div class="error">{{ errorLocation }}</div>
                 <div class="success">{{ success }}</div>
                 <div class="error">{{ error }}</div>
             </div>
         </div>
         <div class="column max-width">
-            <div class="map"></div>
-
+            <div class="map" id="map"></div>
             <div class="new-manager">
                 <div
                     v-if="!isManagerSelected"
@@ -89,6 +90,15 @@
 import Button from "@/components/Button.vue";
 import { VueFinalModal, ModalsContainer } from "vue-final-modal";
 import AvailableManagers from "@/components/AvailableManagers.vue";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+    iconUrl: require("leaflet/dist/images/marker-icon.png"),
+    shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+});
 
 export default {
     data() {
@@ -113,6 +123,9 @@ export default {
             errorBusinessHours: "",
             errorLogo: "",
             errorManager: "",
+            errorLocation: "",
+            map: {},
+            marker: {},
         };
     },
 
@@ -122,6 +135,18 @@ export default {
 
     destroyed() {
         window.removeEventListener("resize", this.resizeHandler);
+    },
+
+    mounted() {
+        this.map = L.map("map").setView([45, 20], 6);
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution:
+                '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }).addTo(this.map);
+        const element = document.querySelector(".leaflet-control-container");
+        element.style.display = "none";
+        this.map.on("click", this.onMapClick);
     },
 
     emits: ["createManager"],
@@ -193,6 +218,7 @@ export default {
             this.errorName = "";
             this.errorBusinessHours = "";
             this.errorLogo = "";
+            this.errorLocation = "";
             const businessHoursFormat =
                 /^([0-9]{1}|1[0-9]{1}|2[0-3]{1}){1}:([0-5]{1}[0-9]{1})-([0-9]{1}|1[0-9]{1}|2[0-3]{1}){1}:([0-5]{1}[0-9]{1})$/;
 
@@ -206,10 +232,15 @@ export default {
             ) {
                 this.errorBusinessHours = "invalid business hours";
                 return this.errorBusinessHours;
-            } /*else if (data.location === "") {
-             result.message = "invalid location";
-             return result;
-         }*/ else if (this.agency.logo === "") {
+            } else if (
+                !this.agency.location ||
+                !this.agency.location.house_number ||
+                !this.agency.location.city ||
+                !this.agency.location.road
+            ) {
+                this.errorLocation = "invalid location";
+                return this.errorLocation;
+            } else if (this.agency.logo === "") {
                 this.errorLogo = "invalid logo";
                 return this.errorLogo;
             } else if (!this.isManagerSelected) {
@@ -234,11 +265,27 @@ export default {
 
             return true;
         },
+        async onMapClick(e) {
+            if (this.marker) {
+                this.map.removeLayer(this.marker);
+            }
+            this.marker = L.marker(e.latlng).addTo(this.map);
+            this.agency.location = (
+                await this.axios.get(
+                    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${e.latlng.lat}&lon=${e.latlng.lng}`,
+                )
+            ).data.address;
+            console.log(this.agency.location);
+        },
     },
 };
 </script>
 
 <style scoped src="../../static/css/createAgency.css">
+.map a {
+    display: none !important;
+}
+
 ::v-deep .modal-container {
     display: flex;
     justify-content: center;
