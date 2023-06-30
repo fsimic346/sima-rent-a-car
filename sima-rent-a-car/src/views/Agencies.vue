@@ -62,6 +62,7 @@
             <div
                 class="agency-card"
                 v-for="agency in agencies"
+                @click="showVehicles(agency)"
                 :class="{ open: agency.isOpen }"
                 :key="agency.id"
             >
@@ -106,8 +107,19 @@
             </div>
         </div>
     </div>
+
+    <vue-final-modal
+        v-model="showVehiclesModal"
+        classes="modal-container"
+        content-class="modal-content"
+    >
+        <AvailableVehicles :agency="selectedAgency" />
+    </vue-final-modal>
 </template>
 <script>
+import { VueFinalModal, ModalsContainer } from "vue-final-modal";
+import AvailableVehicles from "@/components/AvailableVehicles.vue";
+
 export default {
     data() {
         return {
@@ -119,9 +131,15 @@ export default {
             typeFilter: "none",
             openedFilter: false,
             sort: "none",
+            showVehiclesModal: false,
+            selectedAgency: {},
         };
     },
     methods: {
+        showVehicles(agency) {
+            this.showVehiclesModal = true;
+            this.selectedAgency = agency;
+        },
         search(e) {
             this.searchParams = e.target.value.toLowerCase();
 
@@ -267,6 +285,11 @@ export default {
             return false;
         }
     },
+    components: {
+        VueFinalModal,
+        ModalsContainer,
+        AvailableVehicles,
+    },
     mounted() {
         const navHeight = document.querySelector("nav").clientHeight + 1;
         document.getElementById(
@@ -276,3 +299,19 @@ export default {
 };
 </script>
 <style scoped src="../static/css/agencies.css"></style>
+
+<style scoped>
+::v-deep .modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+::v-deep .modal-content {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: none;
+    border-radius: 0.25rem;
+    max-width: max-content;
+}
+</style>
