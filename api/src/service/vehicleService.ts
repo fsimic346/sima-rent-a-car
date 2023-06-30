@@ -25,6 +25,11 @@ export default class VehicleService {
 
         if (!result.success) return result;
 
+        if (!this.agencyRepository.getById(dataAgency)) {
+            result.message = "invalid agency";
+            return result;
+        }
+
         const vehicle: Vehicle = {
             brand: dataVehicle.brand,
             model: dataVehicle.model,
@@ -48,6 +53,34 @@ export default class VehicleService {
         return result;
     }
 
+    getById(id: number): Vehicle {
+        return this.vehicleRepository.getById(id);
+    }
+
+    update(data: any): Result {
+        const result = this.validateData(data);
+
+        if (!result.success) return result;
+
+        const vehicle: Vehicle = this.getById(data.id);
+
+        vehicle.brand = data.brand;
+        vehicle.model = data.model;
+        vehicle.vehicleType = data.vehicleType;
+        vehicle.transmissionType = data.transmissionType;
+        vehicle.fuelType = data.fuelType;
+        vehicle.image = data.image;
+        vehicle.consumption = data.consumption;
+        vehicle.doorNumber = data.doorNumber;
+        vehicle.passangerNumber = data.passangerNumber;
+        vehicle.price = data.price;
+        vehicle.description = data.description;
+
+        this.vehicleRepository?.update(vehicle);
+
+        return result;
+    }
+
     delete(dataVehicle: any): Result {
         let result: Result = new Result();
         const vehicle = this.vehicleRepository.getById(dataVehicle);
@@ -62,7 +95,7 @@ export default class VehicleService {
         return result;
     }
 
-    validateData(dataVehicle: any, dataAgency: any): Result {
+    validateData(dataVehicle: any, dataAgency?: any): Result {
         let result: Result = new Result();
         const priceRegex = "^[1-9][0-9]*$";
         const consumptionRegex = "^[1-9][0-9]*.?[0-9]*$";
@@ -96,7 +129,7 @@ export default class VehicleService {
         }
         if (
             dataVehicle.consumption === "" ||
-            !dataVehicle.consumption.match(consumptionRegex)
+            !dataVehicle.consumption.toString().match(consumptionRegex)
         ) {
             result.message = "invalid consumption";
             return result;
@@ -113,10 +146,7 @@ export default class VehicleService {
             result.message = "invalid image";
             return result;
         }
-        if (!this.agencyRepository.getById(dataAgency)) {
-            result.message = "invalid agency";
-            return result;
-        }
+
         result.success = true;
         result.message = "vehicle added successfully";
         result.value = vehicles === undefined ? 1 : vehicles?.length + 1;

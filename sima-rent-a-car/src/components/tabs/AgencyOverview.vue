@@ -55,12 +55,14 @@
                             {{ vehicle.description }}
                         </div>
                         <div class="data-row">
-                            <div class="vehicle-price">{{ vehicle.price }}</div>
+                            <div class="vehicle-price">
+                                ${{ vehicle.price }}
+                            </div>
+                            <div class="edit" @click="editVehicle(vehicle)">
+                                <i class="fa-solid fa-pen"></i>
+                            </div>
                             <div class="remove" @click="remove(vehicle)">
                                 <i class="fa-solid fa-trash-can"></i>
-                            </div>
-                            <div class="edit">
-                                <i class="fa-solid fa-pen"></i>
                             </div>
                         </div>
                     </div>
@@ -68,9 +70,40 @@
             </div>
         </div>
     </div>
+
+    <vue-final-modal
+        v-model="showEditVehicleModal"
+        classes="modal-container"
+        content-class="modal-content"
+    >
+        <EditVehicleForm
+            :selectedVehicle="selectedVehicle"
+            @updateAvailableVehicle="updateAvailableVehicle"
+        />
+    </vue-final-modal>
 </template>
 <script>
+import { VueFinalModal, ModalsContainer } from "vue-final-modal";
+import EditVehicleForm from "@/components/EditVehicleForm.vue";
+import commaNumber from "comma-number";
+
 export default {
+    data() {
+        return {
+            showEditVehicleModal: false,
+            selectedVehicle: {},
+        };
+    },
+    mounted() {
+        for (const vehicle of this.agency.availableVehicles) {
+            vehicle.price = commaNumber(vehicle.price, ".");
+        }
+    },
+    components: {
+        VueFinalModal,
+        ModalsContainer,
+        EditVehicleForm,
+    },
     props: {
         agency: Object,
     },
@@ -88,7 +121,36 @@ export default {
                 this.error = err.response.data;
             }
         },
+        editVehicle(vehicle) {
+            this.showEditVehicleModal = true;
+            this.selectedVehicle = vehicle;
+        },
+        updateAvailableVehicle(updatedVehicle) {
+            updatedVehicle.price = commaNumber(updatedVehicle.price, ".");
+            this.showEditVehicleModal = false;
+            this.agency.availableVehicles.splice(
+                this.agency.availableVehicles.findIndex(
+                    x => x.id === updatedVehicle.id,
+                ),
+                1,
+                updatedVehicle,
+            );
+        },
     },
 };
 </script>
-<style scoped src="../../static/css/agencyOverview.css"></style>
+<style scoped src="../../static/css/agencyOverview.css">
+::v-deep .modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+::v-deep .modal-content {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: none;
+    border-radius: 0.25rem;
+    max-width: max-content;
+}
+</style>

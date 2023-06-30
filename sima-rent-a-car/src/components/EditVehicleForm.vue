@@ -1,4 +1,4 @@
-<template>
+<template lang="">
     <div class="container">
         <div class="column">
             <div
@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="error error-center">{{ errorImage }}</div>
-            <Button :text="btnText" ref="addBtn" @click="addVehicle"></Button>
+            <Button :text="btnText" ref="editBtn" @click="editVehicle"></Button>
             <div class="success">{{ success }}</div>
             <div class="error error-center">{{ error }}</div>
         </div>
@@ -160,7 +160,6 @@
                 val => {
                     this.vehicle.image = val;
                     console.log(this.vehicle.image);
-                    this.hasImage = true;
                     showImageModal = false;
                 }
             "
@@ -173,22 +172,17 @@ import ImageForm from "@/components/ImageForm.vue";
 import { VueFinalModal, ModalsContainer } from "vue-final-modal";
 
 export default {
+    components: {
+        Button,
+        ImageForm,
+        VueFinalModal,
+        ModalsContainer,
+    },
+    props: { selectedVehicle: Object },
     data() {
         return {
-            vehicle: {
-                brand: "",
-                model: "",
-                price: "",
-                vehicleType: "",
-                transmissionType: "",
-                fuelType: "",
-                consumption: "",
-                doorNumber: "",
-                passangerNumber: "",
-                description: "",
-                image: "",
-            },
-            hasImage: false,
+            vehicle: {},
+            hasImage: true,
             errorBrand: "",
             errorModel: "",
             errorVehicleType: "",
@@ -202,54 +196,42 @@ export default {
             error: "",
             success: "",
             showImageModal: false,
-            btnText: "Add",
+            btnText: "Edit",
         };
     },
-    emits: ["updateAvailableVehicle"],
-    components: {
-        Button,
-        ImageForm,
-        VueFinalModal,
-        ModalsContainer,
+    watch: {
+        selectedVehicle(val) {
+            this.vehicle = { ...val };
+            this.vehicle.price = this.vehicle.price.replace("$", "");
+            this.vehicle.price = this.vehicle.price.replace(",", "");
+            this.vehicle.price = this.vehicle.price.replace(".", "");
+        },
     },
-    props: { agencyId: Number },
+    emits: ["updateAvailableVehicle"],
     methods: {
-        async addVehicle() {
+        async editVehicle() {
             const errorMessage = this.validation();
             if (errorMessage !== "") return;
 
             try {
                 this.btnText = "";
-                this.$refs.addBtn.enabled = false;
-                const res = await this.axios.post(
+                this.$refs.editBtn.enabled = false;
+                const res = await this.axios.patch(
                     "http://localhost:8080/api/vehicle/",
                     {
                         vehicle: this.vehicle,
-                        agencyId: this.agencyId,
                     },
                 );
 
-                this.$refs.addBtn.enabled = true;
-                this.success = "Successfully Added";
+                this.success = "Successfully Edited";
 
-                this.vehicle.image = "";
-                this.vehicle.brand = "";
-                this.vehicle.model = "";
-                this.vehicle.vehicleType = "";
-                this.vehicle.transmissionType = "";
-                this.vehicle.fuelType = "";
-                this.vehicle.consumption = "";
-                this.vehicle.doorNumber = "";
-                this.vehicle.passangerNumber = "";
-                this.vehicle.price = "";
-                this.hasImage = false;
                 this.error = "";
-                this.btnText = "Add";
-                this.$emit("updateAvailableVehicle");
+                this.btnText = "Edit";
+                this.$emit("updateAvailableVehicle", this.vehicle);
             } catch (err) {
                 console.log(err);
-                this.btnText = "Create";
-                this.$refs.addBtn.enabled = true;
+                this.btnText = "Edit";
+                this.$refs.editBtn.enabled = true;
                 this.error = err.response.data;
             }
         },
@@ -270,6 +252,8 @@ export default {
 
             const priceRegex = "^\[1-9][0-9]*$";
             const consumptionRegex = "^\[1-9][0-9]*.?[0-9]*$";
+
+            toString();
 
             if (this.vehicle.brand === "") {
                 this.errorBrand = "invalid brand";
@@ -294,7 +278,7 @@ export default {
                 return this.errorFuelType;
             } else if (
                 this.vehicle.consumption === "" ||
-                !this.vehicle.consumption.match(consumptionRegex)
+                !this.vehicle.consumption.toString().match(consumptionRegex)
             ) {
                 this.errorConsumption = "invalid consumption";
                 return this.errorConsumption;
@@ -314,18 +298,10 @@ export default {
     },
 };
 </script>
-<style scoped src="../../static/css/addVehicle.css">
-::v-deep .modal-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-::v-deep .modal-content {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    border: none;
-    border-radius: 0.25rem;
-    max-width: max-content;
+<style scoped src="../static/css/forms.css"></style>
+<style scoped src="../static/css/addVehicle.css"></style>
+<style scoped>
+.container {
+    background-color: rgb(var(--clr-background-secondary));
 }
 </style>

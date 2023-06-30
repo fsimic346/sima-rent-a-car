@@ -12,7 +12,7 @@
                     <label>Business hours:</label>
                     <input type="text" v-model="agency.businessHours" />
                     <div class="error">{{ errorBusinessHours }}</div>
-                    <div class="error" v-if="this.errorBusinessHours !== ''">
+                    <div class="error" v-if="errorBusinessHours !== ''">
                         (9:00-18:00)
                     </div>
                 </div>
@@ -61,7 +61,11 @@
                     <div
                         class="manager-profile-img"
                         :style="{
-                            backgroundImage: `url('${manager.imageUrl}')`,
+                            backgroundImage: `url('${
+                                manager.imageUrl === undefined
+                                    ? ''
+                                    : manager.imageUrl
+                            }')`,
                         }"
                         id="managerImg"
                     ></div>

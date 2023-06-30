@@ -1,3 +1,4 @@
+import { Vehicle } from "../model/vehicle.model";
 import Repository from "./repository";
 import { singleton } from "tsyringe";
 
@@ -8,5 +9,13 @@ export default class VehicleRepository extends Repository {
     constructor() {
         super();
         this.createStorage();
+    }
+
+    getById(id: number): Vehicle {
+        const vehicle: Vehicle = (super.getAll() as Vehicle[]).find(
+            x => x.id == id,
+        ) as Vehicle;
+
+        return vehicle;
     }
 }
