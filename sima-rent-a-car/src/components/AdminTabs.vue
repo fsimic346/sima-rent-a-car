@@ -16,6 +16,12 @@
         ref="Users"
         icon="fa-solid fa-users"
         @selectedTabChanged="selectedTabChanged"
+    ></Tab
+    ><Tab
+        text="Comments"
+        ref="Comments"
+        icon="fa-solid fa-comment"
+        @selectedTabChanged="selectedTabChanged"
     ></Tab>
 </template>
 
