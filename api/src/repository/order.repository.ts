@@ -6,6 +6,7 @@ import AgencyRepository from "./agency.repository";
 import UserRepository from "./user.repository";
 import { Vehicle } from "../model/vehicle.model";
 import IEntity from "../model/IEntity";
+import { omit } from "lodash";
 
 @autoInjectable()
 @singleton()
@@ -19,6 +20,10 @@ export default class OrderRepository extends Repository {
     ) {
         super();
         this.createStorage();
+    }
+
+    update(order: Order) {
+        return super.update(omit(order, ["agency", "user"]));
     }
 
     getAll(): Order[] {
@@ -42,7 +47,7 @@ export default class OrderRepository extends Repository {
         order.vehicles = this.vehicleRepository
             .getAll()
             .filter(x => x.id in order.vehicles.map(x => x.id)) as Vehicle[];
-        order.agency = this.agencyRepository.getById(order.agency.id);
-        order.customer = this.userRepository.getById(order.customer.id);
+        order.agency = this.agencyRepository.getById(order.agencyId);
+        order.user = this.userRepository.getById(order.userId);
     }
 }

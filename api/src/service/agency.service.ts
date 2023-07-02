@@ -37,7 +37,6 @@ export default class AgencyService {
 
         const agency: Agency = {
             name: dataAgency.name,
-            availableVehicles: dataAgency.availableVehicles as Vehicle[],
             businessHours: dataAgency.businessHours,
             status: dataAgency.status as Status,
             location: dataAgency.location as Location,

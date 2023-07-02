@@ -5,6 +5,7 @@ import { Vehicle } from "../model/vehicle.model";
 import Repository from "./repository";
 import { autoInjectable, singleton } from "tsyringe";
 import VehicleRepository from "./vehicle.repository";
+import { omit } from "lodash";
 
 @autoInjectable()
 @singleton()
@@ -14,6 +15,10 @@ export default class AgencyRepository extends Repository {
     constructor(private vehicleRepository: VehicleRepository) {
         super();
         this.createStorage();
+    }
+
+    update(agency: Agency) {
+        return super.update(omit(agency, ["availableVehicles"]));
     }
 
     getById(id: number): Agency {

@@ -1,5 +1,6 @@
 import IEntity from "./IEntity";
 import { Agency } from "./agency.model";
+import { Cart } from "./cart.model";
 import { Vehicle } from "./vehicle.model";
 
 export enum Gender {
@@ -33,7 +34,7 @@ export interface User extends IEntity {
     banned?: Boolean;
     // optional customer props
     rentedCars?: Vehicle[];
-    cart?: string; //to-do cart
+    cart?: Cart;
     points?: number;
     customerType?: CustomerType;
 

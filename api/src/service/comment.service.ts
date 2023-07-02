@@ -134,7 +134,7 @@ export default class CommentService {
                 .getAll()
                 .some(
                     x =>
-                        x.customer.id === data.user.id &&
+                        x.user.id === data.user.id &&
                         x.agency.id === data.agency.id,
                 )
         ) {

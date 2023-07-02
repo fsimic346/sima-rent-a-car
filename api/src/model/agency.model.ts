@@ -9,7 +9,7 @@ export enum Status {
 
 export interface Agency extends IEntity {
     name: string;
-    availableVehicles: Vehicle[];
+    availableVehicles?: Vehicle[];
     businessHours: string;
     status: Status;
     location: Location;
