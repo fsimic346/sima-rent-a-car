@@ -43,6 +43,7 @@
     --clr-text-contrast: var(--clr-neutral-100);
     --clr-error: var(--clr-error-700);
     --clr-success: var(--clr-success-700);
+    --clr-warning: var(--clr-warning-700);
 
     --fnt-body: "Lato", sans-serif;
     --fnt-header: "Patua One", cursive;
@@ -65,6 +66,7 @@
     --clr-text-contrast: var(--clr-neutral-900);
     --clr-error: var(--clr-error-300);
     --clr-success: var(--clr-success-300);
+    --clr-warning: var(--clr-warning-500);
 }
 .dark-theme a {
     color: var(--clr-primary-300);

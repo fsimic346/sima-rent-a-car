@@ -3,6 +3,7 @@ import AgencyRepository from "./agency.repository";
 import Repository from "./repository";
 import { autoInjectable, singleton } from "tsyringe";
 import UserRepository from "./user.repository";
+import { omit } from "lodash";
 
 @autoInjectable()
 @singleton()
@@ -33,8 +34,12 @@ export default class CommentRepository extends Repository {
         return comment;
     }
 
+    update(comment: Comment) {
+        super.update(omit(comment, ["agency", "user"]));
+    }
+
     private loadCommentData(comment: Comment) {
-        comment.agency = this.agencyRepository.getById(comment.agency.id);
-        comment.user = this.userRepository.getById(comment.user.id);
+        comment.agency = this.agencyRepository.getById(comment.agencyId);
+        comment.user = this.userRepository.getById(comment.userId);
     }
 }

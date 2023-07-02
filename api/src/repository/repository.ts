@@ -22,7 +22,9 @@ export default class Repository {
     }
 
     update(entity: IEntity) {
-        const list = this.getAll();
+        const list = (jsonfile.readFileSync(this.path) as IEntity[]).filter(
+            entity => !entity.deleted,
+        );
         list.splice(
             list.findIndex(x => x.id === entity.id),
             1,
@@ -33,7 +35,9 @@ export default class Repository {
     }
 
     delete(id: number) {
-        const list = this.getAll();
+        const list = (jsonfile.readFileSync(this.path) as IEntity[]).filter(
+            entity => !entity.deleted,
+        );
         const deletedEntity: IEntity = list.splice(
             list.findIndex(x => x.id === id),
             1,

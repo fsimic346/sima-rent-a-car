@@ -159,6 +159,7 @@
                     @updateAvailableVehicle="updateAvailableVehicle"
                 />
                 <Users v-if="selectedTab === 'Users'" />
+                <Comments v-if="selectedTab === 'Comments'" :user="user" />
             </div>
         </div>
     </div>
@@ -188,6 +189,7 @@ import ManagerTabs from "@/components/ManagerTabs.vue";
 import UserTabs from "@/components/UserTabs.vue";
 import AgencyOverview from "@/components/tabs/AgencyOverview.vue";
 import Users from "@/components/tabs/Users.vue";
+import Comments from "@/components/tabs/Comments.vue";
 
 export default {
     data() {
@@ -213,6 +215,7 @@ export default {
         AgencyOverview,
         Users,
         AddVehicle,
+        Comments,
     },
     created() {
         this.user = JSON.parse(localStorage.getItem("user"));
