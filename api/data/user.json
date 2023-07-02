@@ -150,24 +150,7 @@
         "dateOfBirth": "2001-10-01",
         "gender": "Male",
         "phoneNumber": "062473858",
-        "banned": true,
-        "agencyId": 8,
-        "agency": {
-            "id": "8",
-            "name": "MegaDrive Rent-A-Car",
-            "businessHours": "8:30 AM - 6:30 PM",
-            "status": "Open",
-            "location": {
-                "address": "222 Oakwood Drive",
-                "city": "Denver",
-                "state": "CO",
-                "zip": "80201"
-            },
-            "logo": "https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png",
-            "rating": 0,
-            "ratingCount": 0,
-            "availableVehicles": []
-        }
+        "banned": true
     },
     {
         "username": "snagator",
@@ -200,8 +183,7 @@
         "lastName": "Burlica",
         "role": "Customer",
         "deleted": false,
-        "id": 8,
-        "banned": false
+        "id": 8
     },
     {
         "username": "kure",
