@@ -44,6 +44,11 @@ const routes = [
         name: "agencies",
         component: () => import("../views/Agencies.vue"),
     },
+    {
+        path: "/agency/:agencyId",
+        name: "agency",
+        component: () => import("../views/Agency.vue"),
+    },
 ];
 
 const router = createRouter({

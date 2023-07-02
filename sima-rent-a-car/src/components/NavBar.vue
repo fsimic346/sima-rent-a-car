@@ -13,11 +13,11 @@
                     :style="{ backgroundImage: `url('${profileImage}')` }"
                 ></div>
                 <div class="dropdown-menu">
-                    <router-link to="profile" class="dropdown-item">
+                    <router-link to="/profile" class="dropdown-item">
                         <i class="fa-solid fa-user"></i>
                         <span> Profile</span>
                     </router-link>
-                    <router-link to="cart" class="dropdown-item">
+                    <router-link to="/cart" class="dropdown-item">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span>Cart</span>
                     </router-link>

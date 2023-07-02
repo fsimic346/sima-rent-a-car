@@ -18,3 +18,12 @@ agencyRouter.post("/", (req: Request, res: Response) => {
 agencyRouter.get("/all", (req: Request, res: Response) => {
     res.send(agencyService.getAll());
 });
+
+agencyRouter.get("/get/:agencyId", (req: Request, res: Response) => {
+    const agency = agencyService.getById(parseInt(req.params.agencyId));
+    if (!agency) {
+        res.sendStatus(401);
+        return;
+    }
+    res.send(agency);
+});
