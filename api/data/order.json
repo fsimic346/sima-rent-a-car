@@ -1,0 +1,38 @@
+[
+    {
+        "userId": 2,
+        "rentStartDate": "2023-06-15",
+        "status": "Cancelled",
+        "vehicles": [{ "id": 1 }]
+    },
+    {
+        "userId": 2,
+        "rentStartDate": "2023-06-15",
+        "status": "Cancelled",
+        "vehicles": [{ "id": 1 }]
+    },
+    {
+        "userId": 2,
+        "rentStartDate": "2023-06-15",
+        "status": "Cancelled",
+        "vehicles": [{ "id": 1 }]
+    },
+    {
+        "userId": 2,
+        "rentStartDate": "2023-06-15",
+        "status": "Cancelled",
+        "vehicles": [{ "id": 1 }]
+    },
+    {
+        "userId": 2,
+        "rentStartDate": "2023-06-15",
+        "status": "Cancelled",
+        "vehicles": [{ "id": 1 }]
+    },
+    {
+        "userId": 2,
+        "rentStartDate": "2023-06-15",
+        "status": "Cancelled",
+        "vehicles": [{ "id": 1 }]
+    }
+]

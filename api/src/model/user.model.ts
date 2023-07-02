@@ -37,6 +37,7 @@ export interface User extends IEntity {
     cart?: Cart;
     points?: number;
     customerType?: CustomerType;
+    isSus?: Boolean;
 
     // optional manager props
     agencyId?: number;

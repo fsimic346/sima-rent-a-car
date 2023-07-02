@@ -7,6 +7,8 @@ import bcrypt from "bcrypt";
 import { omit } from "lodash";
 import { Agency } from "../model/agency.model";
 import AgencyRepository from "../repository/agency.repository";
+import OrderRepository from "../repository/order.repository";
+import { Order, Status } from "../model/order.model";
 
 const saltRounds = config.get<number>("saltRounds");
 
@@ -14,7 +16,7 @@ const saltRounds = config.get<number>("saltRounds");
 export default class UserService {
     constructor(
         private repository: UserRepository,
-        private agencyRepository: AgencyRepository,
+        private orderRepository: OrderRepository,
     ) {}
 
     async add(data: any): Promise<Result> {
@@ -155,7 +157,24 @@ export default class UserService {
     }
 
     getAll(): User[] {
-        return this.repository.getAll();
+        const list: User[] = this.repository.getAll();
+        const dateFilter = new Date();
+        dateFilter.setMonth(dateFilter.getMonth() - 1);
+        const orders: Order[] = this.orderRepository.getAll();
+        for (const user of list) {
+            if (
+                orders.filter(x => {
+                    return (
+                        x.userId == user.id &&
+                        x.status == Status.Cancelled &&
+                        new Date(x.rentStartDate) > dateFilter
+                    );
+                }).length > 5
+            ) {
+                user.isSus = true;
+            }
+        }
+        return list;
     }
 
     async login(usernameOrEmail: string, password: string): Promise<Result> {
