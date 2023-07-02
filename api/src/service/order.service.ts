@@ -27,6 +27,10 @@ export default class OrderService {
         return this.repository.getAll();
     }
 
+    getByAgency(agencyId: number): Order[] {
+        return this.repository.getAll().filter(x => x.agencyId == agencyId);
+    }
+
     setOrderStatus(id: Number, status: Status) {
         const order: Order = this.repository.getById(id);
         order.status = status;

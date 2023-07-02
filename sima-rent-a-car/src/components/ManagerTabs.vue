@@ -14,8 +14,8 @@
         @selectedTabChanged="selectedTabChanged"
     ></Tab>
     <Tab
-        text="Rentals"
-        ref="Rentals"
+        text="Orders"
+        ref="Orders"
         icon="fa-solid fa-file-invoice"
         :disabled="true && !user.agency"
         @selectedTabChanged="selectedTabChanged"

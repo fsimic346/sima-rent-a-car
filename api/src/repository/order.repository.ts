@@ -46,7 +46,9 @@ export default class OrderRepository extends Repository {
     private loadOrderData(order: Order) {
         order.vehicles = this.vehicleRepository
             .getAll()
-            .filter(x => x.id in order.vehicles.map(x => x.id)) as Vehicle[];
+            .filter(x =>
+                order.vehicles.map(x => x.id).includes(x.id),
+            ) as Vehicle[];
         order.agency = this.agencyRepository.getById(order.agencyId);
         order.user = this.userRepository.getById(order.userId);
     }
