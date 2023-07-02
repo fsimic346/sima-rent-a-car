@@ -176,30 +176,5 @@
         "rating": 0,
         "ratingCount": 0,
         "availableVehicles": []
-    },
-    {
-        "name": "domaja",
-        "businessHours": "0:00 AM - 11:59 PM",
-        "location": {
-            "amenity": "Novi Sad University",
-            "road": "Strazilovska",
-            "neighbourhood": "МЗ Лиман",
-            "suburb": "Liman",
-            "city_district": "Novi Sad",
-            "city": "Novi Sad City",
-            "county": "South Backa Administrative District",
-            "ISO3166-2-lvl6": "RS-06",
-            "state": "Vojvodina",
-            "ISO3166-2-lvl4": "RS-VO",
-            "postcode": "21101",
-            "country": "Serbia",
-            "country_code": "rs",
-            "house_number": 4
-        },
-        "logo": "https://media.tenor.com/jHvyFefhKmcAAAAM/mujikcboro-seriymujik.gif",
-        "rating": 0,
-        "ratingCount": 0,
-        "id": 8,
-        "deleted": false
     }
 ]
