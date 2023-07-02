@@ -5,6 +5,7 @@ import VehicleRepository from "./vehicle.repository";
 import { Cart } from "../model/cart.model";
 import { Vehicle } from "../model/vehicle.model";
 import IEntity from "../model/IEntity";
+import { omit } from "lodash";
 
 @autoInjectable()
 @singleton()
@@ -17,6 +18,10 @@ export default class CartRepository extends Repository {
     ) {
         super();
         this.createStorage();
+    }
+
+    update(cart: Cart) {
+        super.update(omit(cart, ["user"]));
     }
 
     getById(id: Number): Cart {
@@ -37,7 +42,7 @@ export default class CartRepository extends Repository {
     }
 
     private loadCartData(cart: Cart) {
-        cart.user = this.userRepository.getById(cart.user.id);
+        cart.user = this.userRepository.getById(cart.userId);
         cart.vehicles = this.vehicleRepository
             .getAll()
             .filter(x => x.id in cart.vehicles.map(x => x.id)) as Vehicle[];

@@ -14,6 +14,6 @@ export interface Comment extends IEntity {
     user?: User;
     agency?: Agency;
     text: String;
-    rating: Number;
+    rating: number;
     approved: CommentStatus;
 }

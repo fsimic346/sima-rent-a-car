@@ -3,7 +3,8 @@ import { User } from "./user.model";
 import { Vehicle } from "./vehicle.model";
 
 export interface Cart extends IEntity {
-    user: User;
+    userId: number;
+    user?: User;
     vehicles: Vehicle[];
     totalPrice: number;
 }

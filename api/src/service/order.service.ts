@@ -27,6 +27,10 @@ export default class OrderService {
         return this.repository.getAll();
     }
 
+    getByAgency(agencyId: number): Order[] {
+        return this.repository.getAll().filter(x => x.agencyId == agencyId);
+    }
+
     setOrderStatus(id: Number, status: Status) {
         const order: Order = this.repository.getById(id);
         order.status = status;
@@ -38,7 +42,7 @@ export default class OrderService {
         if (!result.success) {
             return result;
         }
-        const user: User = this.userRepository.getById(data.customer.id);
+        const user: User = this.userRepository.getById(data.user.id);
         const agency: Agency = this.agencyRepository.getById(data.agency.id);
         const vehicles = this.vehicleRepository
             .getAll()
@@ -58,8 +62,8 @@ export default class OrderService {
                 date.getMinutes +
                 date.getSeconds +
                 date.getMilliseconds,
-            customer: user,
-            agency: agency,
+            userId: data.user.id,
+            agencyId: data.agency.id,
             vehicles: vehicles,
             rentStartDate: data.rentStartDate,
             rentLength: data.rentLength,
@@ -93,7 +97,7 @@ export default class OrderService {
             result.message = "Invalid agency";
             return result;
         }
-        if (!this.userRepository.getById(data.customer.id)) {
+        if (!this.userRepository.getById(data.user.id)) {
             result.message = "Invalid user";
             return result;
         }

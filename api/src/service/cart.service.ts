@@ -21,7 +21,6 @@ export default class CartService {
 
     add(data: any): Result {
         const result = this.validateCartData(data);
-        const user: User = this.userRepository.getById(data.user.id);
         const vehicles: Vehicle[] = this.vehicleRepository
             .getAll()
             .filter(
@@ -29,7 +28,7 @@ export default class CartService {
             ) as Vehicle[];
         const cart: Cart = {
             id: result.value,
-            user: user,
+            userId: data.user.id,
             vehicles: vehicles,
             totalPrice: vehicles.reduce((a, b) => {
                 return a + b.price;
@@ -104,7 +103,7 @@ export default class CartService {
             return result;
         }
 
-        if (list.some(x => x.user.id === data.user.id)) {
+        if (list.some(x => x.userId === data.user.id)) {
             result.message = "User already has a cart";
             return result;
         }

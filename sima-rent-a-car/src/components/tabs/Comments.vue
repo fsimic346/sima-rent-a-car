@@ -167,7 +167,6 @@ export default {
     padding: 1rem;
     transition: 0.3s ease-in-out;
     width: 100%;
-    max-width: 60rem;
     gap: 1rem;
 }
 

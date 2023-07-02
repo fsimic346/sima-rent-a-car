@@ -15,10 +15,12 @@ export enum Status {
 export interface Order extends IEntity {
     orderId: String;
     vehicles: Vehicle[];
-    agency: Agency;
+    agencyId: number;
+    agency?: Agency;
     rentStartDate: Date;
     rentLength: number;
     price: number;
-    customer: User;
+    userId: number;
+    user?: User;
     status: Status;
 }

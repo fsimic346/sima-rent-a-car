@@ -43,7 +43,11 @@
     </div>
     <div class="users-overflow">
         <div class="users-container">
-            <div class="user-card" v-for="user in users">
+            <div
+                class="user-card"
+                :class="{ sus: user.isSus }"
+                v-for="user in users"
+            >
                 <div
                     class="user-image"
                     :style="{ backgroundImage: `url(${user.imageUrl})` }"
@@ -312,6 +316,9 @@ i:hover {
     color: rgb(var(--clr-success)) !important;
 }
 
+.sus {
+    border: 1px solid rgb(var(--clr-error));
+}
 ::v-deep .modal-container {
     display: flex;
     justify-content: center;

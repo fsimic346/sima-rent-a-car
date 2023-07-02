@@ -3,6 +3,7 @@ import { autoInjectable, singleton } from "tsyringe";
 import fs from "fs";
 import AgencyRepository from "./agency.repository";
 import { Role, User } from "../model/user.model";
+import { omit } from "lodash";
 
 @autoInjectable()
 @singleton()
@@ -12,6 +13,10 @@ export default class UserRepository extends Repository {
     constructor(private agencyRepository: AgencyRepository) {
         super();
         this.createStorage();
+    }
+
+    update(user: User) {
+        return super.update(omit(user, ["rentedCars", "agency", "cart"]));
     }
 
     getAll(): User[] {

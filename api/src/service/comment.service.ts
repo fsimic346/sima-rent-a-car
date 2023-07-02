@@ -41,6 +41,15 @@ export default class CommentService {
         const comment: Comment = this.getById(data.comment.id);
         comment.approved = CommentStatus.Approved;
         this.repository.update(comment);
+        const agency: Agency = this.agencyRepository.getById(comment.agencyId);
+        const agencyComments = this.getByAgency(agency.id)?.filter(
+            x => x.approved === CommentStatus.Approved,
+        ) as Comment[];
+        agency.rating =
+            agencyComments.map(x => x.rating).reduce((a, b) => a + b) /
+            agencyComments.length;
+        agency.ratingCount = agencyComments.length;
+        this.agencyRepository.update(agency);
         return result;
     }
 
@@ -134,8 +143,8 @@ export default class CommentService {
                 .getAll()
                 .some(
                     x =>
-                        x.customer.id === data.user.id &&
-                        x.agency.id === data.agency.id,
+                        x.userId === data.user.id &&
+                        x.agencyId === data.agency.id,
                 )
         ) {
             result.message =

@@ -160,6 +160,7 @@
                 />
                 <Users v-if="selectedTab === 'Users'" />
                 <Comments v-if="selectedTab === 'Comments'" :user="user" />
+                <Orders v-if="selectedTab === 'Orders'" :user="user" />
             </div>
         </div>
     </div>
@@ -190,6 +191,7 @@ import UserTabs from "@/components/UserTabs.vue";
 import AgencyOverview from "@/components/tabs/AgencyOverview.vue";
 import Users from "@/components/tabs/Users.vue";
 import Comments from "@/components/tabs/Comments.vue";
+import Orders from "@/components/tabs/Orders.vue";
 
 export default {
     data() {
@@ -216,6 +218,7 @@ export default {
         Users,
         AddVehicle,
         Comments,
+        Orders,
     },
     created() {
         this.user = JSON.parse(localStorage.getItem("user"));
