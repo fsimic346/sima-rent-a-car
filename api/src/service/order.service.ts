@@ -31,10 +31,26 @@ export default class OrderService {
         return this.repository.getAll().filter(x => x.agencyId == agencyId);
     }
 
-    setOrderStatus(id: Number, status: Status) {
+    getByUser(userId: number): Order[] {
+        return this.repository.getAll().filter(x => x.userId == userId);
+    }
+
+    setOrderStatus(id: number, status: Status) {
         const order: Order = this.repository.getById(id);
+        if (!(status in Status) || !order) {
+            return false;
+        }
         order.status = status;
         this.repository.update(order);
+        return true;
+    }
+
+    cancelOrder(id: number) {
+        const order: Order = this.repository.getById(id);
+        if (!order || order.status !== Status.Pending) return false;
+        order.status = Status.Cancelled;
+        this.repository.update(order);
+        return true;
     }
 
     getActiveByVehicle(id: number): Order[] {
