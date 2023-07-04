@@ -99,12 +99,14 @@
                         <Button
                             :text="btnText"
                             v-if="user && user.role === 'Customer'"
-                            @click="rent"
+                            @click="rent(vehicle)"
                         ></Button>
                     </div>
                 </div>
             </div>
         </div>
+        <Sidebar :cartItem="cartItem"></Sidebar>
+        <div class="fade-out" id="fadeOut" @click="showSideBar"></div>
     </div>
 
     <vue-final-modal
@@ -112,13 +114,14 @@
         classes="modal-container"
         content-class="modal-content"
     >
-        <RentVehicle />
+        <RentVehicle :vehicle="selectedVehicle" @addToCart="addToCart" />
     </vue-final-modal>
 </template>
 <script>
 import commaNumber from "comma-number";
 import Button from "@/components/Button.vue";
 import RentVehicle from "@/components/RentVehicle.vue";
+import Sidebar from "@/components/Sidebar.vue";
 import { VueFinalModal, ModalsContainer } from "vue-final-modal";
 
 export default {
@@ -128,6 +131,7 @@ export default {
             user: "",
             showRentModal: false,
             selectedVehicle: {},
+            cartItem: {},
         };
     },
     created() {
@@ -145,6 +149,7 @@ export default {
     },
     components: {
         Button,
+        Sidebar,
         VueFinalModal,
         ModalsContainer,
         RentVehicle,
@@ -154,117 +159,22 @@ export default {
             this.showRentModal = true;
             this.selectedVehicle = vehicle;
         },
+        showSideBar() {
+            document.getElementById("sidebar").classList.toggle("active");
+            document.getElementById("fadeOut").classList.toggle("active");
+        },
+        addToCart(val) {
+            this.cartItem = val;
+            this.showRentModal = false;
+            document.getElementById("sidebar").classList.toggle("active");
+            document.getElementById("fadeOut").classList.toggle("active");
+        },
     },
 };
 </script>
 <style scoped src="../static/css/forms.css"></style>
+<style scoped src="../static/css/availableVehicles.css"></style>
 <style scoped>
-.wrapper {
-    width: 100%;
-}
-
-.container {
-    background-color: rgb(var(--clr-background-secondary));
-    max-height: 58rem;
-    overflow: hidden;
-}
-
-.vehicle-overflow {
-    display: flex;
-    overflow-y: auto;
-    width: 100%;
-    height: 100%;
-}
-.vehicle-container {
-    display: flex;
-    color: rgb(var(--clr-text));
-    max-width: 88rem;
-    flex-wrap: wrap;
-    margin-inline: auto;
-    justify-content: space-between;
-    height: max-content;
-    padding: 1rem;
-}
-
-.vehicle-overflow::-webkit-scrollbar {
-    width: 0.5em;
-}
-
-.vehicle-overflow::-webkit-scrollbar-thumb {
-    background-color: rgba(var(--clr-background));
-    outline: 1px solid slategrey;
-    border-radius: 0.3rem;
-}
-
-.header {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    margin-bottom: 2rem;
-    font-family: var(--fnt-header);
-}
-
-.vehicle-card {
-    background-color: rgb(var(--clr-background));
-    border-radius: 10px;
-    border: solid 2px;
-    margin-bottom: 1.5rem;
-    transition: 0.2s;
-}
-
-.vehicle-card:hover {
-    border-color: rgb(var(--clr-primary-300));
-}
-
-.brand {
-    font-family: var(--fnt-header);
-}
-
-.data-row {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 0.8rem;
-    align-items: center;
-    padding-inline: 0.8rem;
-}
-
-.image {
-    width: 28rem;
-    height: 20rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 10px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    margin-bottom: 0.8rem;
-}
-
-.info-icon {
-    display: flex;
-    gap: 0.2rem;
-    align-items: center;
-}
-
-.type-icon {
-    margin-left: auto;
-}
-
-.vehicle-name {
-    margin-bottom: 0;
-    font-size: 1.4rem;
-}
-
-.price {
-    margin-top: 4rem;
-    font-size: 1.4rem;
-}
-
-Button {
-    margin-left: auto;
-    font-size: 18px;
-}
-
 ::v-deep .modal-container {
     display: flex;
     justify-content: center;

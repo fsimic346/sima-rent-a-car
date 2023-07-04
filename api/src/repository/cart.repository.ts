@@ -21,6 +21,9 @@ export default class CartRepository extends Repository {
     }
 
     update(cart: Cart) {
+        for (let i = 0; i < cart.cartItems.length; i++) {
+            cart.cartItems[i] = omit(cart.cartItems[i], ["vehicle"]);
+        }
         super.update(omit(cart, ["user"]));
     }
 
@@ -43,8 +46,10 @@ export default class CartRepository extends Repository {
 
     private loadCartData(cart: Cart) {
         cart.user = this.userRepository.getById(cart.userId);
-        cart.vehicles = this.vehicleRepository
-            .getAll()
-            .filter(x => x.id in cart.vehicles.map(x => x.id)) as Vehicle[];
+        for (const cartItem of cart.cartItems) {
+            cartItem.vehicle = this.vehicleRepository.getById(
+                cartItem.vehicleId,
+            );
+        }
     }
 }

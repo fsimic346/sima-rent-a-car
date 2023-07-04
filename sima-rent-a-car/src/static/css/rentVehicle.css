@@ -1,0 +1,59 @@
+.container {
+    background-color: rgb(var(--clr-background-secondary));
+    flex-direction: column;
+    flex-direction: column;
+    align-items: center;
+    font-size: 2rem;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--fnt-header);
+}
+
+.car-brand {
+    margin-bottom: 2rem;
+}
+
+.dates {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(var(--clr-background));
+    min-height: 4rem;
+    min-width: 10rem;
+    border-radius: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.label {
+    align-self: flex-start;
+    color: rgba(var(--clr-text), 50%);
+    font-size: 1rem;
+    margin: 0.2rem;
+}
+
+Button {
+    margin-top: 2rem;
+    font-size: 1rem;
+}
+
+.error {
+    font-size: 0.8rem;
+    color: rgb(var(--clr-error));
+}
+
+.success {
+    font-size: 0.8rem;
+    color: rgb(var(--clr-success));
+}

@@ -37,6 +37,18 @@ export default class OrderService {
         this.repository.update(order);
     }
 
+    getActiveByVehicle(id: number): Order[] {
+        return this.repository
+            .getAll()
+            .filter(
+                x =>
+                    x.vehicles.map(y => y.id).includes(id) &&
+                    x.status !== Status.Cancelled &&
+                    x.status !== Status.Denied &&
+                    x.status !== Status.Returned,
+            );
+    }
+
     add(data: any): Result {
         const result = this.validateNewOrderData(data);
         if (!result.success) {

@@ -1,8 +1,8 @@
 [
     {
         "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
+        "rentStartDate": "2023-08-20",
+        "rentLength": 3,
         "status": "Cancelled",
         "vehicles": [{ "id": 1 }],
         "price": 1600,
@@ -10,8 +10,8 @@
     },
     {
         "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
+        "rentStartDate": "2023-07-10",
+        "rentLength": 2,
         "status": "Cancelled",
         "vehicles": [{ "id": 1 }],
         "price": 1600,
@@ -19,36 +19,9 @@
     },
     {
         "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Cancelled",
-        "vehicles": [{ "id": 1 }],
-        "price": 1600,
-        "agencyId": 6
-    },
-    {
-        "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Cancelled",
-        "vehicles": [{ "id": 1 }],
-        "price": 1600,
-        "agencyId": 6
-    },
-    {
-        "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Cancelled",
-        "vehicles": [{ "id": 1 }],
-        "price": 1600,
-        "agencyId": 6
-    },
-    {
-        "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Cancelled",
+        "rentStartDate": "2023-07-15",
+        "rentLength": 3,
+        "status": "Approved",
         "vehicles": [{ "id": 1 }],
         "price": 1600,
         "agencyId": 6

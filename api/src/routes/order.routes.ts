@@ -29,3 +29,10 @@ orderRouter.get(
         res.send(result.map(x => omit(x, ["deleted"])));
     },
 );
+
+orderRouter.get("/vehicle/:vehicleId", (req: Request, res: Response) => {
+    const result = orderSerivce.getActiveByVehicle(
+        parseInt(req.params.vehicleId),
+    );
+    res.send(result);
+});
