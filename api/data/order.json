@@ -1,5 +1,96 @@
 [
     {
+        "id": 1,
+        "userId": 2,
+        "rentStartDate": "2023-06-15",
+        "rentLength": 1,
+        "status": "Cancelled",
+        "vehicles": [
+            {
+                "id": 1,
+                "brand": "Toyota",
+                "model": "Corolla",
+                "price": "20000",
+                "vehicleType": "Car",
+                "agencyId": 6,
+                "transmissionType": "Automatic",
+                "fuelType": "Gasoline",
+                "consumption": 8.5,
+                "doorNumber": 4,
+                "passangerNumber": 5,
+                "description": "A reliable and fuel-efficient sedan.",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg/800px-2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg",
+                "isAvailable": true
+            }
+        ],
+        "price": 1600,
+        "agencyId": 6
+    },
+    {
+        "id": 2,
+        "userId": 6,
+        "rentStartDate": "2023-08-15",
+        "rentLength": 1,
+        "status": "Returned",
+        "vehicles": [
+            {
+                "id": 1,
+                "brand": "Toyota",
+                "model": "Corolla",
+                "price": "20000",
+                "vehicleType": "Car",
+                "agencyId": 6,
+                "transmissionType": "Automatic",
+                "fuelType": "Gasoline",
+                "consumption": 8.5,
+                "doorNumber": 4,
+                "passangerNumber": 5,
+                "description": "A reliable and fuel-efficient sedan.",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg/800px-2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg",
+                "isAvailable": true
+            },
+            {
+                "id": 2,
+                "brand": "BMW",
+                "model": "X5",
+                "price": "60000",
+                "vehicleType": "Car",
+                "agencyId": 6,
+                "transmissionType": "Automatic",
+                "fuelType": "Diesel",
+                "consumption": 10.2,
+                "doorNumber": 5,
+                "passangerNumber": 7,
+                "description": "A luxurious and spacious SUV.",
+                "image": "https://upload.wikimedia.org/wikipedia/commons/f/f1/2019_BMW_X5_M50d_Automatic_3.0.jpg",
+                "isAvailable": true
+            }
+        ],
+        "price": 2100,
+        "agencyId": 6
+    },
+    {
+        "id": 3,
+        "userId": 2,
+        "rentStartDate": "2023-06-15",
+        "rentLength": 1,
+        "status": "Approved",
+        "vehicles": [{ "id": 1 }],
+        "price": 1600,
+        "agencyId": 6
+    },
+    {
+        "id": 4,
+        "userId": 2,
+        "rentStartDate": "2023-06-15",
+        "rentLength": 1,
+        "status": "Rented",
+        "vehicles": [{ "id": 1 }],
+        "price": 1600,
+        "agencyId": 6
+    },
+    {
+        "id": 5,
         "userId": 2,
         "rentStartDate": "2023-06-15",
         "rentLength": 1,
@@ -9,42 +100,7 @@
         "agencyId": 6
     },
     {
-        "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Cancelled",
-        "vehicles": [{ "id": 1 }],
-        "price": 1600,
-        "agencyId": 6
-    },
-    {
-        "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Cancelled",
-        "vehicles": [{ "id": 1 }],
-        "price": 1600,
-        "agencyId": 6
-    },
-    {
-        "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Cancelled",
-        "vehicles": [{ "id": 1 }],
-        "price": 1600,
-        "agencyId": 6
-    },
-    {
-        "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Cancelled",
-        "vehicles": [{ "id": 1 }],
-        "price": 1600,
-        "agencyId": 6
-    },
-    {
+        "id": 6,
         "userId": 2,
         "rentStartDate": "2023-06-15",
         "rentLength": 1,

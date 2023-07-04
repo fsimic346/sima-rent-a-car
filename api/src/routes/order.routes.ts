@@ -29,3 +29,73 @@ orderRouter.get(
         res.send(result.map(x => omit(x, ["deleted"])));
     },
 );
+
+orderRouter.get(
+    "/user/:userId",
+    authenticateToken,
+    (req: Request, res: Response) => {
+        const user = userService.getByUsername(
+            (req as CustomRequest).username,
+        ) as User;
+        if (
+            user.role != Role.Customer ||
+            user.id != parseInt(req.params.userId)
+        ) {
+            res.sendStatus(401);
+            return;
+        }
+        const result = orderSerivce.getByUser(parseInt(req.params.userId));
+        res.send(result.map(x => omit(x, ["deleted"])));
+    },
+);
+
+orderRouter.patch(
+    "/cancel",
+    authenticateToken,
+    (req: Request, res: Response) => {
+        const user = userService.getByUsername(
+            (req as CustomRequest).username,
+        ) as User;
+        if (
+            user.role != Role.Customer ||
+            user.id != parseInt(req.body.order.userId)
+        ) {
+            res.sendStatus(401);
+            return;
+        }
+        const result = orderSerivce.cancelOrder(req.body.order.id);
+        if (result) {
+            res.sendStatus(200);
+            return;
+        }
+        res.sendStatus(400);
+        return;
+    },
+);
+
+orderRouter.patch(
+    "/setStatus",
+    authenticateToken,
+    (req: Request, res: Response) => {
+        const user = userService.getByUsername(
+            (req as CustomRequest).username,
+        ) as User;
+        if (
+            user.role != Role.Manager ||
+            user.agencyId != parseInt(req.body.order.agencyId)
+        ) {
+            res.sendStatus(401);
+            return;
+        }
+        const result = orderSerivce.setOrderStatus(
+            req.body.order.id,
+            req.body.status,
+        );
+        if (result) {
+            res.sendStatus(200);
+            return;
+        }
+        res.send(400);
+        return;
+    },
+);
