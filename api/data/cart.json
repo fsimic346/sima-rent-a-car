@@ -1,8 +1,1 @@
-[
-    {
-        "id": 1,
-        "userId": 2,
-        "cartItems": [],
-        "totalPrice": 0
-    }
-]
+[{"id":1,"userId":2,"cartItems":[{"vehicleId":1,"dateRange":{"start":"17th July 2023","end":"20th July 2023"}},{"vehicleId":2,"dateRange":{"start":"19th July 2023","end":"22nd July 2023"}}],"totalPrice":80000}]

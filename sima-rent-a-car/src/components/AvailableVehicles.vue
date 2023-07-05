@@ -156,8 +156,8 @@ export default {
     },
     methods: {
         rent(vehicle) {
-            this.showRentModal = true;
             this.selectedVehicle = vehicle;
+            this.showRentModal = true;
         },
         showSideBar() {
             document.getElementById("sidebar").classList.toggle("active");

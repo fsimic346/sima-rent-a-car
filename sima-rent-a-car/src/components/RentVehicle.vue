@@ -48,7 +48,7 @@ export default {
             btnText: "Add to cart",
             error: "",
             success: "",
-            cartItem: { vehicle: Object, dateRange: "" },
+            cartItem: { vehicle: {}, dateRange: "" },
         };
     },
     emits: ["addToCart"],
@@ -108,8 +108,10 @@ export default {
                 this.$refs.rentBtn.enabled = false;
 
                 this.vehicle.price = this.vehicle.price.replace(".", "");
-                this.cartItem.vehicle = this.vehicle;
-                this.cartItem.dateRange = this.selectedDatesRange;
+                this.cartItem = {
+                    vehicle: this.vehicle,
+                    dateRange: this.selectedDatesRange,
+                };
 
                 const res = await this.axios.post(
                     "http://localhost:8080/api/cart",

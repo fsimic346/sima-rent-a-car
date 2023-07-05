@@ -129,7 +129,7 @@ export default {
     data() {
         return {
             image: "https://randomwordgenerator.com/img/picture-generator/57e8dd464957ae14f1dc8460962e33791c3ad6e04e50744172297cd59e4ec1_640.jpg",
-            cart: Object,
+            cart: {},
             btnText: "Place order",
         };
     },
@@ -139,7 +139,7 @@ export default {
             const res = await this.axios.get("http://localhost:8080/api/cart");
             this.cart = res.data;
             this.cart.totalPrice = commaNumber(this.cart.totalPrice, ".");
-            for (const cartItem of this.cartItems) {
+            for (const cartItem of this.cart.cartItems) {
                 cartItem.vehicle.price = commaNumber(
                     cartItem.vehicle.price,
                     ".",
@@ -151,12 +151,10 @@ export default {
     },
     watch: {
         cartItem(val) {
-            // console.log(typeof this.cart.totalPrice);
-            // console.log(typeof val.vehicle.price);
             this.cart.cartItems.push(val);
-            // let totalPrice = parseInt(this.cart.totalPrice);
-            // totalPrice += parseInt(val.vehicle.price);
-            // this.cart.totalPrice = totalPrice;
+            let totalPrice = parseInt(this.cart.totalPrice);
+            totalPrice += parseInt(val.vehicle.price);
+            this.cart.totalPrice = totalPrice;
         },
     },
     components: {
