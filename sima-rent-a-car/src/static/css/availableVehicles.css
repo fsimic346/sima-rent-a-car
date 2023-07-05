@@ -111,7 +111,7 @@ Button {
     font-size: 18px;
 }
 
-.fade-out {
+/* .fade-out {
     width: 10px;
     background-color: rgba(var(--clr-text), 30%);
     height: 10rem;
@@ -119,13 +119,13 @@ Button {
     border-radius: 0.2rem;
     transition: 0.7s;
     right: 0;
-}
+} */
 
-.fade-out:hover {
+/* .fade-out:hover {
     background-color: rgba(var(--clr-text), 50%);
     cursor: pointer;
 }
 
 .fade-out.active {
     right: 350px;
-}
+} */

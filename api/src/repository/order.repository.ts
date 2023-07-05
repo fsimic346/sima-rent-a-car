@@ -5,8 +5,8 @@ import VehicleRepository from "./vehicle.repository";
 import AgencyRepository from "./agency.repository";
 import UserRepository from "./user.repository";
 import { Vehicle } from "../model/vehicle.model";
-import IEntity from "../model/IEntity";
 import { omit } from "lodash";
+import { CartItem } from "../model/cartItem.model";
 
 @autoInjectable()
 @singleton()
@@ -44,11 +44,11 @@ export default class OrderRepository extends Repository {
     }
 
     private loadOrderData(order: Order) {
-        order.vehicles = this.vehicleRepository
-            .getAll()
-            .filter(x =>
-                order.vehicles.map(x => x.id).includes(x.id),
-            ) as Vehicle[];
+        for (const cartItem of order.cartItems) {
+            cartItem.vehicle = this.vehicleRepository.getById(
+                cartItem.vehicleId,
+            );
+        }
         order.agency = this.agencyRepository.getById(order.agencyId);
         order.user = this.userRepository.getById(order.userId);
     }

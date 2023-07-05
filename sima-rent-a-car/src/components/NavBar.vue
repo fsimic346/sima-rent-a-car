@@ -17,10 +17,10 @@
                         <i class="fa-solid fa-user"></i>
                         <span> Profile</span>
                     </router-link>
-                    <router-link to="/cart" class="dropdown-item">
+                    <div id="cart" class="dropdown-item">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span>Cart</span>
-                    </router-link>
+                    </div>
                     <div class="dropdown-item">
                         <i class="fa-solid fa-moon"></i>
                         <span>

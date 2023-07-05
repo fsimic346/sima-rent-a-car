@@ -106,7 +106,7 @@
             </div>
         </div>
         <Sidebar :cartItem="cartItem"></Sidebar>
-        <div class="fade-out" id="fadeOut" @click="showSideBar"></div>
+        <!-- <div class="fade-out" id="fadeOut" @click="showSideBar"></div> -->
     </div>
 
     <vue-final-modal
@@ -132,12 +132,37 @@ export default {
             showRentModal: false,
             selectedVehicle: {},
             cartItem: {},
+            sideBar: false,
         };
     },
     created() {
         if (localStorage.getItem("user")) {
             this.user = JSON.parse(localStorage.getItem("user"));
         }
+    },
+    mounted() {
+        document.addEventListener("click", e => {
+            let sidebar = document.getElementById("sidebar");
+            let cart = document.getElementById("cart");
+            let button = document.getElementById("btn");
+            if (sidebar === null || cart === null || button === null) {
+                return;
+            }
+
+            if (
+                sidebar !== e.target &&
+                cart !== e.target &&
+                button !== e.target &&
+                this.sideBar
+            ) {
+                setTimeout(() => {
+                    document
+                        .getElementById("sidebar")
+                        .classList.toggle("active");
+                }, 1);
+                this.sideBar = false;
+            }
+        });
     },
     props: { agency: Object },
     watch: {
@@ -161,13 +186,15 @@ export default {
         },
         showSideBar() {
             document.getElementById("sidebar").classList.toggle("active");
-            document.getElementById("fadeOut").classList.toggle("active");
+            // document.getElementById("fadeOut").classList.toggle("active");
+            this.sideBar = true;
         },
         addToCart(val) {
             this.cartItem = val;
             this.showRentModal = false;
             document.getElementById("sidebar").classList.toggle("active");
-            document.getElementById("fadeOut").classList.toggle("active");
+            // document.getElementById("fadeOut").classList.toggle("active");
+            this.sideBar = true;
         },
     },
 };

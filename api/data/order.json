@@ -1,112 +1,104 @@
 [
     {
-        "id": 1,
         "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Cancelled",
-        "vehicles": [
+        "status": "Pending",
+        "cartItems": [
             {
-                "id": 1,
-                "brand": "Toyota",
-                "model": "Corolla",
-                "price": "20000",
-                "vehicleType": "Car",
-                "agencyId": 6,
-                "transmissionType": "Automatic",
-                "fuelType": "Gasoline",
-                "consumption": 8.5,
-                "doorNumber": 4,
-                "passangerNumber": 5,
-                "description": "A reliable and fuel-efficient sedan.",
-                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg/800px-2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg",
-                "isAvailable": true
+                "vehicleId": 1,
+                "vehicle": {
+                    "id": 1,
+                    "brand": "Toyota",
+                    "model": "Corolla",
+                    "price": "20000",
+                    "vehicleType": "Car",
+                    "agencyId": 5,
+                    "transmissionType": "Automatic",
+                    "fuelType": "Gasoline",
+                    "consumption": 8.5,
+                    "doorNumber": 4,
+                    "passangerNumber": 5,
+                    "description": "A reliable and fuel-efficient sedan.",
+                    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg/800px-2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg",
+                    "isAvailable": true
+                },
+                "dateRange": {
+                    "start": "17th July 2023",
+                    "end": "21st July 2023"
+                }
             }
         ],
-        "price": 1600,
-        "agencyId": 6
+        "price": "020.000",
+        "deleted": false,
+        "orderId": "QT2DJObJvr362023223236914",
+        "user": {
+            "username": "gagi",
+            "email": "gagimaslac@gmail.com",
+            "password": "$2b$13$skBwJW7P.IeJjqyCQRLL6uMop8z.m4/ABQ6WD9nDN6rUHz8t3SElm",
+            "imageUrl": "https://cdn.discordapp.com/attachments/605735235476520972/1124026813883088906/1688059270900.jpg",
+            "firstName": "Dragoslav",
+            "lastName": "Maslać",
+            "role": "Customer",
+            "deleted": false,
+            "id": 2,
+            "dateOfBirth": "2001-06-15",
+            "phoneNumber": "069624564",
+            "gender": "Male",
+            "banned": false
+        }
     },
     {
-        "id": 2,
-        "userId": 6,
-        "rentStartDate": "2023-08-15",
-        "rentLength": 1,
-        "status": "Returned",
-        "vehicles": [
+        "userId": 2,
+        "status": "Pending",
+        "cartItems": [
             {
-                "id": 1,
-                "brand": "Toyota",
-                "model": "Corolla",
-                "price": "20000",
-                "vehicleType": "Car",
-                "agencyId": 6,
-                "transmissionType": "Automatic",
-                "fuelType": "Gasoline",
-                "consumption": 8.5,
-                "doorNumber": 4,
-                "passangerNumber": 5,
-                "description": "A reliable and fuel-efficient sedan.",
-                "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg/800px-2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg",
-                "isAvailable": true
+                "vehicleId": 3,
+                "dateRange": {
+                    "start": "17th July 2023",
+                    "end": "20th July 2023"
+                },
+                "vehicle": {
+                    "id": 3,
+                    "brand": "Honda",
+                    "model": "Civic",
+                    "price": "18.500",
+                    "vehicleType": "Car",
+                    "agencyId": 6,
+                    "transmissionType": "Manual",
+                    "fuelType": "Gasoline",
+                    "consumption": 7.9,
+                    "doorNumber": 2,
+                    "passangerNumber": 4,
+                    "description": "A sporty and stylish coupe.",
+                    "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/2017_Honda_Civic_SR_VTEC_1.0_Front.jpg",
+                    "isAvailable": false
+                }
             },
             {
-                "id": 2,
-                "brand": "BMW",
-                "model": "X5",
-                "price": "60000",
-                "vehicleType": "Car",
-                "agencyId": 6,
-                "transmissionType": "Automatic",
-                "fuelType": "Diesel",
-                "consumption": 10.2,
-                "doorNumber": 5,
-                "passangerNumber": 7,
-                "description": "A luxurious and spacious SUV.",
-                "image": "https://upload.wikimedia.org/wikipedia/commons/f/f1/2019_BMW_X5_M50d_Automatic_3.0.jpg",
-                "isAvailable": true
+                "vehicleId": 2,
+                "dateRange": {
+                    "start": "17th July 2023",
+                    "end": "21st July 2023"
+                },
+                "vehicle": {
+                    "id": 2,
+                    "brand": "BMW",
+                    "model": "X5",
+                    "price": "60.000",
+                    "vehicleType": "Car",
+                    "agencyId": 6,
+                    "transmissionType": "Automatic",
+                    "fuelType": "Diesel",
+                    "consumption": 10.2,
+                    "doorNumber": 5,
+                    "passangerNumber": 7,
+                    "description": "A luxurious and spacious SUV.",
+                    "image": "https://upload.wikimedia.org/wikipedia/commons/f/f1/2019_BMW_X5_M50d_Automatic_3.0.jpg",
+                    "isAvailable": true
+                }
             }
         ],
-        "price": 2100,
-        "agencyId": 6
-    },
-    {
-        "id": 3,
-        "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Approved",
-        "vehicles": [{ "id": 1 }],
-        "price": 1600,
-        "agencyId": 6
-    },
-    {
-        "id": 4,
-        "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Rented",
-        "vehicles": [{ "id": 1 }],
-        "price": 1600,
-        "agencyId": 6
-    },
-    {
-        "id": 5,
-        "userId": 2,
-        "rentStartDate": "2023-08-20",
-        "rentLength": 3,
-        "status": "Cancelled",
-        "vehicles": [{ "id": 1 }],
-        "price": 1600,
-        "agencyId": 6
-    },
-    {
-        "id": 6,
-        "userId": 2,
-        "rentStartDate": "2023-06-15",
-        "rentLength": 1,
-        "status": "Cancelled",
-        "vehicles": [{ "id": 1 }],
-        "price": 1600,
-        "agencyId": 6
+        "price": "018.50060.000",
+        "deleted": false,
+        "orderId": "Y7aROZRE5r362023223236914"
     }
 ]

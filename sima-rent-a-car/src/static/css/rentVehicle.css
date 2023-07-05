@@ -57,3 +57,7 @@ Button {
     font-size: 0.8rem;
     color: rgb(var(--clr-success));
 }
+
+/* #success.active {
+    transition: 0.2;
+} */

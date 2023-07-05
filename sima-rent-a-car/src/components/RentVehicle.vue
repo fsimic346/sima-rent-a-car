@@ -26,7 +26,7 @@
         </div>
         <Button :text="btnText" @click="addToCart" ref="rentBtn"></Button>
         <div class="error">{{ error }}</div>
-        <div class="success">{{ success }}</div>
+        <div id="success" class="success">{{ success }}</div>
     </div>
 </template>
 <script>
@@ -87,11 +87,13 @@ export default {
         setDisabledDates(orders) {
             this.disabledDates = [];
             for (const order of orders) {
-                const daysRange = {
-                    start: new Date(order.rentStartDate),
-                    end: new Date(order.rentEndDate),
-                };
-                this.disabledDates.push(daysRange);
+                for (const cartItem of order.cartItems) {
+                    const daysRange = {
+                        start: new Date(cartItem.dateRange.start),
+                        end: new Date(cartItem.dateRange.end),
+                    };
+                    this.disabledDates.push(daysRange);
+                }
             }
         },
         async addToCart() {
@@ -109,6 +111,7 @@ export default {
 
                 this.vehicle.price = this.vehicle.price.replace(".", "");
                 this.cartItem = {
+                    vehicleId: this.vehicle.id,
                     vehicle: this.vehicle,
                     dateRange: this.selectedDatesRange,
                 };
@@ -121,6 +124,9 @@ export default {
                 );
 
                 this.success = "Item added to cart succesfully";
+                setTimeout(() => {
+                    document.getElementById("success").style.display = "none";
+                }, 400);
                 this.$refs.rentBtn.enabled = true;
                 this.error = "";
                 this.btnText = "Add to cart";

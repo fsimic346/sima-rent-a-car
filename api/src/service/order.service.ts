@@ -6,8 +6,8 @@ import { Vehicle } from "../model/vehicle.model";
 import VehicleRepository from "../repository/vehicle.repository";
 import AgencyRepository from "../repository/agency.repository";
 import UserRepository from "../repository/user.repository";
-import { User } from "../model/user.model";
-import { Agency } from "../model/agency.model";
+import { CartItem } from "../model/cartItem.model";
+import { collect } from "collect.js";
 import randomstring from "randomstring";
 
 @autoInjectable()
@@ -58,7 +58,7 @@ export default class OrderService {
             .getAll()
             .filter(
                 x =>
-                    x.vehicles.map(y => y.id).includes(id) &&
+                    x.cartItems.map(y => y.vehicleId).includes(id) &&
                     x.status !== Status.Cancelled &&
                     x.status !== Status.Denied &&
                     x.status !== Status.Returned,
@@ -66,62 +66,71 @@ export default class OrderService {
     }
 
     add(data: any): Result {
-        const result = this.validateNewOrderData(data);
-        if (!result.success) {
-            return result;
-        }
-        const user: User = this.userRepository.getById(data.user.id);
-        const agency: Agency = this.agencyRepository.getById(data.agency.id);
-        const vehicles = this.vehicleRepository
-            .getAll()
-            .filter(
-                x => x.id in (data.vehicles as Vehicle[]).map(x => x.id),
-            ) as Vehicle[];
+        const result = this.validateOrderData(data);
+
+        const orderCollection: any = collect(
+            data.cartItems as CartItem[],
+        ).groupBy((item, key) => (item.vehicle as Vehicle).agencyId);
 
         const date = new Date();
-        const order: Order = {
-            id: result.value,
-            orderId:
-                randomstring.generate(10) +
-                date.getDay +
-                date.getMonth +
-                date.getFullYear +
-                date.getHours +
-                date.getMinutes +
-                date.getSeconds +
-                date.getMilliseconds,
-            userId: data.user.id,
-            agencyId: data.agency.id,
-            vehicles: vehicles,
-            rentStartDate: data.rentStartDate,
-            rentLength: data.rentLength,
-            price: vehicles.reduce((a, b) => {
-                return a + b.price;
-            }, 0),
-            status: Status.Pending,
-            deleted: false,
-        };
+        orderCollection.each((cOrder: any) => {
+            const order: Order = {
+                id: result.value,
+                userId: data.userId,
+                status: Status.Pending,
+                cartItems: cOrder.items,
+                price: cOrder.items.reduce(
+                    (a: any, b: any) => (a += b.vehicle.price),
+                    0,
+                ),
+                agencyId: data.agencyId,
+                deleted: false,
+                orderId:
+                    randomstring.generate(10) +
+                    date.getDay() +
+                    date.getMonth() +
+                    date.getFullYear() +
+                    date.getHours() +
+                    date.getMinutes() +
+                    date.getSeconds() +
+                    date.getMilliseconds(),
+            };
+            this.repository.save(order);
+        });
+
         return result;
     }
-
-    private validateNewOrderData(data: any): Result {
+    private validateOrderData(data: any): Result {
         const result = new Result();
-        const list: Order[] = this.repository.getAll();
+        const list: Order[] = this.repository?.getAll() as Order[];
 
+        if (!data || data === "") {
+            result.message = "Cart is empty";
+            return result;
+        }
         if (
-            !(data.vehicles as Vehicle[])
-                .map(x => x.id)
-                .every(x =>
+            !(data.cartItems as CartItem[])
+                .map(x => (x.vehicle as Vehicle).id)
+                .every(y =>
                     this.vehicleRepository
                         .getAll()
-                        .map(x => x.id)
-                        .includes(x),
+                        .map(z => z.id)
+                        .includes(y),
                 )
         ) {
             result.message = "Vehicle in order doesn't exist";
             return result;
         }
-        if (!this.agencyRepository.getById(data.agency.id)) {
+        if (
+            !(data.cartItems as CartItem[])
+                .map(x => (x.vehicle as Vehicle).agencyId)
+                .every(y =>
+                    this.agencyRepository
+                        .getAll()
+                        .map(z => z.id)
+                        .includes(y),
+                )
+        ) {
             result.message = "Invalid agency";
             return result;
         }
@@ -129,13 +138,10 @@ export default class OrderService {
             result.message = "Invalid user";
             return result;
         }
-        if (data.rentLength < 1) {
-            result.message = "Invalid renting time";
-            return result;
-        }
+
         result.success = true;
         result.message = "Successfully created order";
-        result.value = result;
+        result.value = list === undefined ? 1 : list?.length + 1;
         return result;
     }
 }

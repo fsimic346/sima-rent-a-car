@@ -113,7 +113,12 @@
             </div>
         </div>
         <div class="checkout">
-            <Button :text="btnText"></Button>
+            <Button
+                ref="orderBtn"
+                id="btn"
+                :text="btnText"
+                @click="placeOrder"
+            ></Button>
             <div class="total-price">
                 <div>Total price:</div>
                 <div>${{ cart.totalPrice }}</div>
@@ -131,6 +136,8 @@ export default {
             image: "https://randomwordgenerator.com/img/picture-generator/57e8dd464957ae14f1dc8460962e33791c3ad6e04e50744172297cd59e4ec1_640.jpg",
             cart: {},
             btnText: "Place order",
+            error: "",
+            success: "",
         };
     },
     props: { cartItem: Object },
@@ -150,15 +157,40 @@ export default {
         }
     },
     watch: {
+        // ToDo: Srediti format cene
         cartItem(val) {
+            console.log(val);
             this.cart.cartItems.push(val);
             let totalPrice = parseInt(this.cart.totalPrice);
             totalPrice += parseInt(val.vehicle.price);
             this.cart.totalPrice = totalPrice;
+            val.vehicle.price = commaNumber(val.vehicle.price, ".");
+            // this.cart.totalPrice = commaNumber(this.cart.totalPrice, ".");
         },
     },
     components: {
         Button,
+    },
+    methods: {
+        async placeOrder() {
+            try {
+                this.btnText = "";
+                this.$refs.orderBtn.enabled = false;
+
+                console.log(this.cart);
+                const res = await this.axios.post(
+                    "http://localhost:8080/api/order",
+                    this.cart,
+                );
+
+                this.btnText = "Place order";
+                this.$refs.orderBtn.enabled = true;
+            } catch (err) {
+                this.btnText = "Place order";
+                this.$refs.orderBtn.enabled = true;
+                this.error = err.response.data;
+            }
+        },
     },
 };
 </script>

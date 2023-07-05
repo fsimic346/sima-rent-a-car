@@ -105,3 +105,21 @@ orderRouter.patch(
         return;
     },
 );
+
+orderRouter.post("/", authenticateToken, (req: Request, res: Response) => {
+    const user = userService.getByUsername(
+        (req as CustomRequest).username,
+    ) as User;
+    if (user.role != Role.Customer) {
+        res.sendStatus(401);
+        return;
+    }
+
+    const result = orderSerivce.add(req.body);
+    if (result) {
+        res.sendStatus(200);
+        return;
+    }
+    res.send(400);
+    return;
+});

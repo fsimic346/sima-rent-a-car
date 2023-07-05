@@ -1,7 +1,7 @@
 import IEntity from "./IEntity";
 import { Agency } from "./agency.model";
+import { CartItem } from "./cartItem.model";
 import { User } from "./user.model";
-import { Vehicle } from "./vehicle.model";
 
 export enum Status {
     Pending = "Pending",
@@ -14,11 +14,9 @@ export enum Status {
 
 export interface Order extends IEntity {
     orderId: String;
-    vehicles: Vehicle[];
+    cartItems: CartItem[];
     agencyId: number;
     agency?: Agency;
-    rentStartDate: Date;
-    rentLength: number;
     price: number;
     userId: number;
     user?: User;
