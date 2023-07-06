@@ -41,7 +41,10 @@
                 </div>
             </div>
         </div>
-        <AvailableVehicles :agency="agency"></AvailableVehicles>
+        <AvailableVehicles
+            :agency="agency"
+            @addToCart="addToCart"
+        ></AvailableVehicles>
     </div>
 </template>
 <script>
@@ -112,6 +115,7 @@ export default {
     destroyed() {
         window.removeEventListener("resize", this.resizeHandler);
     },
+    emits: ["addToCart"],
     data() {
         return {
             agency: {},
@@ -131,6 +135,9 @@ export default {
         resizeHandler(e) {
             const element = document.getElementById("agencyImg");
             element.style.height = `${element.offsetWidth}px`;
+        },
+        addToCart(val) {
+            this.$emit("addToCart", val);
         },
     },
 };

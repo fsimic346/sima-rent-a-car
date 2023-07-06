@@ -108,7 +108,9 @@
                     {{ cartItem.vehicle.description }}
                 </div>
                 <div class="price">
-                    <div>${{ cartItem.vehicle.price }}</div>
+                    <div>
+                        ${{ this.commaNumber(cartItem.vehicle.price, ".") }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,7 +123,7 @@
             ></Button>
             <div class="total-price">
                 <div>Total price:</div>
-                <div>${{ cart.totalPrice }}</div>
+                <div>${{ this.commaNumber(cart.totalPrice, ".") }}</div>
             </div>
         </div>
     </div>
@@ -142,10 +144,13 @@ export default {
     },
     props: { cartItem: Object },
     async mounted() {
+        const navHeight = document.querySelector("nav").clientHeight + 1;
+        document.getElementById(
+            "sidebar",
+        ).style.height = `calc(100% - ${navHeight}px)`;
         try {
             const res = await this.axios.get("http://localhost:8080/api/cart");
             this.cart = res.data;
-            this.cart.totalPrice = commaNumber(this.cart.totalPrice, ".");
             for (const cartItem of this.cart.cartItems) {
                 cartItem.vehicle.price = commaNumber(
                     cartItem.vehicle.price,
@@ -153,13 +158,13 @@ export default {
                 );
             }
         } catch (err) {
-            console.log(err.data);
+            console.log(err);
         }
     },
     watch: {
         // ToDo: Srediti format cene
         cartItem(val) {
-            console.log(val);
+            // console.log(this.cart);
             this.cart.cartItems.push(val);
             let totalPrice = parseInt(this.cart.totalPrice);
             totalPrice += parseInt(val.vehicle.price);
@@ -172,17 +177,28 @@ export default {
         Button,
     },
     methods: {
+        commaNumber(num, symbol) {
+            return commaNumber(num, symbol);
+        },
         async placeOrder() {
             try {
                 this.btnText = "";
                 this.$refs.orderBtn.enabled = false;
 
+                for (const cartItem of this.cart.cartItems) {
+                    cartItem.vehicle.price = cartItem.vehicle.price.replace(
+                        ".",
+                        "",
+                    );
+                }
                 console.log(this.cart);
                 const res = await this.axios.post(
                     "http://localhost:8080/api/order",
                     this.cart,
                 );
 
+                this.cart.cartItems = [];
+                this.cart.totalPrice = 0;
                 this.btnText = "Place order";
                 this.$refs.orderBtn.enabled = true;
             } catch (err) {

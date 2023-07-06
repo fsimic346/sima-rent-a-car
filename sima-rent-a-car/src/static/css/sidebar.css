@@ -6,6 +6,7 @@
     border-radius: 0.5rem;
     right: -350px;
     transition: 0.7s;
+    z-index: 100;
 }
 
 #sidebar.active {
@@ -93,7 +94,6 @@
     display: flex;
     gap: 0.9rem;
     align-items: center;
-    /* font-size: 1rem; */
 }
 
 .car {

@@ -80,10 +80,10 @@ export default class OrderService {
                 status: Status.Pending,
                 cartItems: cOrder.items,
                 price: cOrder.items.reduce(
-                    (a: any, b: any) => (a += b.vehicle.price),
+                    (a: any, b: any) => (a += parseInt(b.vehicle.price)),
                     0,
                 ),
-                agencyId: data.agencyId,
+                agencyId: cOrder.items[0].vehicle.agencyId,
                 deleted: false,
                 orderId:
                     randomstring.generate(10) +

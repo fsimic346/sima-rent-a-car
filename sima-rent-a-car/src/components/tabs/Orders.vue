@@ -60,24 +60,24 @@
                             <div class="vehicles">
                                 Vehicles:
                                 {{
-                                    order.vehicles.reduce((a, b) => {
+                                    order.cartItems.reduce((a, b) => {
                                         return (
                                             a +
                                             (a == "" ? "" : ", ") +
-                                            b.brand +
+                                            b.vehicle.brand +
                                             " " +
-                                            b.model
+                                            b.vehicle.model
                                         );
                                     }, "")
                                 }}
                             </div>
                             <div class="row">
                                 <div class="order-date">
-                                    {{
+                                    <!-- {{
                                         order.rentStartDate +
                                         " - " +
                                         order.rentEndDate
-                                    }}
+                                    }} -->
                                 </div>
                             </div>
                         </div>

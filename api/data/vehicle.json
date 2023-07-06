@@ -5,7 +5,7 @@
         "model": "Corolla",
         "price": "20000",
         "vehicleType": "Car",
-        "agencyId": 5,
+        "agencyId": 6,
         "transmissionType": "Automatic",
         "fuelType": "Gasoline",
         "consumption": 8.5,

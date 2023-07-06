@@ -5,11 +5,13 @@ import { CustomRequest, authenticateToken } from "../utils/jwtAuthenticator";
 import { omit } from "lodash";
 import UserService from "../service/user.service";
 import { Role, User } from "../model/user.model";
+import CartService from "../service/cart.service";
 
 export const orderRouter = Router();
 
 const orderSerivce = container.resolve(OrderService);
 const userService = container.resolve(UserService);
+const cartService = container.resolve(CartService);
 
 orderRouter.get(
     "/:agencyId",
@@ -117,6 +119,7 @@ orderRouter.post("/", authenticateToken, (req: Request, res: Response) => {
 
     const result = orderSerivce.add(req.body);
     if (result) {
+        cartService.emptyCart(user.id);
         res.sendStatus(200);
         return;
     }

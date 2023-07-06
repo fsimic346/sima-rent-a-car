@@ -83,4 +83,14 @@ export default class CartService {
         result.message = "Successfully added cart item.";
         return result;
     }
+
+    emptyCart(userId: number) {
+        const cart = this.repository
+            .getAll()
+            .find(x => x.userId === userId) as Cart;
+        cart.cartItems = [];
+        cart.totalPrice = 0;
+
+        this.repository.update(cart);
+    }
 }
