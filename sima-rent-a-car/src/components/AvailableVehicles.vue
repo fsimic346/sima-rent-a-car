@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="data-row price">
-                        ${{ vehicle.price }}
+                        ${{ vehicle.price }}/day
                         <Button
                             :text="btnText"
                             v-if="user && user.role === 'Customer'"
@@ -156,6 +156,7 @@ export default {
             this.showRentModal = true;
         },
         addToCart(val) {
+            this.showRentModal = false;
             this.$emit("addToCart", val);
         },
     },

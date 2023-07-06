@@ -1,5 +1,5 @@
 <template>
-    <NavBar />
+    <NavBar @showCart="showSideBar" />
     <Sidebar :cartItem="cartItem"></Sidebar>
     <router-view @addToCart="addToCart" />
     <input
@@ -33,13 +33,14 @@ export default {
         },
         addToCart(val) {
             this.cartItem = val;
-            this.showRentModal = false;
-            document.getElementById("sidebar").classList.toggle("active");
             this.sideBar = true;
+            document.getElementById("sidebar").classList.add("active");
         },
         showSideBar() {
-            document.getElementById("sidebar").classList.toggle("active");
-            this.sideBar = true;
+            setTimeout(() => {
+                document.getElementById("sidebar").classList.add("active");
+                this.sideBar = true;
+            }, 1);
         },
     },
     beforeMount() {

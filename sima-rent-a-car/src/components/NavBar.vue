@@ -17,7 +17,12 @@
                         <i class="fa-solid fa-user"></i>
                         <span> Profile</span>
                     </router-link>
-                    <div id="cart" class="dropdown-item">
+                    <div
+                        id="cart"
+                        @click="showCart"
+                        v-if="user.role === 'Customer'"
+                        class="dropdown-item"
+                    >
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span>Cart</span>
                     </div>
@@ -76,6 +81,7 @@ export default {
             showLoginModal: false,
             showRegisterModal: false,
             darkTheme: "",
+            user: {},
         };
     },
     components: {
@@ -108,16 +114,21 @@ export default {
         gotoProfile() {
             this.$router.push("/profile");
         },
+        showCart() {
+            console.log("PROBA");
+            this.$emit("showCart");
+        },
     },
+    emits: ["showCart"],
     watch: {
         "$route.params": {
             async handler(val) {
                 this.darkTheme = localStorage.getItem("darkTheme") === "true";
                 this.authorized = this.$cookie.getCookie("token") != null;
                 if (this.authorized) {
-                    const user = JSON.parse(localStorage.getItem("user"));
-                    this.username = user.username;
-                    this.profileImage = user.imageUrl;
+                    this.user = JSON.parse(localStorage.getItem("user"));
+                    this.username = this.user.username;
+                    this.profileImage = this.user.imageUrl;
                 }
                 this.isHomePage = this.$route.name === "home";
             },

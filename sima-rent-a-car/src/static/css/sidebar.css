@@ -104,8 +104,20 @@
     display: flex;
     margin-top: 2rem;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     font-size: 1.2rem;
+}
+
+.date-range {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+}
+
+.date {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
 }
 
 .checkout {

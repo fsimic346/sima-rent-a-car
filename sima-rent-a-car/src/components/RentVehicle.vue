@@ -14,13 +14,27 @@
             <div class="date-container">
                 <div class="label">Start Date:</div>
                 <div>
-                    {{ selectedDatesRange ? selectedDatesRange.start : "" }}
+                    {{
+                        selectedDatesRange
+                            ? this.formatDates(
+                                  selectedDatesRange.start,
+                                  "Do MMM YYYY",
+                              )
+                            : ""
+                    }}
                 </div>
             </div>
             <div class="date-container">
                 <div class="label">End Date:</div>
                 <div>
-                    {{ selectedDatesRange ? selectedDatesRange.end : "" }}
+                    {{
+                        selectedDatesRange
+                            ? this.formatDates(
+                                  selectedDatesRange.end,
+                                  "Do MMM YYYY",
+                              )
+                            : ""
+                    }}
                 </div>
             </div>
         </div>
@@ -78,12 +92,15 @@ export default {
         selectedDatesRange(val) {
             if (!val) return;
             if (val.start !== "" && val.end !== "") {
-                val.start = moment(val.start).format("Do MMMM YYYY");
-                val.end = moment(val.end).format("Do MMMM YYYY");
+                val.start = moment(val.start).format("YYYY-MM-DD");
+                val.end = moment(val.end).format("YYYY-MM-DD");
             }
         },
     },
     methods: {
+        formatDates(date, format) {
+            return date ? moment(date).format(format) : "";
+        },
         setDisabledDates(orders) {
             this.disabledDates = [];
             for (const order of orders) {
@@ -131,6 +148,7 @@ export default {
                 this.error = "";
                 this.btnText = "Add to cart";
 
+                this.selectedDatesRange = { start: "", end: "" };
                 this.$emit("addToCart", this.cartItem);
             } catch (err) {
                 this.error = err.data;

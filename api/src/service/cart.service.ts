@@ -6,6 +6,7 @@ import UserRepository from "../repository/user.repository";
 import { Vehicle } from "../model/vehicle.model";
 import VehicleRepository from "../repository/vehicle.repository";
 import { CartItem } from "../model/cartItem.model";
+import moment from "moment";
 
 @autoInjectable()
 export default class CartService {
@@ -23,7 +24,14 @@ export default class CartService {
         const result = this.validateCartItem(dataCartItem, dataUser);
         let cart = this.getByUserId(dataUser.id);
 
-        cart.totalPrice += parseInt(dataCartItem.vehicle.price);
+        const end: any = new Date(dataCartItem.dateRange.end);
+        const start: any = new Date(dataCartItem.dateRange.start);
+
+        const daysRented: any = Math.ceil(
+            Math.abs(end - start + 1) / (1000 * 60 * 60 * 24),
+        );
+
+        cart.totalPrice += parseInt(dataCartItem.vehicle.price) * daysRented;
         const cartItem: CartItem = {
             vehicleId: dataCartItem.vehicle.id,
             dateRange: dataCartItem.dateRange,

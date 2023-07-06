@@ -25,6 +25,7 @@
     display: flex;
     color: rgb(var(--clr-text));
     max-width: 88rem;
+    width: 100%;
     flex-wrap: wrap;
     margin-inline: auto;
     justify-content: space-between;

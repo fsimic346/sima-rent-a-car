@@ -109,7 +109,39 @@
                 </div>
                 <div class="price">
                     <div>
-                        ${{ this.commaNumber(cartItem.vehicle.price, ".") }}
+                        ${{
+                            this.commaNumber(
+                                this.calculatePrice(
+                                    cartItem.vehicle.price,
+                                    cartItem.dateRange,
+                                ),
+                                ".",
+                            )
+                        }}
+                    </div>
+                    <div class="date-range">
+                        <div class="date">
+                            <div>start:</div>
+                            <div>
+                                {{
+                                    this.formatDates(
+                                        cartItem.dateRange.start,
+                                        "Do MMM YYYY",
+                                    )
+                                }}
+                            </div>
+                        </div>
+                        <div class="date">
+                            <div>end:</div>
+                            <div>
+                                {{
+                                    this.formatDates(
+                                        cartItem.dateRange.end,
+                                        "Do MMM YYYY",
+                                    )
+                                }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -131,6 +163,7 @@
 <script>
 import commaNumber from "comma-number";
 import Button from "@/components/Button.vue";
+import moment from "moment";
 
 export default {
     data() {
@@ -164,19 +197,34 @@ export default {
     watch: {
         // ToDo: Srediti format cene
         cartItem(val) {
-            // console.log(this.cart);
             this.cart.cartItems.push(val);
             let totalPrice = parseInt(this.cart.totalPrice);
-            totalPrice += parseInt(val.vehicle.price);
+            totalPrice += this.calculatePrice(
+                parseInt(val.vehicle.price),
+                val.dateRange,
+            );
             this.cart.totalPrice = totalPrice;
+            console.log(this.cart.totalPrice);
             val.vehicle.price = commaNumber(val.vehicle.price, ".");
-            // this.cart.totalPrice = commaNumber(this.cart.totalPrice, ".");
         },
     },
     components: {
         Button,
     },
     methods: {
+        formatDates(date, format) {
+            return date ? moment(date).format(format) : "";
+        },
+        calculatePrice(price, dateRange) {
+            const daysRented = Math.ceil(
+                Math.abs(
+                    new Date(dateRange.end) - new Date(dateRange.start) + 1,
+                ) /
+                    (1000 * 60 * 60 * 24),
+            );
+
+            return price * daysRented;
+        },
         commaNumber(num, symbol) {
             return commaNumber(num, symbol);
         },

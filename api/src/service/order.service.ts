@@ -79,10 +79,15 @@ export default class OrderService {
                 userId: data.userId,
                 status: Status.Pending,
                 cartItems: cOrder.items,
-                price: cOrder.items.reduce(
-                    (a: any, b: any) => (a += parseInt(b.vehicle.price)),
-                    0,
-                ),
+                price: cOrder.items.reduce((a: any, b: any) => {
+                    const end: any = new Date(b.dateRange.end);
+                    const start: any = new Date(b.dateRange.start);
+
+                    const daysRented: any = Math.ceil(
+                        Math.abs(end - start + 1) / (1000 * 60 * 60 * 24),
+                    );
+                    return (a += parseInt(b.vehicle.price) * daysRented);
+                }, 0),
                 agencyId: cOrder.items[0].vehicle.agencyId,
                 deleted: false,
                 orderId:
