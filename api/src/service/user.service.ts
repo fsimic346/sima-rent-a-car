@@ -167,7 +167,9 @@ export default class UserService {
                     return (
                         x.userId == user.id &&
                         x.status == Status.Cancelled &&
-                        new Date(x.rentStartDate) > dateFilter
+                        x.cartItems.some(
+                            y => new Date(y.dateRange.start) > dateFilter,
+                        )
                     );
                 }).length > 5
             ) {
