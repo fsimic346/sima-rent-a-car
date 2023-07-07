@@ -263,3 +263,19 @@
     align-items: center;
     overflow: auto;
 }
+
+.rank {
+    font-size: 1.4rem;
+}
+
+.bronze {
+    color: #cd7f32;
+}
+
+.silver {
+    color: #c0c0c0;
+}
+
+.gold {
+    color: #ffd700;
+}

@@ -4,7 +4,12 @@
         <div class="button-container">
             <Button text="Login" v-if="!authorized" @click="login" />
             <Button text="Register" v-if="!authorized" @click="register" />
+
             <div class="profile" v-if="authorized">
+                <span class="points" v-if="user.role === 'Customer'"
+                    >{{ Math.floor(user.points) }}
+                    <i class="fa-solid fa-coins"></i
+                ></span>
                 <span class="username" @click="gotoProfile">{{
                     username
                 }}</span>

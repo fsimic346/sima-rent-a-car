@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="wrapper">
-                                <label>Passangers*:</label>
+                                <label>Passengers*:</label>
                                 <input
                                     class="input number"
                                     type="number"

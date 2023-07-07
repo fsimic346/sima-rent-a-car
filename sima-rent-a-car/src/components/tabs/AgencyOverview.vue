@@ -9,7 +9,7 @@
                 <div class="name">{{ agency.name }}</div>
                 <div class="rating-data">
                     <span class="rating"
-                        >{{ agency.rating }}
+                        >{{ Math.round(agency.rating * 100) / 100 }}
                         <span class="icons">
                             <i
                                 class="fa-sharp fa-solid fa-star"

@@ -9,6 +9,8 @@ import { Agency } from "../model/agency.model";
 import AgencyRepository from "../repository/agency.repository";
 import OrderRepository from "../repository/order.repository";
 import { Order, Status } from "../model/order.model";
+import CartRepository from "../repository/cart.repository";
+import { Cart } from "../model/cart.model";
 
 const saltRounds = config.get<number>("saltRounds");
 
@@ -17,6 +19,7 @@ export default class UserService {
     constructor(
         private repository: UserRepository,
         private orderRepository: OrderRepository,
+        private cartRepository: CartRepository,
     ) {}
 
     async add(data: any): Promise<Result> {
@@ -48,6 +51,16 @@ export default class UserService {
             "https://repository-images.githubusercontent.com/260096455/47f1b200-8b2e-11ea-8fa1-ab106189aeb0";
         // }
         this.repository?.save(user);
+
+        const cart: Cart = {
+            id: this.cartRepository.getAll().length + 1,
+            userId: result.value,
+            cartItems: [],
+            totalPrice: 0,
+            deleted: false,
+        };
+        this.cartRepository.save(cart);
+
         result.success = true;
         result.value = omit(user, ["password"]);
         return result;

@@ -27,16 +27,18 @@ nav {
 .profile {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
     font-weight: 700;
     border-radius: 7px;
     font-size: 1.2rem;
     position: relative;
+    width: 10rem;
+    justify-content: flex-end;
 }
 
 .username {
     position: relative;
     transition: color 0.2s ease-in-out;
+    margin-right: 0.3rem;
 }
 
 .profile:hover {
@@ -75,10 +77,10 @@ nav {
 
 .dropdown-menu {
     position: absolute;
-    left: -50%;
-    right: 50%;
     margin-right: auto;
     top: 100%;
+    left: 0;
+    right: 0;
     background-color: rgb(var(--clr-background-secondary));
     /* display: flex; */
     display: none;
@@ -179,4 +181,16 @@ input:checked + .slider:before {
     position: inherit;
     margin-inline: auto;
     color: rgb(var(--clr-text));
+}
+
+.points {
+    border: 1px solid rgb(var(--clr-text));
+    border-radius: 8px;
+    background-color: rgba(var(--clr-background), 1);
+    padding: 4px;
+    margin-right: 0.5rem;
+}
+
+.points i {
+    color: rgb(var(--clr-primary-300));
 }

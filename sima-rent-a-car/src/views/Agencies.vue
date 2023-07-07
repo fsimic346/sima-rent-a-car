@@ -75,7 +75,7 @@
                         <div class="agency-colum">
                             <div class="agency-name">{{ agency.name }}</div>
                             <div class="agency-rating">
-                                {{ agency.rating }}
+                                {{ Math.round(agency.rating * 100) / 100 }}
                                 <span class="icons">
                                     <i
                                         class="fa-sharp fa-solid fa-star"
