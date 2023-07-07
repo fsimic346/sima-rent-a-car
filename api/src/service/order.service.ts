@@ -65,7 +65,6 @@ export default class OrderService {
             );
     }
 
-    //ToDo: ne vraca dobar resultat ako je korpa prazna
     add(data: any): Result {
         const result = this.validateOrderData(data);
         if (!result.success) return result;
@@ -75,6 +74,7 @@ export default class OrderService {
         ).groupBy((item, key) => (item.vehicle as Vehicle).agencyId);
 
         const date = new Date();
+        const user = this.userRepository.getById(data.userId);
         orderCollection.each((cOrder: any) => {
             const order: Order = {
                 id: result.value,
@@ -103,6 +103,9 @@ export default class OrderService {
                     date.getMilliseconds(),
             };
             this.repository.save(order);
+
+            user.points = (order.price / 1000) * 133;
+            this.userRepository.update(user);
         });
 
         return result;
@@ -111,7 +114,7 @@ export default class OrderService {
         const result = new Result();
         const list: Order[] = this.repository?.getAll() as Order[];
 
-        if (!data || data.cartItems.length === 0) {
+        if (!data.cartItems || data.cartItems.length === 0) {
             result.message = "Cart is empty";
             return result;
         }

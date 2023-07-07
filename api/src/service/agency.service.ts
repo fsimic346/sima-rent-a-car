@@ -43,7 +43,7 @@ export default class AgencyService {
             logo: dataAgency.logo,
             rating: 0,
             ratingCount: 0,
-            id: resultAgency.value,
+            id: parseInt(resultAgency.value),
             deleted: false,
         };
 

@@ -123,6 +123,6 @@ orderRouter.post("/", authenticateToken, (req: Request, res: Response) => {
         res.sendStatus(200);
         return;
     }
-    res.send(400);
+    res.status(400).send(result.message);
     return;
 });

@@ -26,7 +26,8 @@
         "dateOfBirth": "2001-06-15",
         "phoneNumber": "069624564",
         "gender": "Male",
-        "banned": false
+        "banned": false,
+        "points": 133
     },
     {
         "username": "manager",

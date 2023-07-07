@@ -292,7 +292,7 @@ export default {
                 this.btnText = "Place order";
                 this.$refs.orderBtn.enabled = true;
                 this.success = "";
-                this.error = "cart is empty";
+                this.error = err.response.data;
             }
         },
     },
