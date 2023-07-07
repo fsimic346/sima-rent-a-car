@@ -65,8 +65,10 @@ export default class OrderService {
             );
     }
 
+    //ToDo: ne vraca dobar resultat ako je korpa prazna
     add(data: any): Result {
         const result = this.validateOrderData(data);
+        if (!result.success) return result;
 
         const orderCollection: any = collect(
             data.cartItems as CartItem[],
@@ -109,7 +111,7 @@ export default class OrderService {
         const result = new Result();
         const list: Order[] = this.repository?.getAll() as Order[];
 
-        if (!data || data === "") {
+        if (!data || data.cartItems.length === 0) {
             result.message = "Cart is empty";
             return result;
         }

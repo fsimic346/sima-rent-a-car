@@ -115,7 +115,6 @@ export default {
             this.$router.push("/profile");
         },
         showCart() {
-            console.log("PROBA");
             this.$emit("showCart");
         },
     },

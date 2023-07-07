@@ -7,6 +7,7 @@ import { Vehicle } from "../model/vehicle.model";
 import VehicleRepository from "../repository/vehicle.repository";
 import { CartItem } from "../model/cartItem.model";
 import moment from "moment";
+import { ParamsDictionary } from "express-serve-static-core";
 
 @autoInjectable()
 export default class CartService {
@@ -21,7 +22,9 @@ export default class CartService {
     }
 
     addCartItem(dataCartItem: any, dataUser: any): Result {
-        const result = this.validateCartItem(dataCartItem, dataUser);
+        const result = this.validateCartItem(dataCartItem);
+        if (!result.success) return result;
+
         let cart = this.getByUserId(dataUser.id);
 
         const end: any = new Date(dataCartItem.dateRange.end);
@@ -37,6 +40,34 @@ export default class CartService {
             dateRange: dataCartItem.dateRange,
         };
         cart.cartItems.push(cartItem);
+        this.repository.update(cart);
+
+        return result;
+    }
+
+    removeFromCart(dataCartItem: any, dataUser: any): Result {
+        const result = this.validateCartItem(dataCartItem);
+        if (!result.success) return result;
+
+        let cart = this.getByUserId(dataUser);
+
+        const end: any = new Date(dataCartItem.dateRange.end);
+        const start: any = new Date(dataCartItem.dateRange.start);
+
+        const daysRented: any = Math.ceil(
+            Math.abs(end - start + 1) / (1000 * 60 * 60 * 24),
+        );
+        cart.totalPrice -= parseInt(dataCartItem.vehicle.price) * daysRented;
+
+        cart.cartItems.splice(
+            cart.cartItems.findIndex(
+                x =>
+                    x.vehicleId == dataCartItem.vehicle.id &&
+                    x.dateRange == dataCartItem.dateRange,
+            ),
+            1,
+        );
+
         this.repository.update(cart);
 
         return result;
@@ -74,13 +105,8 @@ export default class CartService {
         return result;
     }
 
-    validateCartItem(dataCartItem: any, dataUser: any): Result {
+    validateCartItem(dataCartItem: any): Result {
         const result = new Result();
-
-        if (!this.userRepository.getById(dataUser.id)) {
-            result.message = "Invalid user";
-            return result;
-        }
 
         if (!(dataCartItem.vehicle as Vehicle)) {
             result.message = "Vehicle in cart doesn't exist";
@@ -88,7 +114,7 @@ export default class CartService {
         }
 
         result.success = true;
-        result.message = "Successfully added cart item.";
+        // result.message = "Successfully added cart item.";
         return result;
     }
 

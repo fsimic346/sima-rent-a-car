@@ -118,7 +118,7 @@ orderRouter.post("/", authenticateToken, (req: Request, res: Response) => {
     }
 
     const result = orderSerivce.add(req.body);
-    if (result) {
+    if (result.success) {
         cartService.emptyCart(user.id);
         res.sendStatus(200);
         return;

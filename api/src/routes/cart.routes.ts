@@ -41,3 +41,21 @@ cartRouter.get("/", authenticateToken, (req: Request, res: Response) => {
         ),
     );
 });
+
+cartRouter.delete("/", authenticateToken, (req: Request, res: Response) => {
+    if (
+        (userService.getByUsername((req as CustomRequest).username) as User)
+            .role !== Role.Customer
+    ) {
+        res.send(400);
+    }
+    const result = cartService.removeFromCart(
+        req.body,
+        userService.getByUsername((req as CustomRequest).username)?.id,
+    );
+    if (result.success) {
+        res.sendStatus(200);
+    } else {
+        res.status(400).send(result.message);
+    }
+});
