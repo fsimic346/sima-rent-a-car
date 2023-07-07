@@ -111,7 +111,7 @@
                                 order.status === 'Pending' &&
                                 user.role === 'Manager'
                             "
-                            @click="setOrderStatus(order, 'Denied')"
+                            @click="declineOrder(order)"
                         />
                         <Button
                             text="Set as rented"
@@ -145,15 +145,27 @@
             </div>
         </div>
     </div>
+    <vue-final-modal
+        v-model="showModal"
+        classes="modal-container"
+        content-class="modal-content"
+    >
+        <Reasoning :order="deniedOrder" @updateStatus="updateStatus" />
+    </vue-final-modal>
 </template>
 <script>
 import Button from "../Button.vue";
 import commaNumber from "comma-number";
+import Reasoning from "@/components/Reasoning.vue";
 import moment from "moment";
+import { VueFinalModal, ModalsContainer } from "vue-final-modal";
 
 export default {
     components: {
         Button,
+        Reasoning,
+        VueFinalModal,
+        ModalsContainer,
     },
     props: {
         user: Object,
@@ -165,6 +177,8 @@ export default {
             sort: "none",
             orders: [],
             allOrders: [],
+            showModal: false,
+            deniedOrder: {},
         };
     },
     async beforeMount() {
@@ -191,8 +205,16 @@ export default {
         }
     },
     methods: {
+        updateStatus(val) {
+            val.status = "Denied";
+            showModal = false;
+        },
         commaNumber(num, symbol) {
             return commaNumber(num, symbol);
+        },
+        declineOrder(order) {
+            this.deniedOrder = order;
+            this.showModal = true;
         },
         async setOrderStatus(order, status) {
             try {
@@ -283,5 +305,19 @@ export default {
 </script>
 
 <style scoped src="../../static/css/tabContent.css"></style>
-
 <style scoped src="../../static/css/orders.css"></style>
+<style scoped>
+::v-deep .modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+::v-deep .modal-content {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border: none;
+    border-radius: 0.25rem;
+    max-width: max-content;
+}
+</style>

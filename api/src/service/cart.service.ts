@@ -78,10 +78,12 @@ export default class CartService {
             x => x.userId === data,
         ) as Cart;
 
-        for (const cartItem of cart.cartItems) {
-            cartItem.vehicle = this.vehicleRepository.getById(
-                cartItem.vehicleId,
-            );
+        if (cart) {
+            for (const cartItem of cart.cartItems) {
+                cartItem.vehicle = this.vehicleRepository.getById(
+                    cartItem.vehicleId,
+                );
+            }
         }
 
         return cart;

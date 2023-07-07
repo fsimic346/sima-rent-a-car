@@ -1,6 +1,6 @@
 <template>
     <NavBar @showCart="showSideBar" />
-    <Sidebar :cartItem="cartItem"></Sidebar>
+    <Sidebar v-if="user.role === 'Customer'" :cartItem="cartItem"></Sidebar>
     <router-view @addToCart="addToCart" />
     <input
         type="checkbox"
@@ -21,6 +21,7 @@ export default {
             darkTheme: "",
             cartItem: {},
             sideBar: false,
+            user: {},
         };
     },
     components: {
@@ -53,6 +54,7 @@ export default {
         if (this.$cookie.getCookie("token")) {
             const res = await this.axios.get("http://localhost:8080/api/user");
             localStorage.setItem("user", JSON.stringify(res.data));
+            this.user = res.data;
         }
         if (localStorage.getItem("darkTheme") === null) {
             localStorage.setItem("darkTheme", true);

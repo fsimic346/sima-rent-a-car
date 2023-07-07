@@ -81,6 +81,23 @@ orderRouter.patch(
     },
 );
 
+orderRouter.patch("/deny", authenticateToken, (req: Request, res: Response) => {
+    const user = userService.getByUsername(
+        (req as CustomRequest).username,
+    ) as User;
+    if (
+        user.role != Role.Manager ||
+        user.agencyId != parseInt(req.body.order.agencyId)
+    ) {
+        res.sendStatus(401);
+        return;
+    }
+    const result = orderSerivce.denyOrder(
+        req.body.order.id,
+        req.body.reasoning,
+    );
+});
+
 orderRouter.patch(
     "/setStatus",
     authenticateToken,

@@ -35,6 +35,14 @@ export default class OrderService {
         return this.repository.getAll().filter(x => x.userId == userId);
     }
 
+    denyOrder(id: number, reasoning: String) {
+        const order: Order = this.repository.getById(id);
+        order.status = Status.Denied;
+        order.reasoning = reasoning;
+
+        this.repository.update(order);
+    }
+
     setOrderStatus(id: number, status: Status) {
         const order: Order = this.repository.getById(id);
         if (!(status in Status) || !order) {
@@ -50,6 +58,15 @@ export default class OrderService {
         if (!order || order.status !== Status.Pending) return false;
         order.status = Status.Cancelled;
         this.repository.update(order);
+
+        const user = this.userRepository.getById(order.userId);
+
+        if (!user.points) {
+            user.points = 0 - (order.price / 1000) * 133 * 4;
+        } else {
+            user.points -= (order.price / 1000) * 133 * 4;
+        }
+        this.userRepository.update(user);
         return true;
     }
 
@@ -104,7 +121,11 @@ export default class OrderService {
             };
             this.repository.save(order);
 
-            user.points = (order.price / 1000) * 133;
+            if (!user.points) {
+                user.points = (order.price / 1000) * 133;
+            } else {
+                user.points += (order.price / 1000) * 133;
+            }
             this.userRepository.update(user);
         });
 
