@@ -15,9 +15,9 @@ export enum Role {
 }
 
 export enum CustomerType {
-    Bronze = 100,
-    Silver = 250,
-    Gold = 500,
+    Bronze = "Bronze",
+    Silver = "Silver",
+    Gold = "Gold",
 }
 
 export interface User extends IEntity {

@@ -19,6 +19,20 @@
                         <div class="username">
                             <h2>@{{ user.username }}</h2>
                         </div>
+                        <div class="rank" v-if="user.role === 'Customer'">
+                            <i
+                                class="fa-solid fa-medal bronze"
+                                v-if="user.points >= 50"
+                            ></i>
+                            <i
+                                class="fa-solid fa-medal silver"
+                                v-if="user.points >= 200"
+                            ></i>
+                            <i
+                                class="fa-solid fa-medal gold"
+                                v-if="user.points >= 500"
+                            ></i>
+                        </div>
                     </div>
                 </div>
                 <div class="row space-around">

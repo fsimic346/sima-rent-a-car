@@ -81,6 +81,7 @@ i:hover {
     align-self: flex-start;
     line-height: 1.2rem;
     width: 100%;
+    padding-block: 0.5rem;
 }
 
 .user-username {
@@ -147,4 +148,10 @@ i:hover {
 
 .returned {
     color: rgb(var(--clr-success));
+}
+
+.vehicles {
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: rgb(var(--clr-background-secondary));
 }

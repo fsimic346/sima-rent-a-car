@@ -1,1 +1,1 @@
-[{"id":1,"userId":2,"cartItems":[],"totalPrice":0}]
+[{"id":1,"userId":2,"cartItems":[{"vehicleId":1,"dateRange":{"start":"2023-07-26","end":"2023-07-28"}}],"totalPrice":300},{"id":2,"userId":8,"cartItems":[],"totalPrice":0,"deleted":false},{"id":3,"userId":7,"cartItems":[],"totalPrice":0,"deleted":false},{"id":4,"userId":9,"cartItems":[],"totalPrice":0,"deleted":false},{"id":5,"userId":6,"cartItems":[],"totalPrice":0,"deleted":false}]

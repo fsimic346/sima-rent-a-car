@@ -15,7 +15,7 @@
                         Name
                     </option>
                     <option value="price">Price</option>
-                    <option value="rentStartDate">Date</option>
+                    <!-- <option value="rentStartDate">Date</option> -->
                 </select>
 
                 <i
@@ -37,39 +37,62 @@
                     <div
                         class="user-image"
                         :style="{
-                            backgroundImage: `url(${order.user.imageUrl})`,
+                            backgroundImage: `url(${
+                                user.role === 'Manager'
+                                    ? order.user.imageUrl
+                                    : order.agency.logo
+                            })`,
                         }"
                     ></div>
                     <div class="order-text">
                         <div class="user-info">
                             <div class="user-header">
                                 {{
-                                    order.user.firstName +
-                                    " " +
-                                    order.user.lastName
+                                    user.role === "Manager"
+                                        ? order.user.firstName +
+                                          " " +
+                                          order.user.lastName
+                                        : order.agency.name
                                 }}
                                 <span class="price">{{
                                     "$" + this.commaNumber(order.price, ".")
                                 }}</span>
                             </div>
-                            <div class="user-username">
+                            <div
+                                class="user-username"
+                                v-if="user.role === 'Manager'"
+                            >
                                 @{{ order.user.username }}
                             </div>
                         </div>
                         <div class="order-info">
                             <div class="vehicles">
-                                Vehicles:
-                                {{
+                                <div
+                                    class="vehicle"
+                                    v-for="item of order.cartItems"
+                                >
+                                    {{
+                                        `- ${item.vehicle.brand} ${
+                                            item.vehicle.model
+                                        } (${moment(
+                                            item.dateRange.start,
+                                        )} - ${moment(item.dateRange.end)})`
+                                    }}
+                                </div>
+                                <!-- {{
                                     order.cartItems.reduce((a, b) => {
                                         return (
                                             a +
                                             (a == "" ? "" : ", ") +
                                             b.vehicle.brand +
                                             " " +
-                                            b.vehicle.model
+                                            b.vehicle.model +
+                                            ` (${moment(
+                                                b.dateRange.start,
+                                            )} - ${moment(b.dateRange.end)})`
                                         );
                                     }, "")
-                                }}
+                                }} -->
                             </div>
                             <div class="row">
                                 <div class="order-date">
@@ -193,6 +216,9 @@ export default {
     methods: {
         commaNumber(num, symbol) {
             return commaNumber(num, symbol);
+        },
+        moment(date) {
+            return moment(date).format("Do MMMM YYYY");
         },
         async setOrderStatus(order, status) {
             try {
