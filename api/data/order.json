@@ -1,1 +1,33 @@
-[{"id":1,"userId":2,"status":"Pending","cartItems":[{"vehicleId":1,"dateRange":{"start":"2023-07-08","end":"2023-07-17"},"vehicle":{"id":1,"brand":"Toyota","model":"Corolla","price":"100","vehicleType":"Car","agencyId":6,"transmissionType":"Automatic","fuelType":"Gasoline","consumption":8.5,"doorNumber":4,"passangerNumber":5,"description":"A reliable and fuel-efficient sedan.","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg/800px-2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg","isAvailable":true}}],"price":1000,"agencyId":6,"deleted":false,"orderId":"IB93Q4gmG8562023151758445"}]
+[
+    {
+        "id": 1,
+        "userId": 2,
+        "status": "Pending",
+        "cartItems": [
+            {
+                "vehicleId": 1,
+                "dateRange": { "start": "2023-07-08", "end": "2023-07-17" },
+                "vehicle": {
+                    "id": 1,
+                    "brand": "Toyota",
+                    "model": "Corolla",
+                    "price": "100",
+                    "vehicleType": "Car",
+                    "agencyId": 6,
+                    "transmissionType": "Automatic",
+                    "fuelType": "Gasoline",
+                    "consumption": 8.5,
+                    "doorNumber": 4,
+                    "passangerNumber": 5,
+                    "description": "A reliable and fuel-efficient sedan.",
+                    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg/800px-2019_Toyota_Corolla_Design_VVT-i_HEV_1.8_Front.jpg",
+                    "isAvailable": true
+                }
+            }
+        ],
+        "price": 1000,
+        "agencyId": 6,
+        "deleted": false,
+        "orderId": "IB93Q4gmG8562023151758445"
+    }
+]
