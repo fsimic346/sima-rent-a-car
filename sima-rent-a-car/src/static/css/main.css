@@ -103,7 +103,7 @@ body,
 }
 
 #app {
-    display: inline-block;
+    display: inline;
 }
 
 /* Set core body defaults */

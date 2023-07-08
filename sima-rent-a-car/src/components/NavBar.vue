@@ -1,6 +1,9 @@
 <template>
     <nav :class="[isHomePage ? '' : 'not-home']">
-        <div class="logo" @click="home">SI-MA</div>
+        <div class="logo" @click="home">
+            <div class="logo-img"></div>
+            SI-MA
+        </div>
         <div class="button-container">
             <Button text="Login" v-if="!authorized" @click="login" />
             <Button text="Register" v-if="!authorized" @click="register" />
