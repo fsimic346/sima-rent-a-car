@@ -31,7 +31,12 @@ export default class CommentService {
         }
         return this.repository.getAll().filter(x => x.agencyId == agencyId);
     }
-
+    getApproved(agencyId: number): Comment[] {
+        return this.getAll().filter(
+            x =>
+                x.approved === CommentStatus.Approved && x.agencyId == agencyId,
+        );
+    }
     approveComment(data: any): Result {
         const result = this.validateCommentApproval(data);
         if (!result.success) {

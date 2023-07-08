@@ -14,6 +14,21 @@ const commentService = container.resolve(CommentService);
 const userService = container.resolve(UserService);
 const orderService = container.resolve(OrderService);
 
+commentRouter.get("/", authenticateToken, (req: Request, res: Response) => {
+    if (
+        userService.getByUsername((req as CustomRequest).username)?.role !==
+        Role.Admin
+    ) {
+        res.sendStatus(401);
+        return;
+    }
+    res.send(commentService.getAll());
+});
+
+commentRouter.get("/approved/:agencyId", (req: Request, res: Response) => {
+    res.send(commentService.getApproved(parseInt(req.params.agencyId)));
+});
+
 commentRouter.get("/commented", (req: Request, res: Response) => {
     const result = commentService.getAll();
     res.send(result.map(x => omit(x, ["deleted"])));

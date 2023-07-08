@@ -12,11 +12,11 @@
                     <div class="comment-text">
                         <div class="user-info">
                             <div class="user-header">
-                                {{
+                                <span>{{
                                     comment.user.firstName +
                                     " " +
                                     comment.user.lastName
-                                }}
+                                }}</span>
                                 <span class="rating">
                                     <span class="icons">
                                         <i
@@ -41,7 +41,7 @@
                         {{ comment.text }}
                     </div>
                 </div>
-                <div class="comment-controls">
+                <div class="comment-controls" v-if="!isAgencyView">
                     <div
                         class="comment-status"
                         :class="{
@@ -55,6 +55,7 @@
                     <div
                         class="comment-buttons"
                         v-if="
+                            user &&
                             user.role === 'Manager' &&
                             comment.approved === 'Pending'
                         "
@@ -83,6 +84,8 @@ export default {
     },
     props: {
         user: Object,
+        isAgencyView: Boolean,
+        agency: Object,
     },
     data() {
         return {
@@ -113,13 +116,20 @@ export default {
             }
         },
     },
-    async created() {
+    async beforeMount() {
         try {
+            let requestParams = "";
+            if (this.user && this.user.role === "Manager") {
+                requestParams = this.user.agencyId;
+            }
+
+            if (this.isAgencyView) {
+                requestParams = "approved/" + this.agency.id;
+            }
+
             this.comments = (
                 await this.axios.get(
-                    `http://localhost:8080/api/comment/${
-                        this.user.role === "Manager" ? this.user.agencyId : ""
-                    }`,
+                    `http://localhost:8080/api/comment/${requestParams}`,
                 )
             ).data;
             this.comments.sort((a, b) => {
@@ -134,6 +144,37 @@ export default {
         } catch (err) {
             console.log(err);
         }
+    },
+    watch: {
+        async agency(val) {
+            try {
+                let requestParams = "";
+                if (this.user && this.user.role === "Manager") {
+                    requestParams = this.user.agencyId;
+                }
+
+                if (this.isAgencyView) {
+                    requestParams = "approved/" + val.id;
+                }
+
+                this.comments = (
+                    await this.axios.get(
+                        `http://localhost:8080/api/comment/${requestParams}`,
+                    )
+                ).data;
+                this.comments.sort((a, b) => {
+                    if (a.approved === "Pending") {
+                        return -1;
+                    }
+                    if (b.approved === "Pending") {
+                        return 1;
+                    }
+                    return 0;
+                });
+            } catch (err) {
+                console.log(err);
+            }
+        },
     },
 };
 </script>

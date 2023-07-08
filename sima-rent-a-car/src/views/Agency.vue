@@ -17,7 +17,7 @@
                         class="agency-rating"
                         v-if="typeof agency.rating === 'number'"
                     >
-                        {{ agency.rating }}
+                        {{ Math.round(agency.rating * 100) / 100 }}
                         <span class="icons">
                             <i
                                 class="fa-sharp fa-solid fa-star"
@@ -39,6 +39,9 @@
                         {{ agency.businessHours }}
                     </div>
                 </div>
+                <div class="comments">
+                    <Comments :agency="agency" :isAgencyView="true" />
+                </div>
             </div>
         </div>
         <AvailableVehicles
@@ -49,15 +52,17 @@
 </template>
 <script>
 import AvailableVehicles from "@/components/AvailableVehicles.vue";
+import Comments from "@/components/tabs/Comments.vue";
 
 export default {
     components: {
         AvailableVehicles,
+        Comments,
     },
     created() {
         window.addEventListener("resize", this.resizeHandler);
     },
-    async beforeMount() {
+    async created() {
         try {
             const res = await this.axios.get(
                 `http://localhost:8080/api/agency/get/${this.$route.params.agencyId}`,
@@ -142,69 +147,51 @@ export default {
     },
 };
 </script>
+<style scoped src="../static/css/agency.css"></style>
+
 <style scoped>
-.container {
-    display: flex;
-    height: calc(100% - 4rem);
-    width: 100%;
-    overflow: auto;
+.comments {
+    height: 100%;
+}
+.comments >>> .comments-container {
+    padding: 0;
 }
 
-.agency-container {
-    display: flex;
-    height: 100%;
-    width: 20%;
+.comments >>> .comments-container::-webkit-scrollbar {
+    width: 0.35em;
+    display: none;
 }
 
-.agency-info {
-    display: flex;
-    height: 100%;
-    width: 100%;
+.comments >>> .comments-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+}
+
+.comments >>> .comments-container::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--clr-background));
+    outline: 1px solid slategrey;
+    border-radius: 0.3rem;
+}
+
+.comments >>> .comment-text {
+    width: min(100%, 40ch);
+}
+
+.comments >>> .rating {
+    font-size: 0.8rem;
+}
+
+.comments >>> .user-header {
     flex-direction: column;
-    border-radius: 1rem;
-    background-color: rgb(var(--clr-background-secondary));
-    color: rgb(var(--clr-text));
-    padding: 1rem;
-    overflow: hidden;
 }
 
-.logo {
+.comments >>> .comment-content {
     width: 100%;
-    border-radius: 2rem;
-    border: 2px solid rgb(var(--clr-neutral-100));
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
-    position: relative;
 }
 
-.row {
-    display: flex;
-    justify-content: center;
-}
-
-.name {
-    font-size: 2.2rem;
-    font-family: var(--fnt-header);
-    width: max-content;
-}
-
-.businessHours {
-    font-size: 1.5rem;
-    color: rgb(var(--clr-success));
-    margin-top: 1rem;
-}
-
-.closed {
-    color: rgb(var(--clr-error));
-}
-
-.agency-rating {
-    font-size: 1.6rem;
-}
-
-.icons {
-    color: gold;
+.comments >>> .user-image {
+    min-width: 4rem;
+    width: 4rem;
+    height: 4rem;
+    align-self: center;
 }
 </style>

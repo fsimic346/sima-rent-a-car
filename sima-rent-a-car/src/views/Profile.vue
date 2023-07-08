@@ -187,7 +187,7 @@
             :image="user.imageUrl"
             header="Profile image url:"
             @imageChanged="
-                val => (this.user.imageUrl = val), (showImageModal = false)
+                (val => (this.user.imageUrl = val), (showImageModal = false))
             "
         />
     </vue-final-modal>
@@ -279,6 +279,7 @@ export default {
                     "http://localhost:8080/api/user",
                     this.user,
                 );
+                // success msg
                 this.$refs.saveBtn.enabled = true;
                 this.saveText = "Save";
             } catch (err) {
