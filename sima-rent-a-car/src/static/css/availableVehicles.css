@@ -70,6 +70,7 @@
 .data-row {
     display: flex;
     gap: 1.5rem;
+    max-width: 45ch;
     margin-bottom: 0.8rem;
     align-items: center;
     padding-inline: 0.8rem;
