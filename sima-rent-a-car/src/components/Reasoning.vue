@@ -39,32 +39,9 @@ export default {
                 this.btnText = "Submit";
                 this.$refs.btn.enabled = true;
             }
-
-            this.btnText = "Submit";
-            this.$refs.btn.enabled = true;
         },
     },
 };
 </script>
 <style scoped src="../static/css/forms.css"></style>
-<style scoped>
-textarea {
-    width: 30rem;
-    height: 15rem;
-    background-color: rgb(var(--clr-background));
-    border-radius: 0.4rem;
-    color: rgb(var(--clr-text));
-    font-size: 1.2rem;
-    border: 2px solid rgb(var(--clr-text));
-    padding-inline: 1ch;
-    padding-block: 0.2rem;
-    outline: none;
-    margin-bottom: 2rem;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-</style>
+<style scoped src="../static/css/reasoning.css"></style>

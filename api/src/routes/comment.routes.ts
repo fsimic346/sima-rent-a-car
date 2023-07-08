@@ -6,13 +6,15 @@ import Result from "../utils/Result";
 import { CustomRequest, authenticateToken } from "../utils/jwtAuthenticator";
 import UserService from "../service/user.service";
 import { Role } from "../model/user.model";
+import OrderService from "../service/order.service";
 
 export const commentRouter = Router();
 
 const commentService = container.resolve(CommentService);
 const userService = container.resolve(UserService);
+const orderService = container.resolve(OrderService);
 
-commentRouter.get("/", (req: Request, res: Response) => {
+commentRouter.get("/commented", (req: Request, res: Response) => {
     const result = commentService.getAll();
     res.send(result.map(x => omit(x, ["deleted"])));
 });
@@ -27,7 +29,8 @@ commentRouter.get("/:agencyId", (req: Request, res: Response) => {
 });
 
 commentRouter.post("/", (req: Request, res: Response) => {
-    const result: Result = commentService.add(req.body);
+    const result: Result = commentService.add(req.body.comment);
+    orderService.setCommented(req.body.comment.orderId);
     if (!result.success) {
         res.status(400).send(result.message);
         return;

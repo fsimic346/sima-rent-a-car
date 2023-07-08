@@ -16,4 +16,5 @@ export interface Comment extends IEntity {
     text: String;
     rating: number;
     approved: CommentStatus;
+    orderId: number;
 }

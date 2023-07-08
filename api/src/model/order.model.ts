@@ -22,4 +22,5 @@ export interface Order extends IEntity {
     user?: User;
     status: Status;
     reasoning?: String;
+    commented?: boolean;
 }

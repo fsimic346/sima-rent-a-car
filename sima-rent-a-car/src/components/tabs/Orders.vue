@@ -163,23 +163,40 @@
                             "
                             @click="cancelOrder(order)"
                         />
+                        <Button
+                            text="Comment"
+                            v-if="
+                                order.status === 'Returned' &&
+                                user.role === 'Customer' &&
+                                !order.commented
+                            "
+                            @click="leaveComment(order)"
+                        />
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <vue-final-modal
-        v-model="showModal"
+        v-model="showDeclineModal"
         classes="modal-container"
         content-class="modal-content"
     >
         <Reasoning :order="deniedOrder" @updateStatus="updateStatus" />
+    </vue-final-modal>
+    <vue-final-modal
+        v-model="showCommentModal"
+        classes="modal-container"
+        content-class="modal-content"
+    >
+        <CommentForm :order="orderToComment" @setCommented="setCommented" />
     </vue-final-modal>
 </template>
 <script>
 import Button from "../Button.vue";
 import commaNumber from "comma-number";
 import Reasoning from "@/components/Reasoning.vue";
+import CommentForm from "@/components/CommentForm.vue";
 import moment from "moment";
 import { VueFinalModal, ModalsContainer } from "vue-final-modal";
 
@@ -187,6 +204,7 @@ export default {
     components: {
         Button,
         Reasoning,
+        CommentForm,
         VueFinalModal,
         ModalsContainer,
     },
@@ -200,8 +218,11 @@ export default {
             sort: "none",
             orders: [],
             allOrders: [],
-            showModal: false,
+            showDeclineModal: false,
+            showCommentModal: false,
             deniedOrder: {},
+            orderToComment: {},
+            commented: false,
         };
     },
     async beforeMount() {
@@ -228,16 +249,24 @@ export default {
         }
     },
     methods: {
+        leaveComment(order) {
+            this.showCommentModal = true;
+            this.orderToComment = order;
+        },
         updateStatus(val) {
             val.status = "Denied";
-            showModal = false;
+            showDeclineModal = false;
         },
         commaNumber(num, symbol) {
             return commaNumber(num, symbol);
         },
         declineOrder(order) {
             this.deniedOrder = order;
-            this.showModal = true;
+            this.showDeclineModal = true;
+        },
+        setCommented(order) {
+            this.showCommentModal = false;
+            order.commented = true;
         },
         moment(date) {
             return moment(date).format("Do MMMM YYYY");

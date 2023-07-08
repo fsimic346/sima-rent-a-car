@@ -74,12 +74,13 @@ export default class CommentService {
 
         const comment: Comment = {
             id: result.value,
-            userId: data.user.id,
-            agencyId: data.agency.id,
+            userId: data.userId,
+            agencyId: data.agencyId,
             text: data.text,
             rating: data.rating,
             deleted: false,
             approved: CommentStatus.Pending,
+            orderId: data.orderId,
         };
 
         this.repository.save(comment);
@@ -118,19 +119,11 @@ export default class CommentService {
     validateCommentData(data: any): Result {
         const result = new Result();
         const list: Comment[] = this.repository.getAll() as Comment[];
-
-        if (!data.text || !data.text.trim()) {
-            result.message = "Invalid comment.";
-            return result;
-        }
-        if (
-            !data.user ||
-            !this.userRepository.getByUsername(data.user.username)
-        ) {
+        if (!data.userId || !this.userRepository.getById(data.userId)) {
             result.message = "Invalid user.";
             return result;
         }
-        if (!data.agency || !this.agencyRepository.getById(data.agency.id)) {
+        if (!data.agencyId || !this.agencyRepository.getById(data.agencyId)) {
             result.message = "Invalid agency.";
             return result;
         }
@@ -139,12 +132,12 @@ export default class CommentService {
             return result;
         }
         if (
-            this.orderRepository
+            !this.orderRepository
                 .getAll()
                 .some(
                     x =>
-                        x.userId === data.user.id &&
-                        x.agencyId === data.agency.id,
+                        x.userId === data.userId &&
+                        x.agencyId === data.agencyId,
                 )
         ) {
             result.message =

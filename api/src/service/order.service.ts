@@ -23,6 +23,26 @@ export default class OrderService {
         return this.repository.getById(id);
     }
 
+    setCommented(orderId: any): Result {
+        const result = new Result();
+        const order = this.repository
+            .getAll()
+            .find(x => x.id === orderId) as Order;
+
+        if (!order) {
+            return result;
+        }
+
+        const newOrder = {
+            ...order,
+            commented: true,
+        };
+
+        this.repository.update(newOrder);
+        result.success = true;
+        return result;
+    }
+
     getAll(): Order[] {
         return this.repository.getAll();
     }

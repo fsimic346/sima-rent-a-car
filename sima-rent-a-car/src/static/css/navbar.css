@@ -18,6 +18,10 @@ nav {
     color: rgb(var(--clr-text));
 }
 
+.logo:hover {
+    cursor: pointer;
+}
+
 .button-container {
     display: flex;
     gap: 1rem;
