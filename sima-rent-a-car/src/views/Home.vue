@@ -1,19 +1,22 @@
 <template>
-    <Carousel :autoplay="5000" :wrap-around="true" :transition="1000">
-        <Slide v-for="slide in images" :key="slide">
-            <div class="img-container">
-                <img :src="getImg(slide)" alt="" rel="preload" />
-            </div>
-        </Slide>
-    </Carousel>
-    <div class="overlay">
-        <h1>Lorem ipsum dolor sit amet.</h1>
-        <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro
-            fugiat eos eligendi optio non possimus nesciunt minima deserunt
-            aliquid totam.
-        </p>
-        <Button text="Show Agencies" @click="agencies" />
+    <div class="home-container">
+        <Carousel :autoplay="5000" :wrap-around="true" :transition="1000">
+            <Slide v-for="slide in images" :key="slide">
+                <div class="img-container">
+                    <img :src="getImg(slide)" alt="" rel="preload" />
+                </div>
+            </Slide>
+        </Carousel>
+        <div class="overlay">
+            <div class="home-logo"></div>
+            <h1>Lorem ipsum dolor sit amet.</h1>
+            <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro
+                fugiat eos eligendi optio non possimus nesciunt minima deserunt
+                aliquid totam.
+            </p>
+            <Button text="Show Agencies" @click="agencies" />
+        </div>
     </div>
 </template>
 
@@ -21,6 +24,7 @@
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Pagination, Navigation } from "vue3-carousel";
 import Button from "@/components/Button.vue";
+import logo from "@/static/images/logo.png";
 
 export default {
     components: {
