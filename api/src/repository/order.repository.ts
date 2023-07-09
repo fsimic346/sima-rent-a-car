@@ -23,6 +23,7 @@ export default class OrderRepository extends Repository {
     }
 
     update(order: Order) {
+        order.cartItems = order.cartItems.map(x => omit(x, "vehicle"));
         return super.update(omit(order, ["agency", "user"]));
     }
 

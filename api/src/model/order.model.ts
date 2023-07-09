@@ -23,4 +23,5 @@ export interface Order extends IEntity {
     status: Status;
     reasoning?: String;
     commented?: boolean;
+    cancellationDate?: Date;
 }

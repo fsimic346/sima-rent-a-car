@@ -10,7 +10,7 @@
 
             <div class="profile" v-if="authorized">
                 <span class="points" v-if="user.role === 'Customer'"
-                    >{{ Math.floor(user.points) }}
+                    >{{ user.points ? Math.floor(user.points) : 0 }}
                     <i class="fa-solid fa-coins"></i
                 ></span>
                 <span class="username" @click="gotoProfile">{{

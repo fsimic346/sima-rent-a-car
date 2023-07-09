@@ -8,6 +8,10 @@
                         id="agencyImg"
                         :style="{ backgroundImage: `url('${agency.logo}')` }"
                     ></div>
+                    <i
+                        class="fa-solid fa-location-dot location"
+                        @click="showLocation"
+                    ></i>
                 </div>
                 <div class="row">
                     <div class="name">{{ agency.name }}</div>
@@ -49,20 +53,39 @@
             @addToCart="addToCart"
         ></AvailableVehicles>
     </div>
+    <vue-final-modal
+        v-model="showLocationModal"
+        classes="modal-container"
+        content-class="modal-content"
+    >
+        <div class="map" id="map"></div>
+    </vue-final-modal>
 </template>
 <script>
 import AvailableVehicles from "@/components/AvailableVehicles.vue";
 import Comments from "@/components/tabs/Comments.vue";
+import { VueFinalModal, ModalsContainer } from "vue-final-modal";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+    iconUrl: require("leaflet/dist/images/marker-icon.png"),
+    shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+});
 
 export default {
     components: {
         AvailableVehicles,
         Comments,
+        VueFinalModal,
+        ModalsContainer,
     },
     created() {
         window.addEventListener("resize", this.resizeHandler);
     },
-    async created() {
+    async beforeMount() {
         try {
             const res = await this.axios.get(
                 `http://localhost:8080/api/agency/get/${this.$route.params.agencyId}`,
@@ -112,6 +135,28 @@ export default {
                 }
                 return false;
             }
+            setTimeout(() => {
+                this.map = L.map("map").setView(
+                    [
+                        parseInt(this.agency.location.lat),
+                        parseInt(this.agency.location.lng),
+                    ],
+                    6,
+                );
+                L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    maxZoom: 19,
+                    attribution:
+                        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                }).addTo(this.map);
+                const element = document.querySelector(
+                    ".leaflet-control-container",
+                );
+                element.style.display = "none";
+                L.marker({
+                    lat: this.agency.location.lat,
+                    lng: this.agency.location.lng,
+                }).addTo(this.map);
+            }, 1500);
         } catch (err) {
             console.log(err);
             this.$router.push("/");
@@ -124,6 +169,8 @@ export default {
     data() {
         return {
             agency: {},
+            showLocationModal: false,
+            map: undefined,
         };
     },
     mounted() {
@@ -143,6 +190,9 @@ export default {
         },
         addToCart(val) {
             this.$emit("addToCart", val);
+        },
+        showLocation() {
+            this.showLocationModal = true;
         },
     },
 };
@@ -193,5 +243,11 @@ export default {
     width: 4rem;
     height: 4rem;
     align-self: center;
+}
+
+::v-deep .modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

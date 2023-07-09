@@ -16,7 +16,9 @@ export default class Repository {
     }
 
     save(entity: IEntity) {
-        const list = this.getAll();
+        const list = (jsonfile.readFileSync(this.path) as IEntity[]).filter(
+            entity => !entity.deleted,
+        );
         list.push(entity);
         jsonfile.writeFileSync(this.path, list);
     }

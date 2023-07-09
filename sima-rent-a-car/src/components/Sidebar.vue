@@ -235,7 +235,13 @@ export default {
                     (1000 * 60 * 60 * 24),
             );
 
-            return price * daysRented;
+            let discount = 1;
+
+            if (this.cart.user.points >= 500) discount = 0.9;
+            else if (this.cart.user.points >= 200) discount = 0.95;
+            else if (this.cart.user.points >= 50) discount = 0.97;
+
+            return price * daysRented * discount;
         },
         commaNumber(num, symbol) {
             return commaNumber(num, symbol);

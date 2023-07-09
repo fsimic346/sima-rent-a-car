@@ -35,8 +35,30 @@
 }
 
 .row {
+    position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.location {
+    position: absolute;
+    font-size: 1.8rem;
+    right: 0;
+    top: 0;
+    transition: color 0.2s;
+}
+
+.map {
+    background-color: rgb(var(--clr-background));
+    flex-grow: 1;
+    width: 80rem;
+    height: 40rem;
+}
+
+.location:hover {
+    color: rgb(var(--clr-primary-300));
+    cursor: pointer;
 }
 
 .name {
@@ -48,7 +70,6 @@
 .businessHours {
     font-size: 1.5rem;
     color: rgb(var(--clr-success));
-    margin-top: 1rem;
 }
 
 .closed {

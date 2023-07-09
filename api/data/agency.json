@@ -28,7 +28,9 @@
             "house_number": "321",
             "city": "Miami",
             "road": "Pine Street",
-            "zip": "33101"
+            "zip": "33101",
+            "lat": 31.60487,
+            "lng": -91.77554
         },
         "logo": "https://images-ext-1.discordapp.net/external/ZZBQ5rZzdZ-8t1TaG4V-NyqdJwALZ1KIWFKRrr771ME/https/randomwordgenerator.com/img/picture-generator/54e6d14b4d55a814f1dc8460962e33791c3ad6e04e507441722779d49448cd_640.jpg",
         "rating": 0,
@@ -60,7 +62,9 @@
             "house_number": "555",
             "city": "Seattle",
             "road": "Beach Road",
-            "zip": "98101"
+            "zip": "98101",
+            "lat": 31.60487,
+            "lng": -91.77554
         },
         "logo": "https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png",
         "rating": 3.142857142857143,
@@ -75,7 +79,9 @@
             "house_number": "777",
             "city": "Austin",
             "road": "Speedway Blvd",
-            "zip": "78701"
+            "zip": "78701",
+            "lat": 31.60487,
+            "lng": -91.77554
         },
         "logo": "https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png",
         "rating": 0,
@@ -92,7 +98,9 @@
             "house_number": "222",
             "city": "Denver",
             "road": "Oakwood Drive",
-            "zip": "80201"
+            "zip": "80201",
+            "lat": 31.60487,
+            "lng": -91.77554
         },
         "logo": "https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png",
         "rating": 0,
@@ -109,7 +117,9 @@
             "house_number": "444",
             "city": "Honolulu",
             "road": "Palm Avenue",
-            "zip": "96801"
+            "zip": "96801",
+            "lat": 31.60487,
+            "lng": -91.77554
         },
         "logo": "https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png",
         "rating": 0,

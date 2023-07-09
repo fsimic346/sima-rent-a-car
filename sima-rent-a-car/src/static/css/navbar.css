@@ -95,7 +95,7 @@ nav {
     font-size: 1rem;
     justify-content: flex-start;
     align-items: center;
-    z-index: 100;
+    z-index: 800;
 }
 
 .dropdown-item {
@@ -193,6 +193,7 @@ input:checked + .slider:before {
     background-color: rgba(var(--clr-background), 1);
     padding: 4px;
     margin-right: 0.5rem;
+    font-size: 1rem;
 }
 
 .points i {

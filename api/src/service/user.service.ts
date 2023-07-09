@@ -180,9 +180,8 @@ export default class UserService {
                     return (
                         x.userId == user.id &&
                         x.status == Status.Cancelled &&
-                        x.cartItems.some(
-                            y => new Date(y.dateRange.start) > dateFilter,
-                        )
+                        x.cancellationDate && // ts momenat
+                        new Date(x.cancellationDate) > dateFilter
                     );
                 }).length > 5
             ) {

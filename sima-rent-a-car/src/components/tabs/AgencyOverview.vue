@@ -24,8 +24,13 @@
                     <span class="rating-count">({{ agency.ratingCount }})</span>
                 </div>
                 <div class="location">
-                    {{ agency.location.address }},
-                    {{ agency.location.city }}
+                    {{
+                        ` ${
+                            agency.location.road +
+                            " " +
+                            agency.location.house_number
+                        }, ${agency.location.city}`
+                    }}
                 </div>
                 <div class="hours">{{ agency.businessHours }}</div>
             </div>

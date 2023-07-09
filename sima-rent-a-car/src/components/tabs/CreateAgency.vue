@@ -270,12 +270,14 @@ export default {
                 this.map.removeLayer(this.marker);
             }
             this.marker = L.marker(e.latlng).addTo(this.map);
-            this.agency.location = (
-                await this.axios.get(
-                    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${e.latlng.lat}&lon=${e.latlng.lng}`,
-                )
-            ).data.address;
-            console.log(this.agency.location);
+            this.agency.location = {
+                ...(
+                    await this.axios.get(
+                        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${e.latlng.lat}&lon=${e.latlng.lng}`,
+                    )
+                ).data.address,
+                ...e.latlng,
+            };
         },
     },
 };

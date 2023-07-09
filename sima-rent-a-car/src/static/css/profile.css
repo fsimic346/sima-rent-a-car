@@ -200,7 +200,7 @@
     transition: 0.2s ease-in-out;
 }
 .error-msg {
-    color: rgb(var(--clr-error-300));
+    margin-inline: auto;
 }
 
 .tabs-container {

@@ -144,8 +144,9 @@ export default {
                 return params.some(
                     param =>
                         x.name.toLowerCase().includes(param) ||
+                        x.location.house_number.includes(param) ||
+                        x.location.road.toLowerCase().includes(param) ||
                         x.location.city.toLowerCase().includes(param) ||
-                        x.location.address.toLowerCase().includes(param) ||
                         x.availableVehicles.some(veh =>
                             veh.vehicleType.toLowerCase().includes(param),
                         ),

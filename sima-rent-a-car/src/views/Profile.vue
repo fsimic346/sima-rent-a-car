@@ -124,15 +124,26 @@
                                 @keyup="checkIfNumber()"
                             />
                         </div>
-                        <div class="error-msg">{{ error }}</div>
                     </div>
                 </div>
+
                 <div class="row push-bottom">
                     <Button
                         :text="saveText"
                         @click="edit"
                         ref="saveBtn"
                     ></Button>
+                </div>
+                <div
+                    class="error-msg"
+                    :style="{
+                        color:
+                            error === ''
+                                ? 'rgb(var(--clr-success))'
+                                : 'rgb(var(--clr-error))',
+                    }"
+                >
+                    {{ error === "" ? success : error }}
                 </div>
             </div>
         </div>
@@ -216,6 +227,7 @@ export default {
             saveText: "Save",
             error: "",
             selectedTab: "",
+            success: "",
         };
     },
     components: {
@@ -275,17 +287,19 @@ export default {
             try {
                 this.saveText = "";
                 this.$refs.saveBtn.enabled = false;
-                await this.axios.patch(
+                const res = await this.axios.patch(
                     "http://localhost:8080/api/user",
                     this.user,
                 );
-                // success msg
                 this.$refs.saveBtn.enabled = true;
                 this.saveText = "Save";
+                this.error = "";
+                this.success = res.data;
             } catch (err) {
                 this.saveText = "Save";
                 this.$refs.saveBtn.enabled = true;
                 this.error = err.response.data;
+                this.success = "";
             }
         },
         enableEdit(id) {

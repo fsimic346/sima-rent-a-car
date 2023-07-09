@@ -34,7 +34,14 @@ export default class CartService {
             Math.abs(end - start + 1) / (1000 * 60 * 60 * 24),
         );
 
-        cart.totalPrice += parseInt(dataCartItem.vehicle.price) * daysRented;
+        let discount = 1;
+
+        if (dataUser.points >= 500) discount = 0.9;
+        else if (dataUser.points >= 200) discount = 0.95;
+        else if (dataUser.points >= 50) discount = 0.97;
+
+        cart.totalPrice +=
+            parseInt(dataCartItem.vehicle.price) * daysRented * discount;
         const cartItem: CartItem = {
             vehicleId: dataCartItem.vehicle.id,
             dateRange: dataCartItem.dateRange,

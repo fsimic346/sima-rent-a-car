@@ -9,6 +9,8 @@ import UserRepository from "../repository/user.repository";
 import { CartItem } from "../model/cartItem.model";
 import { collect } from "collect.js";
 import randomstring from "randomstring";
+import { CustomerType } from "../model/user.model";
+import { omit } from "lodash";
 
 @autoInjectable()
 export default class OrderService {
@@ -77,7 +79,9 @@ export default class OrderService {
         const order: Order = this.repository.getById(id);
         if (!order || order.status !== Status.Pending) return false;
         order.status = Status.Cancelled;
-        this.repository.update(order);
+
+        const cancelledOrder = { ...order, cancellationDate: new Date() };
+        this.repository.update(cancelledOrder);
 
         const user = this.userRepository.getById(order.userId);
 
@@ -112,21 +116,31 @@ export default class OrderService {
 
         const date = new Date();
         const user = this.userRepository.getById(data.userId);
+
+        let discount = 1;
+
+        if (user.points) {
+            if (user.points >= 500) discount = 0.9;
+            else if (user.points >= 200) discount = 0.95;
+            else if (user.points >= 50) discount = 0.97;
+        }
+
         orderCollection.each((cOrder: any) => {
             const order: Order = {
                 id: result.value,
                 userId: data.userId,
                 status: Status.Pending,
-                cartItems: cOrder.items,
-                price: cOrder.items.reduce((a: any, b: any) => {
-                    const end: any = new Date(b.dateRange.end);
-                    const start: any = new Date(b.dateRange.start);
+                cartItems: cOrder.items.map((x: any) => omit(x, "vehicle")),
+                price:
+                    cOrder.items.reduce((a: any, b: any) => {
+                        const end: any = new Date(b.dateRange.end);
+                        const start: any = new Date(b.dateRange.start);
 
-                    const daysRented: any = Math.ceil(
-                        Math.abs(end - start + 1) / (1000 * 60 * 60 * 24),
-                    );
-                    return (a += parseInt(b.vehicle.price) * daysRented);
-                }, 0),
+                        const daysRented: any = Math.ceil(
+                            Math.abs(end - start + 1) / (1000 * 60 * 60 * 24),
+                        );
+                        return (a += parseInt(b.vehicle.price) * daysRented);
+                    }, 0) * discount,
                 agencyId: cOrder.items[0].vehicle.agencyId,
                 deleted: false,
                 orderId:
