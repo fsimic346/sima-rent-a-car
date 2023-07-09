@@ -1,5 +1,5 @@
 <template>
-    <NavBar @showCart="showSideBar" />
+    <NavBar @showCart="showSideBar" @signout="signout" />
     <Sidebar v-if="user.role === 'Customer'" :cartItem="cartItem"></Sidebar>
     <router-view @addToCart="addToCart" />
     <input
@@ -43,6 +43,9 @@ export default {
                 this.sideBar = true;
             }, 1);
         },
+        signout() {
+            this.sideBar = false;
+        },
     },
     beforeMount() {
         this.axios.interceptors.request.use(config => {
@@ -73,7 +76,8 @@ export default {
                 sidebar !== e.target &&
                 cart !== e.target &&
                 button !== e.target &&
-                this.sideBar
+                this.sideBar &&
+                !sidebar.contains(e.target)
             ) {
                 this.sideBar = false;
                 document.getElementById("sidebar").classList.remove("active");
