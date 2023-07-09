@@ -22,8 +22,18 @@
     align-items: center;
     gap: 1.5rem;
     padding: 4rem;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 200rem;
+}
+
+.card-container::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.card-container::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--clr-background));
+    outline: 1px solid slategrey;
+    border-radius: 0.3rem;
 }
 
 .agency-card {

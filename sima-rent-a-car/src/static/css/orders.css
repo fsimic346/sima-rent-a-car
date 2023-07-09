@@ -46,6 +46,16 @@ i:hover {
     padding: 2rem;
 }
 
+.orders-container::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.orders-container::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--clr-background));
+    outline: 1px solid slategrey;
+    border-radius: 0.3rem;
+}
+
 .orders-overflow {
     overflow-y: auto;
     width: 100%;
