@@ -34,17 +34,31 @@ export default {
         },
         addToCart(val) {
             this.cartItem = val;
-            this.sideBar = true;
-            document.getElementById("sidebar").classList.add("active");
+            this.showSideBar();
         },
         showSideBar() {
+            if (!document.querySelector("nav").classList.contains("not-home")) {
+                const navHeight =
+                    document.querySelector("nav").clientHeight + 1;
+                document.getElementById(
+                    "sidebar",
+                ).style.marginTop = `${navHeight}px`;
+            } else {
+                document.getElementById("sidebar").style.marginTop = `0`;
+            }
             setTimeout(() => {
                 document.getElementById("sidebar").classList.add("active");
                 this.sideBar = true;
             }, 1);
         },
         signout() {
-            this.sideBar = false;
+            if (this.sideBar)
+                setTimeout(() => {
+                    document
+                        .getElementById("sidebar")
+                        .classList.remove("active");
+                    this.sideBar = false;
+                }, 1);
         },
     },
     beforeMount() {

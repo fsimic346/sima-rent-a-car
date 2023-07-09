@@ -5,7 +5,7 @@
     background-color: rgb(var(--clr-background-secondary));
     border-radius: 0.5rem;
     right: -350px;
-    transition: 0.7s;
+    transition: right 0.7s;
     z-index: 100;
 }
 
