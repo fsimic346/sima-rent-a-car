@@ -114,6 +114,7 @@ export default {
             localStorage.setItem("user", "");
             this.authorized = false;
             this.$router.push("/");
+            this.$emit("signout");
         },
         darkThemeUpdate() {
             const darkTheme = document.getElementById("enableDarkTheme");
@@ -126,7 +127,7 @@ export default {
             this.$emit("showCart");
         },
     },
-    emits: ["showCart"],
+    emits: ["showCart", "signout"],
     watch: {
         "$route.params": {
             async handler(val) {

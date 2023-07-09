@@ -192,6 +192,7 @@ export default {
     props: { cartItem: Object },
     async mounted() {
         const navHeight = document.querySelector("nav").clientHeight + 1;
+
         document.getElementById(
             "sidebar",
         ).style.height = `calc(100% - ${navHeight}px)`;

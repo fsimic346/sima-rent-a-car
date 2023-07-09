@@ -1,5 +1,5 @@
 <template>
-    <NavBar @showCart="showSideBar" />
+    <NavBar @showCart="showSideBar" @signout="signout" />
     <Sidebar v-if="user.role === 'Customer'" :cartItem="cartItem"></Sidebar>
     <router-view @addToCart="addToCart" />
     <input
@@ -34,14 +34,31 @@ export default {
         },
         addToCart(val) {
             this.cartItem = val;
-            this.sideBar = true;
-            document.getElementById("sidebar").classList.add("active");
+            this.showSideBar();
         },
         showSideBar() {
+            if (!document.querySelector("nav").classList.contains("not-home")) {
+                const navHeight =
+                    document.querySelector("nav").clientHeight + 1;
+                document.getElementById(
+                    "sidebar",
+                ).style.marginTop = `${navHeight}px`;
+            } else {
+                document.getElementById("sidebar").style.marginTop = `0`;
+            }
             setTimeout(() => {
                 document.getElementById("sidebar").classList.add("active");
                 this.sideBar = true;
             }, 1);
+        },
+        signout() {
+            if (this.sideBar)
+                setTimeout(() => {
+                    document
+                        .getElementById("sidebar")
+                        .classList.remove("active");
+                    this.sideBar = false;
+                }, 1);
         },
     },
     beforeMount() {
@@ -73,7 +90,8 @@ export default {
                 sidebar !== e.target &&
                 cart !== e.target &&
                 button !== e.target &&
-                this.sideBar
+                this.sideBar &&
+                !sidebar.contains(e.target)
             ) {
                 this.sideBar = false;
                 document.getElementById("sidebar").classList.remove("active");
