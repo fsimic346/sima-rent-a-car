@@ -2,18 +2,14 @@ import { autoInjectable } from "tsyringe";
 import CartRepository from "../repository/cart.repository";
 import { Cart } from "../model/cart.model";
 import Result from "../utils/Result";
-import UserRepository from "../repository/user.repository";
 import { Vehicle } from "../model/vehicle.model";
 import VehicleRepository from "../repository/vehicle.repository";
 import { CartItem } from "../model/cartItem.model";
-import moment from "moment";
-import { ParamsDictionary } from "express-serve-static-core";
 
 @autoInjectable()
 export default class CartService {
     constructor(
         private repository: CartRepository,
-        private userRepository: UserRepository,
         private vehicleRepository: VehicleRepository,
     ) {}
 

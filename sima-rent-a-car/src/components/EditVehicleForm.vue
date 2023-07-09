@@ -227,6 +227,7 @@ export default {
 
                 this.error = "";
                 this.btnText = "Edit";
+                this.$refs.editBtn.enabled = true;
                 this.$emit("updateAvailableVehicle", this.vehicle);
             } catch (err) {
                 console.log(err);

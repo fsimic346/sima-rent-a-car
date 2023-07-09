@@ -197,9 +197,7 @@
         <ImageForm
             :image="user.imageUrl"
             header="Profile image url:"
-            @imageChanged="
-                (val => (this.user.imageUrl = val), (showImageModal = false))
-            "
+            @imageChanged="changeImage"
         />
     </vue-final-modal>
 </template>
@@ -278,6 +276,10 @@ export default {
         });
     },
     methods: {
+        changeImage(val) {
+            this.user.imageUrl = val;
+            this.showImageModal = false;
+        },
         async updateAvailableVehicle() {
             const res = await this.axios.get("http://localhost:8080/api/user");
             localStorage.setItem("user", JSON.stringify(res.data));

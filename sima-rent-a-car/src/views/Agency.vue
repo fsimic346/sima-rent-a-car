@@ -164,6 +164,8 @@ export default {
     },
     destroyed() {
         window.removeEventListener("resize", this.resizeHandler);
+        this.map.off();
+        this.map.remove();
     },
     emits: ["addToCart"],
     data() {
@@ -202,6 +204,7 @@ export default {
 <style scoped>
 .comments {
     height: 100%;
+    overflow: auto;
 }
 .comments >>> .comments-container {
     padding: 0;

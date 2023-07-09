@@ -8,9 +8,6 @@ import {
     VehicleType,
 } from "../model/vehicle.model";
 import AgencyRepository from "../repository/agency.repository";
-import { response } from "express";
-import { result } from "lodash";
-import { Role } from "../model/user.model";
 
 @autoInjectable()
 @singleton()
@@ -149,7 +146,7 @@ export default class VehicleService {
 
         result.success = true;
         result.message = "vehicle added successfully";
-        result.value = vehicles === undefined ? 1 : vehicles?.length + 1;
+        result.value = this.vehicleRepository.getNextId();
         return result;
     }
 }

@@ -20,7 +20,6 @@
     background-color: rgb(var(--clr-background-secondary));
     color: rgb(var(--clr-text));
     padding: 1rem;
-    overflow: hidden;
 }
 
 .logo {

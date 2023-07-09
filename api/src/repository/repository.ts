@@ -16,9 +16,7 @@ export default class Repository {
     }
 
     save(entity: IEntity) {
-        const list = (jsonfile.readFileSync(this.path) as IEntity[]).filter(
-            entity => !entity.deleted,
-        );
+        const list = jsonfile.readFileSync(this.path) as IEntity[];
         list.push(entity);
         jsonfile.writeFileSync(this.path, list);
     }
@@ -53,5 +51,10 @@ export default class Repository {
         if (!fs.existsSync(this.path)) {
             fs.writeFileSync(this.path, "", { flag: "wx" });
         }
+    }
+
+    getNextId(): number {
+        const list = jsonfile.readFileSync(this.path) as IEntity[];
+        return list === undefined ? 1 : list.length + 1;
     }
 }

@@ -3,11 +3,9 @@ import AgencyRepository from "../repository/agency.repository";
 import Result from "../utils/Result";
 import { Agency, Status } from "../model/agency.model";
 import { Location } from "../model/location.model";
-import { Vehicle } from "../model/vehicle.model";
 import VehicleRepository from "../repository/vehicle.repository";
 import UserService from "./user.service";
 import { Role, User } from "../model/user.model";
-import { update } from "lodash";
 
 @autoInjectable()
 @singleton()
@@ -79,10 +77,7 @@ export default class AgencyService {
             result.message = "invalid format";
             return result;
         }
-        /*else if (data.location === "") {
-             result.message = "invalid location";
-             return result;
-         }*/ if (dataAgency.logo === "") {
+        if (dataAgency.logo === "") {
             result.message = "invalid logo";
             return result;
         }
@@ -101,7 +96,7 @@ export default class AgencyService {
 
         result.success = true;
         result.message = "successful registration";
-        result.value = agencies === undefined ? 1 : agencies?.length + 1;
+        result.value = this.repository.getNextId();
         return result;
     }
 

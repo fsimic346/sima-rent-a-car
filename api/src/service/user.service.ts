@@ -53,7 +53,7 @@ export default class UserService {
         this.repository?.save(user);
 
         const cart: Cart = {
-            id: this.cartRepository.getAll().length + 1,
+            id: this.cartRepository.getNextId(),
             userId: result.value,
             cartItems: [],
             totalPrice: 0,
@@ -255,7 +255,7 @@ export default class UserService {
         }
         result.success = true;
         result.message = "Successful registration.";
-        result.value = list === undefined ? 1 : list?.length + 1;
+        result.value = this.repository.getNextId();
         return result;
     }
 
@@ -291,7 +291,7 @@ export default class UserService {
         }
         result.success = true;
         result.message = "successful manager registration";
-        result.value = list === undefined ? 1 : list?.length + 1;
+        result.value = this.repository.getNextId();
         return result;
     }
 

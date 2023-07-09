@@ -5,7 +5,6 @@ import { Comment, CommentStatus } from "../model/comment.model";
 import Result from "../utils/Result";
 import CommentRepository from "../repository/comment.repository";
 import { Agency } from "../model/agency.model";
-import { omit } from "lodash";
 import OrderRepository from "../repository/order.repository";
 
 @autoInjectable()
@@ -151,7 +150,7 @@ export default class CommentService {
         }
         result.success = true;
         result.message = "Successfully created comment.";
-        result.value = list === undefined ? 1 : list?.length + 1;
+        result.value = this.repository.getNextId();
         return result;
     }
 }

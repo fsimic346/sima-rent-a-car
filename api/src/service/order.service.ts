@@ -9,7 +9,6 @@ import UserRepository from "../repository/user.repository";
 import { CartItem } from "../model/cartItem.model";
 import { collect } from "collect.js";
 import randomstring from "randomstring";
-import { CustomerType } from "../model/user.model";
 import { omit } from "lodash";
 
 @autoInjectable()
@@ -206,7 +205,7 @@ export default class OrderService {
 
         result.success = true;
         result.message = "Successfully created order";
-        result.value = list === undefined ? 1 : list?.length + 1;
+        result.value = this.repository.getNextId();
         return result;
     }
 }
