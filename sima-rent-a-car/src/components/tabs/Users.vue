@@ -253,6 +253,16 @@ i:hover {
     height: 100%;
 }
 
+.users-container::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.users-container::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--clr-background));
+    outline: 1px solid slategrey;
+    border-radius: 0.3rem;
+}
+
 .user-card {
     display: flex;
     align-items: center;

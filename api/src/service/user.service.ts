@@ -165,7 +165,7 @@ export default class UserService {
 
     getAvailableManagers(): User[] {
         return (this.repository.getAll() as User[]).filter(
-            x => x.role === "Manager" && x.agencyId === undefined,
+            x => x.role === "Manager" && x.agencyId === undefined && !x.banned,
         );
     }
 

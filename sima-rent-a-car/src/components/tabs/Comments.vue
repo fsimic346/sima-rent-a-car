@@ -197,6 +197,16 @@ export default {
     height: 100%;
 }
 
+.comments-container::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.comments-container::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--clr-background));
+    outline: 1px solid slategrey;
+    border-radius: 0.3rem;
+}
+
 .comment {
     display: flex;
     align-items: center;
