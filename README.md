@@ -2,7 +2,7 @@
 
 Web application for renting vehicles and managing rent-a-car objects, built with ExpressJS and VueJS
 
-## Tehcnical
+## Technical
 - repository pattern
 - dependency injection
 - jwt authentication
